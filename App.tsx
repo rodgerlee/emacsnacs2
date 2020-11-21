@@ -13,18 +13,6 @@ import { createBottomTabNavigator } from 'react-navigation-tabs'
 
 const switchNavigator = createSwitchNavigator({
 
-    landingStack: {
-      screen: createStackNavigator({
-        Landing: LandingScreen,
-        // search address screen
-      },{
-        defaultNavigationOptions: {
-          headerShown: false
-        }
-      }),
-
-    },
-
     homeStack:  createBottomTabNavigator({
 
       // Home tab Icon
