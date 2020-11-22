@@ -1,9 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import axios from 'axios';
+import { Image, StyleSheet, Text, View, TouchableHighlight} from 'react-native';
 import { HomeScreen } from './src/screens/HomeScreen';
-import { LandingScreen } from './src/screens/LandingScreen';
 
+
+import { Provider } from 'react-redux'
+import { store } from './src/redux'
 
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
@@ -75,8 +78,13 @@ const AppNavigation = createAppContainer(switchNavigator);
  
 
 export default function App() {
+  
   return (
+    // <Provider store={store}>
+      
+    // </Provider>
      <AppNavigation />
+
   );
 }
 
@@ -84,5 +92,6 @@ const styles = StyleSheet.create({
    tabIcon: {
      width: 30,
      height: 30
-   }
+   },
+
 });

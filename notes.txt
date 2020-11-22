@@ -1,0 +1,55 @@
+Redux:
+
+- npm install redux react-redux redux-thunk @types/redux-thunk
+- create redux directory in src
+    create store.types
+    actions
+    models
+    reducers
+        userReducer.ts  
+
+
+redux is a state manager. STORE: global state
+connect store to App.tsx
+    import { Provider } from 'react-redux'
+        npm install @types/react-redux
+    import store from ./src/redux           --> do this by creating a index.ts file in redux, and export * (all) from './store'
+
+    use a Provider and wrap the Appnavigation in App()
+        the app will try to pull data from store, which contains the rootReducer 
+        the rootReducer should pull data from API.
+
+    spoonacular API key: 013c92878d5b4b198faa13d241b413dd
+
+HOW TO CONNECT API:
+use rapidAPI, use following credentials (Rodger's RapidAPI account)
+    	"x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+		"x-rapidapi-key": "4cfc845398msh8ef01df1a88c5cdp13b6f9jsn39afa8e55c0e"
+
+to use a get request to the API through react-native typescript,
+    use the following example code, used for Get Random Recipes option.
+    change the const url to match the type of API request. 
+        RapidAPI Code snippets should give an example code for the URL.
+    
+    const fetchApiCall = () => {
+        async function getCrypto ( query: object ): Promise<object> {
+          const url = new URL('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=2&tags=vegetarian%252Cdessert');
+          // url.search = new URLSearchParams( query ).toString();
+          const headers = {
+              "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+              "x-rapidapi-key": "4cfc845398msh8ef01df1a88c5cdp13b6f9jsn39afa8e55c0e",
+          };
+          const response = await fetch( url.toString(), {headers} );
+          return await response.json();
+       };
+        const query = {
+            asset: "BTC",
+            exchange: "Kraken",
+            denominator: "USD",
+        };
+        (async () => {
+            const data = await getCrypto( query );
+            console.log(data)
+        })()
+          
+      }
