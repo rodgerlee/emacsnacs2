@@ -34,7 +34,7 @@ const switchNavigator = createSwitchNavigator({
       // Home tab Icon
       Offer: {
         screen: createStackNavigator({
-          OfferPage: HomeScreen //
+          OfferPage: HomeScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
@@ -80,10 +80,9 @@ const AppNavigation = createAppContainer(switchNavigator);
 export default function App() {
   
   return (
-    // <Provider store={store}>
-      
-    // </Provider>
-     <AppNavigation />
+    <Provider store={store}>
+      <AppNavigation />
+    </Provider>
 
   );
 }

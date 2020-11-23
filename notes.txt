@@ -22,9 +22,14 @@ connect store to App.tsx
     spoonacular API key: 013c92878d5b4b198faa13d241b413dd
 
 HOW TO CONNECT API:
+https://rapidapi.com/blog/how-to-use-an-api-with-typescript/
+
 use rapidAPI, use following credentials (Rodger's RapidAPI account)
+https://english.api.rakuten.net/spoonacular/api/recipe-food-nutrition?endpoint=57d3f037e4b0bf08d74df7f5
+
     	"x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
 		"x-rapidapi-key": "4cfc845398msh8ef01df1a88c5cdp13b6f9jsn39afa8e55c0e"
+
 
 to use a get request to the API through react-native typescript,
     use the following example code, used for Get Random Recipes option.
