@@ -11,8 +11,10 @@ interface RecipeProps{
 const RecipeCard: React.FC<RecipeProps> = ({ item, onTap }) => {
     return (
         <TouchableOpacity style={styles.container} onPress={() => onTap(item)}>
-            <Image source={{ uri: `${item.image}`}} style={{width: 120, height: 120, borderRadius: 20, backgroundColor: '#EAEAEA'}} />
-            <Text style={{ fontSize: 14, marginTop: 10, color: '#858585'}}>{item.title}</Text>
+            <View style={{ marginLeft: 10, marginRight: 15}}>
+                <Image source={{ uri: `${item.image}`}} style={{width: 150, height: 150, borderRadius: 20, backgroundColor: '#EAEAEA'}} />
+                <Text style={{ fontSize: 14, marginTop: 5, color: '#858585', flex: 1, flexWrap: 'wrap'}}>{item.title}</Text>
+            </View>
         </TouchableOpacity>
     )
 
@@ -21,8 +23,8 @@ const RecipeCard: React.FC<RecipeProps> = ({ item, onTap }) => {
 const styles = StyleSheet.create({
 
     container: {
-        width: 120,
-        height: 140,
+        width: 160,
+        height: 450,
         justifyContent: 'space-around',
         alignItems: 'center',
         margin: 5

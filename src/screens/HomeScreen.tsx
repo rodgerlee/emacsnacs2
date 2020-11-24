@@ -6,8 +6,6 @@ import { connect } from 'react-redux'
 import { onAvailability, UserState, ApplicationState, ShoppingState } from '../redux'
 import { BASE_URL } from '../utils'
 
-import { RecipeContainer } from '../redux/models'
-import axios from 'axios'
 import { RecipeCard } from '../components'
 
 interface HomeProps{
@@ -35,11 +33,8 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
             const JSONobject = JSON.parse(JSONrecipe);
             setRecipesummary(JSONobject.recipes[0].summary)
             setRecipeImage(JSONobject.recipes[0].image)
-  
-        })()
-          
+        })()   
       }
-
     const { randomrecipes } = props.shoppingReducer;
     const { recipes } = randomrecipes;
 
@@ -50,29 +45,29 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.navigation}> 
+            {/* <View style={styles.navigation}> 
                 <TouchableHighlight onPress={ fetchApiCall }> 
-                    {/*  */}
                     <View style={styles.button}>
                         <Text >Console Log Random Recipe</Text>
                     </View>
                 </TouchableHighlight>
-            </View>
+            </View> */}
             <View style={styles.body}>
-                {/* TODO: put the API call in shoppingReducer, and create RecipeCard */}
-                {/* <ScrollView> */}
+                <View style={styles.header}>
+                    <Text style={{fontSize: 25, fontWeight: '600', color: '#f15b5d', marginLeft: 20, padding: 10, }}>Random Recipes of the Day</Text>
+                </View>
+                <ScrollView>
                     <FlatList
                         horizontal
                         showsHorizontalScrollIndicator={false}
+                        // showsVerticalScrollIndicator={false}
                         data={ recipes }
                         renderItem = {({ item }) => <RecipeCard item={item} onTap={() => { alert('recipe tapped')}} /> }
                         keyExtractor={(item) => item.id}
                     />
-                    <Text>Hello</Text>
-                {/* </ScrollView> */}
+                </ScrollView>
 
-
-                <View>
+                {/* <View>
                     <Image 
                         style={{width: 120, height: 120, borderRadius: 20, backgroundColor: '#EAEAEA'}}
                         source={{
@@ -80,36 +75,33 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
                         }}
                     />
                     <Text style={{ fontSize: 14, marginTop: 10, color: '#858585'}}>{ recipesummary }</Text>
-                </View>
+                </View> */}
             </View>
             <View style={styles.footer}>
                 <Text> Footer </Text>
             </View>
         </View>
     )
-
 }
 
-
 const styles = StyleSheet.create({
-    image: {
-
+    header: {
+        // shadowColor: "#000000",
+        // shadowOpacity: 0.8,
+        // shadowRadius: 2,
+        // shadowOffset: {
+        //   height: 1,
+        //   width: 1
+        // }
     },
     container: {
         flex: 1,
-        backgroundColor: 'green'
-    },
-    navigation: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'red'
+        backgroundColor: '#FFF'
     },
     body: {
-        flex: 9,
+        flex: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'yellow'
     },
     footer: {
         flex: 1,
@@ -123,10 +115,12 @@ const styles = StyleSheet.create({
 
 })
 
+
 const mapToStateProps = (state: ApplicationState) => ({
     shoppingReducer: state.shoppingReducer
 })
 
+// connect will call the API and all for the Applicationstate to access the data through the reducers.
 const HomeScreen = connect(mapToStateProps, { onAvailability })(_HomeScreen)
 
 export { HomeScreen }

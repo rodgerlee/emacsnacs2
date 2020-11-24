@@ -23,12 +23,12 @@ export type ShoppingAction = RandomRecipeAction | ShoppingErrorAction
 export const onAvailability = () => {
     // https://redux.js.org/tutorials/fundamentals/part-2-concepts-data-flow
     // the only way to update the state is to call dispatch.
-    
+
     return async ( dispatch: Dispatch<ShoppingAction>) => {
         
         try {
 
-            const response = await axios.get<RecipeContainer>(`${BASE_URL}/recipes/random?apiKey=013c92878d5b4b198faa13d241b413dd&number=2&tags=vegetarian%252Cdessert`)
+            const response = await axios.get<RecipeContainer>(`${BASE_URL}/recipes/random?apiKey=013c92878d5b4b198faa13d241b413dd&number=5&tags=vegetarian%252Cdessert`)
 
             if(!response){
                 dispatch({
