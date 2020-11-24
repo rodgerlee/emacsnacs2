@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { connect } from 'react-redux'
 import { onAvailability, UserState, ApplicationState, RandomRecipeState } from '../redux'
-import { BASE_URL } from '../utils'
+import { BASE_URL, APIKEY } from '../utils'
 
 import { ButtonWithIcon, RecipeCard } from '../components'
 
@@ -17,25 +17,7 @@ interface HomeProps{
 
 // react function component
 export const _HomeScreen: React.FC<HomeProps> = (props) => {
-    const [recipesummary, setRecipesummary] = useState('')
-    const [recipeImage, setRecipeImage] = useState('')
-
-    const fetchApiCall = () => {
-        async function getRandomRecipe (): Promise<object> {
-          const url = new URL(`${BASE_URL}/recipes/random?apiKey=013c92878d5b4b198faa13d241b413dd&number=2&tags=vegetarian%252Cdessert`);
-
-          const response = await fetch( url.toString());
-            return response.json();
-       };
-
-        (async () => {
-            const data = await getRandomRecipe();
-            const JSONrecipe = JSON.stringify(data);
-            const JSONobject = JSON.parse(JSONrecipe);
-            setRecipesummary(JSONobject.recipes[0].summary)
-            setRecipeImage(JSONobject.recipes[0].image)
-        })()   
-      }
+    
     const { randomrecipes } = props.randomRecipeReducer;
     const { recipes } = randomrecipes;
 
@@ -47,14 +29,13 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
  
         <View style={styles.container}>
             <View style={styles.top}>
-                <View style={styles.header}>
-                    <Text style={{fontSize: 25, fontWeight: '600', color: '#f15b5d', marginLeft: 20, padding: 10, }}>Random Recipes of the Day</Text>
+                <View>
+                    <Text style={styles.header}>Random Recipes of the Day</Text>
                 </View>
                 <ScrollView>
                     <FlatList
                         horizontal
                         showsHorizontalScrollIndicator={false}
-                        // showsVerticalScrollIndicator={false}
                         data={ recipes }
                         renderItem = {({ item }) => <RecipeCard item={item} onTap={() => { alert('recipe tapped')}} /> }
                         keyExtractor={(item) => item.id}
@@ -63,8 +44,8 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
 
             </View>
             <View style={styles.middle}>
-                <View style={styles.header}>
-                    <Text style={{fontSize: 25, fontWeight: '600', color: '#f15b5d', marginLeft: 20, padding: 10, }}>Breakfast</Text>
+                <View>
+                    <Text style={styles.header}>Breakfast</Text>
                 </View>
                 <ScrollView>
                     <FlatList
@@ -83,30 +64,17 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
                 />
 
             </View>
-            {/* <View style={styles.bottom}>
-                <Text> Footer </Text>
-            </View> */}
-            {/* <View style={{flex:1}}>
-                <View style={{borderWidth:1,position:'absolute',bottom:0,alignSelf:'flex-end'}}>
-                    <Button
-                        title="Refresh"
-                        onPress={() => alert('Simple Button pressed')}
-                    />
-                </View>
-            </View> */}
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    header: {
-        // shadowColor: "#000000",
-        // shadowOpacity: 0.8,
-        // shadowRadius: 2,
-        // shadowOffset: {
-        //   height: 1,
-        //   width: 1
-        // }
+    header:{
+        fontSize: 25, 
+        fontWeight: '600', 
+        color: '#f15b5d', 
+        marginLeft: 20, 
+        padding: 10, 
     },
     container: {
         flex: 1,

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Dispatch } from 'react'
-import { BASE_URL } from '../../utils'
+import { BASE_URL, APIKEY } from '../../utils'
 import { RandomRecipeContainer } from '../models'
 
 //availability Action
@@ -27,7 +27,7 @@ export const onAvailability = () => {
         
         try {
 
-            const response = await axios.get<RandomRecipeContainer>(`${BASE_URL}/recipes/random?apiKey=013c92878d5b4b198faa13d241b413dd&number=5&tags=vegetarian%252Cdessert`)
+            const response = await axios.get<RandomRecipeContainer>(`${BASE_URL}/recipes/random?apiKey=${APIKEY}&number=5&tags=vegetarian%252Cdessert`)
 
             if(!response){
                 dispatch({
