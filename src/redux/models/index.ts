@@ -1,5 +1,5 @@
 // randomRecipe
-export interface Recipe{
+export interface RandomRecipe{
     id: string,
     title: string,
     image: string,
@@ -8,9 +8,20 @@ export interface Recipe{
     instructions: string
 }
 
-export interface RecipeContainer{
-    recipes: [Recipe]
+export interface ReadyinThirtyRecipe{
+    id: string,
+    title: string,
+    image: string,
 }
+
+export interface RandomRecipeContainer{
+    recipes: [RandomRecipe]
+}
+
+export interface ReadyinThirtyContainer{
+
+}
+
 
 //online food order app part2, 11:23 bookmark
 //main menu: randomRecipes
@@ -31,7 +42,11 @@ export interface UserState{
     error: string | undefined
 }
 
-export interface ShoppingState {
-    randomrecipes: RecipeContainer,
+export interface RandomRecipeState {
+    randomrecipes: RandomRecipeContainer,
+}
+
+export interface ReadyinThirtyState {
+
 }
 

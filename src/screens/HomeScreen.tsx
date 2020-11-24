@@ -4,13 +4,13 @@ import { FlatList, ScrollView } from 'react-native-gesture-handler'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { connect } from 'react-redux'
-import { onAvailability, UserState, ApplicationState, ShoppingState } from '../redux'
+import { onAvailability, UserState, ApplicationState, RandomRecipeState } from '../redux'
 import { BASE_URL } from '../utils'
 
 import { ButtonWithIcon, RecipeCard } from '../components'
 
 interface HomeProps{
-    shoppingReducer: ShoppingState,
+    randomRecipeReducer: RandomRecipeState,
     onAvailability: Function
 }
 
@@ -36,7 +36,7 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
             setRecipeImage(JSONobject.recipes[0].image)
         })()   
       }
-    const { randomrecipes } = props.shoppingReducer;
+    const { randomrecipes } = props.randomRecipeReducer;
     const { recipes } = randomrecipes;
 
     useEffect(() => {
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
 
 
 const mapToStateProps = (state: ApplicationState) => ({
-    shoppingReducer: state.shoppingReducer
+    randomRecipeReducer: state.randomRecipeReducer
 })
 
 // connect will call the API and all for the Applicationstate to access the data through the reducers.

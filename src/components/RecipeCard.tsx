@@ -1,9 +1,9 @@
 import { StyleSheet, View, Text, TouchableOpacity, TextInput, Image } from 'react-native'
-import { Recipe } from '../redux'
+import { RandomRecipe } from '../redux'
 import React from 'react'
 
 interface RecipeProps{
-    item: Recipe;
+    item: RandomRecipe;
     onTap: Function;
 
 }

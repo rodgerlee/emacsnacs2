@@ -27,8 +27,8 @@ Reducers:
  - functions that take the current state and an action as arguments, and return a new state result.
 
     rootReducer combines reducers
-    shoppingReducer calls the shoppingAction, which calls the API and gives us a payload data for randomrecipes
-    shoppingaction will call a dispatch function, to change the state. 
+    randomRecipeReducer calls the RandomAction, which calls the API and gives us a payload data for randomrecipes
+    RandomAction will call a dispatch function, to change the state. 
 
     
 Models:
@@ -97,7 +97,7 @@ HOW TO CONNECT API:
 
         use async function for dispatch function in a redux Action.
         ex. 
-            return async ( dispatch: Dispatch<ShoppingAction>) => {
+            return async ( dispatch: Dispatch<RandomAction>) => {
                 try {
 
                     const response = await axios.get<RecipeContainer>(`${BASE_URL}/recipes/random?apiKey=013c92878d5b4b198faa13d241b413dd&number=2&tags=vegetarian%252Cdessert`)
