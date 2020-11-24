@@ -21,7 +21,9 @@ export type ShoppingAction = RandomRecipeAction | ShoppingErrorAction
 
 
 export const onAvailability = () => {
-
+    // https://redux.js.org/tutorials/fundamentals/part-2-concepts-data-flow
+    // the only way to update the state is to call dispatch.
+    
     return async ( dispatch: Dispatch<ShoppingAction>) => {
         
         try {
