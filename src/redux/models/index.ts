@@ -1,20 +1,29 @@
 // randomRecipe
-export interface RandomRecipe{
-    title: String,
-    icon: String
+export interface Recipe{
+    id: string,
+    title: string,
+    image: string,
+    summary: string,
+    readyInMinutes: string,
+    instructions: string
+}
+
+export interface RecipeContainer{
+    recipes: [Recipe]
 }
 
 //online food order app part2, 11:23 bookmark
-export interface FoodAvailability{
-    randomRecipies: [RandomRecipe]
-}
+//main menu: randomRecipes
+// export interface RandomRecipes{
+//     randomRecipes: [RecipeContainer]
+// }
 
 //User model
 
 export interface UserModel{
-    firstName: String;
-    lastName: String;
-    token: String
+    firstName: string;
+    lastName: string;
+    token: string
 }   
 
 export interface UserState{
@@ -23,6 +32,6 @@ export interface UserState{
 }
 
 export interface ShoppingState {
-    availability: FoodAvailability,
+    randomrecipes: RecipeContainer,
 }
 

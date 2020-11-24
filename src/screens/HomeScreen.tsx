@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, Dimensions , Image , TouchableHighlight} from 'react-native'
 import { FlatList, ScrollView } from 'react-native-gesture-handler'
 
 import { connect } from 'react-redux'
 import { onAvailability, UserState, ApplicationState, ShoppingState } from '../redux'
+import { BASE_URL } from '../utils'
+
+import { RecipeContainer } from '../redux/models'
+import axios from 'axios'
+import { RecipeCard } from '../components'
 
 interface HomeProps{
     shoppingReducer: ShoppingState,
@@ -13,66 +18,59 @@ interface HomeProps{
 
 // react function component
 export const _HomeScreen: React.FC<HomeProps> = (props) => {
-    const [recipesummary, setRecipesummary] = React.useState('')
-    const [recipeImage, setRecipeImage] = React.useState('')
+    const [recipesummary, setRecipesummary] = useState('')
+    const [recipeImage, setRecipeImage] = useState('')
 
     const fetchApiCall = () => {
         async function getRandomRecipe (): Promise<object> {
-          const url = new URL('https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=1&tags=vegetarian%252Cdessert');
-          // url.search = new URLSearchParams( query ).toString();
-          const headers = {
-              "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-              "x-rapidapi-key": "4cfc845398msh8ef01df1a88c5cdp13b6f9jsn39afa8e55c0e",
-          };
-          const response = await fetch( url.toString(), { headers } );
-          return await response.json();
+          const url = new URL(`${BASE_URL}/recipes/random?apiKey=013c92878d5b4b198faa13d241b413dd&number=2&tags=vegetarian%252Cdessert`);
+
+          const response = await fetch( url.toString());
+            return response.json();
        };
-        // const query = {
-        //     asset: "BTC",
-        //     exchange: "Kraken",
-        //     denominator: "USD",
-        // };
+
         (async () => {
             const data = await getRandomRecipe();
             const JSONrecipe = JSON.stringify(data);
             const JSONobject = JSON.parse(JSONrecipe);
-            console.log(JSONobject.recipes[0].summary);
             setRecipesummary(JSONobject.recipes[0].summary)
             setRecipeImage(JSONobject.recipes[0].image)
-            console.log(JSONobject.recipes[0].image)
-            // console.log(JSONobject);
-
-            // setRandomRecipe(data);
-            // setRecipesummary(data.recipes)
-            // console.log(data);
+  
         })()
           
       }
 
-    const { availability } = props.shoppingReducer;
+    const { randomrecipes } = props.shoppingReducer;
+    const { recipes } = randomrecipes;
+    // console.log(recipes)
 
+    useEffect(() => {
+        props.onAvailability()
+    }, [])
 
 
     return (
         <View style={styles.container}>
             <View style={styles.navigation}> 
-                <TouchableHighlight onPress={ fetchApiCall }>
+                <TouchableHighlight onPress={ fetchApiCall }> 
+                    {/*  */}
                     <View style={styles.button}>
                         <Text >Console Log Random Recipe</Text>
                     </View>
                 </TouchableHighlight>
             </View>
             <View style={styles.body}>
-                {/* TODO: put the API call in shoppingReducer, and create RandomRecipeCard */}
-                {/* <ScrollView>
+                {/* TODO: put the API call in shoppingReducer, and create RecipeCard */}
+                {/* <ScrollView> */}
                     <FlatList
-                        // horizontal
-                        // showsHorizontalScrollIndicator={false}
-                        data={ randomRecipes }
-                        renderItem = {({ item }) => <RandomRecipeCard item={item} onTap={() => { alert('recipe tapped')}} /> }
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        data={ recipes }
+                        renderItem = {({ item }) => <RecipeCard item={item} onTap={() => { alert('recipe tapped')}} /> }
                         keyExtractor={(item) => item.id}
                     />
-                </ScrollView> */}
+                    <Text>Hello</Text>
+                {/* </ScrollView> */}
 
 
                 <View>
@@ -126,10 +124,10 @@ const styles = StyleSheet.create({
 
 })
 
-const maptToStateProps = (state: ApplicationState) => ({
+const mapToStateProps = (state: ApplicationState) => ({
     shoppingReducer: state.shoppingReducer
 })
 
-const HomeScreen = connect(maptToStateProps, { onAvailability })(_HomeScreen)
+const HomeScreen = connect(mapToStateProps, { onAvailability })(_HomeScreen)
 
 export { HomeScreen }

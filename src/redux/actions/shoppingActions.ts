@@ -1,13 +1,13 @@
 import axios from 'axios'
 import { Dispatch } from 'react'
 import { BASE_URL } from '../../utils'
-import { FoodAvailability } from '../models'
+import { RecipeContainer } from '../models'
 
 //availability Action
 
-export interface AvailabilityAction{
+export interface RandomRecipeAction{
     readonly type: 'ON_AVAILABILITY',
-    payload: FoodAvailability
+    payload: RecipeContainer
 }
 
 export interface ShoppingErrorAction{
@@ -15,17 +15,18 @@ export interface ShoppingErrorAction{
     payload: any
 }
 
-export type ShoppingAction = AvailabilityAction | ShoppingErrorAction
+export type ShoppingAction = RandomRecipeAction | ShoppingErrorAction
 
 //Trigger actions from components
 
-export const onAvailability = () => {
-    
-    return async ( dispatch: Dispatch<ShoppingAction>) => {
 
+export const onAvailability = () => {
+
+    return async ( dispatch: Dispatch<ShoppingAction>) => {
+        
         try {
-            
-            const response = await axios.get<FoodAvailability>(`${BASE_URL}/recipe/random?number=1&tags=vegetarian%252Cdessert`)
+
+            const response = await axios.get<RecipeContainer>(`${BASE_URL}/recipes/random?apiKey=013c92878d5b4b198faa13d241b413dd&number=2&tags=vegetarian%252Cdessert`)
 
             if(!response){
                 dispatch({
@@ -44,7 +45,6 @@ export const onAvailability = () => {
                 payload: error
             })
         }
-
 
     }
 }
