@@ -21,7 +21,7 @@ const switchNavigator = createSwitchNavigator({
       // Home tab Icon
       home: {
         screen: createStackNavigator({
-          HomePage: HomeScreen
+          emacsnacs: HomeScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
@@ -34,7 +34,7 @@ const switchNavigator = createSwitchNavigator({
       // Home tab Icon
       Offer: {
         screen: createStackNavigator({
-          OfferPage: HomeScreen
+          emacsnacs: HomeScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
@@ -47,7 +47,7 @@ const switchNavigator = createSwitchNavigator({
        // Home tab Icon
        Cart: {
         screen: createStackNavigator({
-          CartPage: HomeScreen
+          emacsnacs: HomeScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
@@ -59,7 +59,7 @@ const switchNavigator = createSwitchNavigator({
        // Home tab Icon
        Account: {
         screen: createStackNavigator({
-          AccountPage: HomeScreen
+          emacsnacs: HomeScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
