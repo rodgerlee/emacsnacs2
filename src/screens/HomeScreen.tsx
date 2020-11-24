@@ -42,7 +42,6 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
 
     const { randomrecipes } = props.shoppingReducer;
     const { recipes } = randomrecipes;
-    // console.log(recipes)
 
     useEffect(() => {
         props.onAvailability()

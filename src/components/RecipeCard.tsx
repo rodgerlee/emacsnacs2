@@ -9,7 +9,6 @@ interface RecipeProps{
 }
 
 const RecipeCard: React.FC<RecipeProps> = ({ item, onTap }) => {
-    console.log('card')
     return (
         <TouchableOpacity style={styles.container} onPress={() => onTap(item)}>
             <Image source={{ uri: `${item.image}`}} style={{width: 120, height: 120, borderRadius: 20, backgroundColor: '#EAEAEA'}} />
