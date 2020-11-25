@@ -57,6 +57,7 @@ HOW TO CONNECT API:
             - 1 random recipe
        
         Rodger's spoonacular API key: 013c92878d5b4b198faa13d241b413dd
+        Ben's spoonacular API key: 7e43abbfed7d481ca378331340ed35f0
         
     
 
