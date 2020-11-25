@@ -1,2 +1,3 @@
 export * from './userActions'
-export * from './randomAction'
+export * from './homeInitAction'
+export * from './readyInThirtyAction'

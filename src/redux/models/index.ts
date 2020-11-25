@@ -8,7 +8,7 @@ export interface RandomRecipe{
     instructions: string
 }
 
-export interface ReadyinThirtyRecipe{
+export interface ReadyInThirtyRecipe{
     id: string,
     title: string,
     image: string,
@@ -18,16 +18,11 @@ export interface RandomRecipeContainer{
     recipes: [RandomRecipe]
 }
 
-export interface ReadyinThirtyContainer{
-
+export interface ReadyInThirtyContainer{
+    results: [ReadyInThirtyRecipe]
 }
 
-
 //online food order app part2, 11:23 bookmark
-//main menu: randomRecipes
-// export interface RandomRecipes{
-//     randomRecipes: [RecipeContainer]
-// }
 
 //User model
 
@@ -44,9 +39,7 @@ export interface UserState{
 
 export interface RandomRecipeState {
     randomrecipes: RandomRecipeContainer,
+    readyInThirties: ReadyInThirtyContainer
 }
 
-export interface ReadyinThirtyState {
-
-}
 

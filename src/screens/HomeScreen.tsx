@@ -1,29 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, Dimensions , Image , TouchableHighlight, Button} from 'react-native'
 import { FlatList, ScrollView } from 'react-native-gesture-handler'
-import { useSelector, useDispatch } from 'react-redux'
 
 import { connect } from 'react-redux'
-import { onAvailability, UserState, ApplicationState, RandomRecipeState } from '../redux'
-import { BASE_URL, APIKEY } from '../utils'
+import { onAvailability, UserState, ApplicationState, RandomRecipeState} from '../redux'
 
-import { ButtonWithIcon, RecipeCard } from '../components'
+import { ButtonWithIcon, RandomRecipeCard, ReadyInThirtyCard } from '../components'
 
 interface HomeProps{
-    randomRecipeReducer: RandomRecipeState,
-    onAvailability: Function
+    recipeReducer: RandomRecipeState,
+    onAvailability: Function,
 }
 
 
 // react function component
 export const _HomeScreen: React.FC<HomeProps> = (props) => {
     
-    const { randomrecipes } = props.randomRecipeReducer;
+    const { randomrecipes, readyInThirties } = props.recipeReducer;
     const { recipes } = randomrecipes;
+    const { results } = readyInThirties;
 
+    // console.log(recipes)
     useEffect(() => {
         props.onAvailability()
     }, [])
+
     
     return (
  
@@ -32,35 +33,32 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
                 <View>
                     <Text style={styles.header}>Random Recipes of the Day</Text>
                 </View>
-                <ScrollView>
-                    <FlatList
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        data={ recipes }
-                        renderItem = {({ item }) => <RecipeCard item={item} onTap={() => { alert('recipe tapped')}} /> }
-                        keyExtractor={(item) => item.id}
-                    />
-                </ScrollView>
-
+                
+                <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={ recipes }
+                    renderItem = {({ item }) => <RandomRecipeCard item={item} onTap={() => { alert('recipe tapped')}} /> }
+                    keyExtractor={(item) => item.id}
+                />
             </View>
             <View style={styles.middle}>
                 <View>
-                    <Text style={styles.header}>Breakfast</Text>
+                    <Text style={styles.header}>Ready in 30 min</Text>
                 </View>
-                <ScrollView>
-                    <FlatList
-                        // horizontal
-                        // showsHorizontalScrollIndicator={false}
-                        // showsVerticalScrollIndicator={false}
-                        data={ recipes }
-                        renderItem = {({ item }) => <RecipeCard item={item} onTap={() => { alert('recipe tapped')}} /> }
-                        keyExtractor={(item) => item.id}
-                    />
-                </ScrollView>
+               
+                <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={ results }
+                    renderItem = {({ item }) => <ReadyInThirtyCard item={item} onTap={() => { alert('recipe tapped')}} /> }
+                    keyExtractor={(item) => item.id}
+                />
+                
                 <ButtonWithIcon
                     icon={require('../images/refresh-button.png')}
-                    width={50} 
-                    height={50}
+                    width={40} 
+                    height={40}
                 />
 
             </View>
@@ -81,12 +79,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF'
     },
     top: {
-        flex: 3,
+        flex: 4,
         justifyContent: 'center',
         alignItems: 'center',
     },
     middle: {
-        flex: 6,
+        flex: 8,
         justifyContent: 'center',
         alignItems: 'center'
 
@@ -95,31 +93,16 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'cyan'
     },
-    buttonStyle : {
-        backgroundColor: '#fc454e',
-        width: 66,
-        height: 66,
-        borderRadius: 33,
-        justifyContent: 'center',
-        alignItems:'center',
-        position: 'absolute',
-        bottom: 20,
-        right: 20
-    },
-    buttonTextStyle : {
-        color:'white',
-        fontSize: 45,
-        marginBottom: 6
-    }
 
 })
 
 
 const mapToStateProps = (state: ApplicationState) => ({
-    randomRecipeReducer: state.randomRecipeReducer
+    recipeReducer: state.recipeReducer,
 })
 
 // connect will call the API and all for the Applicationstate to access the data through the reducers.
 const HomeScreen = connect(mapToStateProps, { onAvailability })(_HomeScreen)
+
 
 export { HomeScreen }

@@ -121,3 +121,46 @@ HOW TO CONNECT API:
                 }
 
             }
+
+
+HOW TO MANAGE STATE USING REDUCERS:
+
+    use one reducer to change the state of a page.
+    the reducer should take 
+    Rodger:
+        originally, I was having trouble with maintaining the state. 
+            Everytime I called, ReadyInThirty(), it would overwrite the previous state,
+            which contained all of the randomrecipes that were already generated.
+
+            this is because, I was calling TWO separate reducer functions to control the 'same' state.
+            I thought they were controlling the same state, because I passed the same 'initialstate' into the state argument.
+            However, calling a separate reducer on a state will simply overwrite it.
+
+            The reason why I wrote two Reducers, was because I didn't know how to make two API calls in an Action and pass 
+            that API response data to our Reducer. 
+
+        I fixed this issue.
+            I realized that you CAN make more than one API call by simply declaring more const's for API requests in 
+            the same Action --> onAvailability
+            We need two API responses (one for Random Recipes, another for Recipies Ready in 30 min) to initialize the state of the mainmenu.
+            the two api responses are passed into the reducer using ONE Action.
+                This is the key: a state dispatch can only take in ONE action, so therefore, the ONE action must contain all of the API repsonse 
+                data we need to fully initialize the state.
+
+            additionally, we should only have ONE interface PER state.
+                
+            this is correct:
+                export interface RandomRecipeState {
+                    randomrecipes: RandomRecipeContainer,
+                    readyInThirties: ReadyInThirtyContainer
+                }
+            this is not correct:
+                export interface RandomRecipeState {
+                    randomrecipes: RandomRecipeContainer,
+                    
+                }
+                export interface ReadyInThirtyState {
+                    readyInThirties: ReadyInThirtyContainer
+                }
+
+    
