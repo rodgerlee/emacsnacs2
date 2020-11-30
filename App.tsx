@@ -3,6 +3,7 @@ import React from 'react';
 import axios from 'axios';
 import { Image, StyleSheet, Text, View, TouchableHighlight} from 'react-native';
 import { HomeScreen } from './src/screens/HomeScreen';
+import SearchScreen from './src/screens/SearchScreen'
 
 
 import { Provider } from 'react-redux'
@@ -25,20 +26,20 @@ const switchNavigator = createSwitchNavigator({
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
-            let icon = focused == true ? require('./src/images/home_icon.png') : require('./src/images/home_n_icon.png') 
+            let icon = focused == true ? require('./src/images/home_icon.png') : require('./src/images/home_n_icon.png')
             return <Image source={icon} style={styles.tabIcon} />
           }
         }
       },
 
-      // Home tab Icon
-      Offer: {
+      // Search icon
+      search: {
         screen: createStackNavigator({
-          emacsnacs: HomeScreen
+          emacsnacs: SearchScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
-            let icon = focused == true ? require('./src/images/offer_icon.png') : require('./src/images/offer_n_icon.png') 
+            let icon = focused == true ? require('./src/images/offer_icon.png') : require('./src/images/offer_n_icon.png')
             return <Image source={icon} style={styles.tabIcon} />
           }
         }
@@ -51,7 +52,7 @@ const switchNavigator = createSwitchNavigator({
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
-            let icon = focused == true ? require('./src/images/cart_icon.png') : require('./src/images/cart_n_icon.png') 
+            let icon = focused == true ? require('./src/images/cart_icon.png') : require('./src/images/cart_n_icon.png')
             return <Image source={icon} style={styles.tabIcon} />
           }
         }
@@ -63,7 +64,7 @@ const switchNavigator = createSwitchNavigator({
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
-            let icon = focused == true ? require('./src/images/account_icon.png') : require('./src/images/account_n_icon.png') 
+            let icon = focused == true ? require('./src/images/account_icon.png') : require('./src/images/account_n_icon.png')
             return <Image source={icon} style={styles.tabIcon} />
           }
         }
@@ -74,10 +75,10 @@ const switchNavigator = createSwitchNavigator({
 
 
 const AppNavigation = createAppContainer(switchNavigator);
- 
+
 
 export default function App() {
-  
+
   return (
     <Provider store={store}>
       <AppNavigation />
