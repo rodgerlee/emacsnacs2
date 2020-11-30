@@ -19,3 +19,11 @@ goal:
 bug:
     could not figure out how to implement SearchResults with FlatList
     now too tired to focus; will back up and sleep
+
+links:
+    touchableopacity
+        https://reactnative.dev/docs/touchableopacity
+    spoonacular api docs: search
+        https://spoonacular.com/food-api/docs
+    spoonacular api docs: get recipe info
+        https://spoonacular.com/food-api/docs#Get-Recipe-Information
