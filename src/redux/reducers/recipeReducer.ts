@@ -13,10 +13,10 @@ const initialState = {
 const recipeReducer = (state = initialState, action: homeInitAction) => {
     switch(action.type) {
         case 'ON_AVAILABILITY':
-            return Object.assign({}, state, {
+            return {
                 ...state,
                 randomrecipes: action.payload
-            })
+            }
         case 'ON_READYTHIRTY':
             return {
                 ...state,
