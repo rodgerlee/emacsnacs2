@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, TextInput, Image, ImageBackground, Dimensions } from 'react-native'
-// import { WebView } from 'react-native-webview'
+import { WebView } from 'react-native-webview'
 import { ScrollView } from 'react-native-gesture-handler'
 import { RandomRecipe } from '../redux'
 
@@ -29,13 +29,26 @@ const RecipeDetailScreen: React.FC<RecipeDetailProps> = (props) => {
 
                 </ImageBackground>
                 <ScrollView style={styles.scrollView}>
+                    <View style={{ flex: 1}}>
+                        <Text style={{ fontSize: 25, fontWeight: '600'}}>Summary</Text>
+                        <WebView
+                            source={{ html: `${recipeDetail.summary}` }}
+                            style={{width: Dimensions.get('screen').width, height:200,backgroundColor:'blue',marginTop:20}}
+                        />
+                    </View>
+                    <View style={{ flex: 1}}>
+                        <Text style={{ fontSize: 25, fontWeight: '600'}}>Instructions</Text>
+                        <WebView
+                            source={{ html: `${recipeDetail.instructions}` }}
+                            style={{width: Dimensions.get('screen').width, height:200,backgroundColor:'blue',marginTop:20}}
+                        />
+                    </View>
+                    
+
                     <Text style={{ fontSize: 20, fontWeight: '600'}}>Summary</Text>
-                    {/* <WebView>
-                        source={{ uri: `${recipeDetail.sourceUrl}`}}
-                    </WebView> */}
                     <Text style={{ margin: 10, fontSize: 15, textAlign: 'justify'}}>{recipeDetail.summary}</Text>
                     <Text style={{ fontSize: 20, fontWeight: '600'}}>Instructions</Text>
-                    <Text style={{ margin: 10, fontSize: 15, textAlign: 'justify'}}>{recipeDetail.instructions}</Text>
+                    <Text style={{ margin: 10, fontSize: 15, textAlign: 'justify',}}>{recipeDetail.instructions}</Text>
                 </ScrollView>
             </View>
         </View>
