@@ -15,7 +15,7 @@ interface HomeProps{
 
 // react function component
 export const _HomeScreen: React.FC<HomeProps> = (props) => {
-    
+
     const { randomrecipes, readyInThirties } = props.recipeReducer;
     const { recipes } = randomrecipes;
     const { results } = readyInThirties;
@@ -25,20 +25,20 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
         props.onAvailability()
     }, [])
 
-    
+
     return (
- 
+
         <View style={styles.container}>
             <View style={styles.top}>
                 <View>
                     <Text style={styles.header}>Random Recipes of the Day</Text>
                 </View>
-                
+
                 <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     data={ recipes }
-                    renderItem = {({ item }) => <RandomRecipeCard item={item} onTap={() => { alert('recipe tapped')}} /> }
+                    renderItem = {({ item }) => <RandomRecipeCard item={item} onTap={() => { alert(item.id)}} /> }
                     keyExtractor={(item) => item.id}
                 />
             </View>
@@ -46,18 +46,18 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
                 <View>
                     <Text style={styles.header}>Ready in 30 min</Text>
                 </View>
-               
+
                 <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     data={ results }
-                    renderItem = {({ item }) => <ReadyInThirtyCard item={item} onTap={() => { alert('recipe tapped')}} /> }
+                    renderItem = {({ item }) => <ReadyInThirtyCard item={item} onTap={() => { alert(item.id)}} /> }
                     keyExtractor={(item) => item.id}
                 />
-                
+
                 <ButtonWithIcon
                     icon={require('../images/refresh-button.png')}
-                    width={40} 
+                    width={40}
                     height={40}
                 />
 
@@ -68,11 +68,11 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
 
 const styles = StyleSheet.create({
     header:{
-        fontSize: 25, 
-        fontWeight: '600', 
-        color: '#f15b5d', 
-        marginLeft: 20, 
-        padding: 10, 
+        fontSize: 25,
+        fontWeight: '600',
+        color: '#f15b5d',
+        marginLeft: 20,
+        padding: 10,
     },
     container: {
         flex: 1,

@@ -5,41 +5,43 @@ import {
 	Text,
 	View,
 	FlatList,
-	TouchableOpacity
+	TouchableOpacity,
+	Button
 } from 'react-native';
 import ReadyInThirtyCard from '../components/RecipeCard'
+import RecipeBody from './RecipeBody'
 
 //displays 3 recipes from search result for now
 class SearchResult extends React.Component{
-	getRecipe=(recipeID)=>{
-		console.log("recipe tapped\t")
-		console.log("recipeID")
-	}
+	// state={
+	// 	id:"",
+	// }
+
+	// renderBody=()=>{
+	// 	if (!this.state.id){
+	// 		console.log("searchResult renderBody() blank")
+	// 		return;
+	// 	}
+	// 	return(
+	// 		<RecipeBody recipeID={this.state.id}/>
+	// 	)
+	// }
 
 	render(){
-		// var result = this.props.data;
-		// return(
-		// 	<ScrollView style={{flex:1}}>
-		// 		<FlatList
-		// 			data={result}
-		// 			renderItem={({item})=>
-		// 				<ReadyInThirtyCard
-		// 					item={item}
-		// 					onTap={()=>{alert('recipe tapped')}}
-		// 				/>}
-  //          	keyExtractor={(item)=>item.id}
-		// 		/>
-		// 	</ScrollView>
-		// )
-
-		<ScrollView>
-			<View>
-				<Button
-					style={styles.button}
-					onPress{()=>{this.getRecipe(this.props.data[0].id)}}
-				/>
-			</View>
-		</ScrollView>
+		var HARDCODEDRECIPE = this.props.data[0].id;
+		return(
+			<ScrollView>
+				<View>
+					<Button
+						style={styles.button}
+						onPress={()=>{this.props.getRecipe(HARDCODEDRECIPE)}}
+						title={this.props.data[0].title}
+					>
+						<Text>{this.props.data[0].id}</Text>
+					</Button>
+				</View>
+			</ScrollView>
+		)
 	}
 }
 
