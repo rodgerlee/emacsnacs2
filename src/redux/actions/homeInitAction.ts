@@ -47,8 +47,6 @@ export const onAvailability = () => {
                     maxReadyTime: 30,
                 }
             })
-            console.log(randomResponse.data)
-            console.log(readyThirtyResponse.data)
             // console.log('homeInitAction')
             if(!randomResponse){
                 dispatch({
