@@ -93,7 +93,7 @@ class SearchScreen extends React.Component{
 				return <View />
 			}
 			else if (Object.keys(this.state.recipeData).length){
-				console.log("this.state.recipeData ")
+				console.log("this.state.recipeData")
 				console.log(Object.keys(this.state.recipeData).length)
 				// console.log(this.state.recipeData);
 				return(

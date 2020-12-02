@@ -9,22 +9,6 @@ import {
 import { List, ListItem } from 'native-base'
 
 
-/*
-<List>
-      <FlatList
-        data={this.state.data}
-        renderItem={({ item }) => (
-          <ListItem
-            roundAvatar
-            title={`${item.name.first} ${item.name.last}`}
-            subtitle={item.email}
-            avatar={{ uri: item.picture.thumbnail }}
-          />
-        )}
-      />
-    </List>
-*/
-
 class RecipeBody extends React.Component{
 	render(){
 		// this.getRecipe();
