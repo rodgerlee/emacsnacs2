@@ -12,6 +12,7 @@ import { store } from './src/redux'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
+import { RecipeDetailScreen } from './src/screens/RecipeDetailScreen';
 
 
 
@@ -22,7 +23,8 @@ const switchNavigator = createSwitchNavigator({
       // Home tab Icon
       home: {
         screen: createStackNavigator({
-          emacsnacs: HomeScreen
+          HomePage: HomeScreen,
+          RecipeDetailPage: RecipeDetailScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
@@ -35,7 +37,7 @@ const switchNavigator = createSwitchNavigator({
       // Search icon
       search: {
         screen: createStackNavigator({
-          emacsnacs: SearchScreen
+          SearchPage: SearchScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
@@ -48,7 +50,7 @@ const switchNavigator = createSwitchNavigator({
        // Home tab Icon
        Cart: {
         screen: createStackNavigator({
-          emacsnacs: HomeScreen
+          HomePage: HomeScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
@@ -60,7 +62,7 @@ const switchNavigator = createSwitchNavigator({
        // Home tab Icon
        Account: {
         screen: createStackNavigator({
-          emacsnacs: HomeScreen
+          HomePage: HomeScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {

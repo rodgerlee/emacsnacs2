@@ -3,9 +3,10 @@ import { View, Text, StyleSheet, Dimensions , Image , TouchableHighlight, Button
 import { FlatList, ScrollView } from 'react-native-gesture-handler'
 
 import { connect } from 'react-redux'
-import { onAvailability, UserState, ApplicationState, homeRecipeState} from '../redux'
+import { onAvailability, UserState, ApplicationState, homeRecipeState, RandomRecipe, ReadyInThirtyRecipe} from '../redux'
 
 import { ButtonWithIcon, RandomRecipeCard, ReadyInThirtyCard } from '../components'
+import { useNavigation } from '../utils'
 
 interface HomeProps{
     homeRecipeReducer: homeRecipeState,
@@ -14,6 +15,8 @@ interface HomeProps{
 
 // react function component
 export const _HomeScreen: React.FC<HomeProps> = (props) => {
+
+    const { navigate } = useNavigation()
 
     const { randomrecipes, readyInThirties } = props.homeRecipeReducer;
     const { recipes } = randomrecipes;
@@ -24,6 +27,12 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
         props.onAvailability()
     }, [])
 
+    const onTapRandomRecipe = (item: RandomRecipe) => {
+        navigate('RecipeDetailPage', { recipe: item})
+    }
+    const onTapReadyInThirtyRecipe = (item: ReadyInThirtyRecipe) => {
+        navigate('RecipeDetailPage', { recipe: item})
+    }
 
     return (
 
@@ -37,7 +46,7 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     data={ recipes }
-                    renderItem = {({ item }) => <RandomRecipeCard item={item} onTap={() => { alert(item.id)}} /> }
+                    renderItem = {({ item }) => <RandomRecipeCard item={item} onTap={onTapRandomRecipe} /> }
                     keyExtractor={(item) => item.id}
                 />
             </View>
@@ -50,7 +59,7 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     data={ results }
-                    renderItem = {({ item }) => <ReadyInThirtyCard item={item} onTap={() => { alert(item.id)}} /> }
+                    renderItem = {({ item }) => <ReadyInThirtyCard item={item} onTap={onTapReadyInThirtyRecipe} /> }
                     keyExtractor={(item) => item.id}
                 />
 
