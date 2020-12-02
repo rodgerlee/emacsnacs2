@@ -6,7 +6,7 @@ import RecipeLoader from "../components/RecipeLoader"
 import RecipeBody from "../components/RecipeBody"
 import SearchResult from "../components/SearchResult"
 import axios from 'axios'
-import { BASE_URL, APIKEY_2 } from '../utils'
+import { BASE_URL, APIKEY_2, APIKEY } from '../utils'
 
 class SearchScreen extends React.Component{
 	state={

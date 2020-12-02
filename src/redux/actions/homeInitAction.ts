@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Dispatch } from 'react'
-import { BASE_URL, APIKEY } from '../../utils'
+import { BASE_URL, APIKEY_2, APIKEY} from '../../utils'
 import { RandomRecipeContainer, ReadyInThirtyContainer } from '../models'
 
 //availability Action
@@ -30,11 +30,11 @@ export const onAvailability = () => {
     return async ( dispatch: Dispatch<homeInitAction>) => {
         
         try {
-            // ?apiKey=${APIKEY}&number=5&tags=vegetarian%252Cdessert
+            // ?APIKEY_2=${APIKEY_2}&number=5&tags=vegetarian%252Cdessert
             const randomResponse = await axios.get<RandomRecipeContainer>(`${BASE_URL}/recipes/random`, {
                 params: {
                     number: 5,
-                    apiKey: APIKEY,
+                    apiKey: APIKEY_2,
                 }
             })
             const readyThirtyResponse = await axios.get<ReadyInThirtyContainer>(`${BASE_URL}/recipes/complexSearch`, {
@@ -42,7 +42,7 @@ export const onAvailability = () => {
                     query: "",
                     number: 5,
                     offset: OFFSET,
-                    apiKey: APIKEY,
+                    apiKey: APIKEY_2,
                     instructionsRequired: true,
                     maxReadyTime: 30,
                 }

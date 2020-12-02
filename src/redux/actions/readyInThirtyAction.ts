@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Dispatch } from 'react'
-import { BASE_URL, APIKEY } from '../../utils'
+import { BASE_URL, APIKEY_2, APIKEY } from '../../utils'
 import { ReadyInThirtyContainer } from '../models'
 
 //availability Action
@@ -32,7 +32,7 @@ export const ReadyInThirty = () => {
                     query: "",
                     number: 5,
                     offset: OFFSET,
-                    apiKey: APIKEY,
+                    apiKey: APIKEY_2,
                     instructionsRequired: true,
                     maxReadyTime: 30,
                 }

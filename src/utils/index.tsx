@@ -2,5 +2,6 @@
 export const BASE_URL = "https://api.spoonacular.com"
 export const APIKEY = "013c92878d5b4b198faa13d241b413dd"
 export const APIKEY_2 = "7e43abbfed7d481ca378331340ed35f0"
+export const INGREDIENT_PIC_URL = "https://spoonacular.com/cdn/ingredients_100x100"
 
 export * from './useNavigation'

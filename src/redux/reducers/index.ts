@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 // import { UserReducer } from './userReducer'
 import { homeRecipeReducer} from './homeRecipeReducer'
+import { recipeIngredientsReducer } from './recipeIngredientsReducer';
 
 
 // rootReducer combines reducers
@@ -9,7 +10,7 @@ import { homeRecipeReducer} from './homeRecipeReducer'
 const rootReducer = combineReducers({
     // userReducer: UserReducer,
     homeRecipeReducer: homeRecipeReducer,
-    
+    recipeIngredientsReducer: recipeIngredientsReducer
 })
 
 export type ApplicationState = ReturnType<typeof rootReducer>

@@ -20,6 +20,27 @@ export interface ReadyInThirtyRecipe{
     image: string,
 }
 
+export interface IngredientAmounts {
+    us: {
+        value: string,
+        unit: string
+    },
+    metric: {
+        value: string,
+        unit: string
+    }
+}
+
+export interface RecipeIngredient{
+    name: string,
+    image: string,
+    amount: IngredientAmounts
+}
+
+export interface IngredientsContainer {
+    ingredients: [RecipeIngredient]
+}
+
 export interface RandomRecipeContainer{
     recipes: [RandomRecipe]
 }
@@ -52,10 +73,6 @@ export interface homeRecipeState {
     readyInThirties: ReadyInThirtyContainer
 }
 
-export interface SearchScreenState {
-    recipeSearch: string;
-    searching: string;
-    retrieving: string;
-    searchData: SearchedRecipeContainer
-    
+export interface recipeDetailState {
+    recipeIngredients: IngredientsContainer
 }
