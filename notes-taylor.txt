@@ -1,0 +1,35 @@
+WARNING:
+    reducers havent been implemented for 
+    SearchScreen
+    SearchResult
+    RecipBody
+
+11-30 9:00AM
+added search page
+    input text and click icon to search recipe by keyword
+    SearchScreen - deals with search bar and api request
+    RecipeLoader - loading screen while user types / on call
+    RecipeBody* - displays recipe
+        (*incomplete)
+    SearchResult* - displays recipe cards from search result
+        (*currently broken)
+
+goal:
+    SearchScreen displays recipe cards from search results
+    when a RecipeCard is clicked, api request for recipe is made,
+        and the recipe (RecipeBody) can be viewed
+
+    advanced search options
+    search with pantry items -> need to see how pantry gets implemented
+
+bug:
+    could not figure out how to implement SearchResults with FlatList
+    now too tired to focus; will back up and sleep
+
+links:
+    touchableopacity
+        https://reactnative.dev/docs/touchableopacity
+    spoonacular api docs: search
+        https://spoonacular.com/food-api/docs
+    spoonacular api docs: get recipe info
+        https://spoonacular.com/food-api/docs#Get-Recipe-Information
