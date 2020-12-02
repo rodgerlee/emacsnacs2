@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import axios from 'axios';
-import { Image, StyleSheet, Text, View, TouchableHighlight} from 'react-native';
+import { Image, StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import { HomeScreen } from './src/screens/HomeScreen';
 
 
@@ -11,6 +11,9 @@ import { store } from './src/redux'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
+
+import LoginPage from './src/Login/Login';
+import RegisterPage from './src/Login/Register';
 
 
 
@@ -81,7 +84,7 @@ export default function App() {
   
   return (
     <Provider store={store}>
-      <AppNavigation />
+      <RegisterPage />
     </Provider>
 
   );
