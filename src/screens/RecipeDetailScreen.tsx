@@ -17,14 +17,15 @@ export const _RecipeDetailScreen: React.FC<RecipeDetailProps> = (props) => {
     // console.log(props)
     const { getParam } = props.navigation;
     const recipeDetail = getParam('recipe') as RandomRecipe
+    const no_info = getParam('noInfo')
 
     useEffect(() => {
-        props.loadIngredients(recipeDetail.id)
+        props.loadIngredients(recipeDetail.id, no_info)
     }, [])
  
-    const { recipeIngredients } = props.recipeIngredientsReducer
+    const { recipeIngredients, recipeInfo } = props.recipeIngredientsReducer
     const { ingredients } = recipeIngredients
-    console.log(ingredients)
+    // console.log(ingredients)
 
 
     return (
@@ -35,9 +36,7 @@ export const _RecipeDetailScreen: React.FC<RecipeDetailProps> = (props) => {
                 >
                     <View style={{ height: 100, backgroundColor: 'rgba(0,0,0,0.6)', padding: 10}}>
                         <ScrollView 
-                            horizontal={true}
-                            
-                            
+                            horizontal={true} 
                         >
                             <Text style={{ color: '#FFF', fontSize: 30, fontWeight: '700'}}>{recipeDetail.title}</Text>
                         </ScrollView>
@@ -52,14 +51,14 @@ export const _RecipeDetailScreen: React.FC<RecipeDetailProps> = (props) => {
                     <View style={{ flex: 1}}>
                         <Text style={{ fontSize: 25, fontWeight: '600', paddingLeft: 10, paddingTop: 10}}>Summary</Text>
                         <WebView
-                            source={{ html: `${recipeDetail.summary}` }}
+                            source={{ html: (recipeInfo ? recipeInfo.summary :`${recipeDetail.summary}`) }}
                             style={{width: Dimensions.get('screen').width, height:200,backgroundColor:'blue',marginTop:20}}
                         />
                     </View>
                     <View style={{ flex: 1}}>
                         <Text style={{ fontSize: 25, fontWeight: '600', paddingLeft: 10, paddingTop: 10}}>Instructions</Text>
                         <WebView
-                            source={{ html: `${recipeDetail.instructions}` }}
+                            source={{ html: (recipeInfo ? recipeInfo.instructions :`${recipeDetail.instructions}`) }}
                             style={{width: Dimensions.get('screen').width, height:200,backgroundColor:'blue',marginTop:20}}
                         />
                     </View>

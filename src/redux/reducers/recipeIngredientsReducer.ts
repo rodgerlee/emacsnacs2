@@ -1,8 +1,9 @@
 import { recipeDetailAction } from '../actions'
-import { IngredientsContainer } from '../models'
+import { IngredientsContainer, RandomRecipe } from '../models'
 
 const initialState = {
-    recipeIngredients: {  } as IngredientsContainer
+    recipeIngredients: {  } as IngredientsContainer,
+    recipeInfo: {   } as RandomRecipe
 }
 
 // randomRecipeReducer calls the homeInitAction, which calls the API and gives us a payload data for randomrecipes
@@ -15,6 +16,11 @@ const recipeIngredientsReducer = (state = initialState, action: recipeDetailActi
             return {
                 ...state,
                 recipeIngredients: action.payload
+            }
+        case 'ON_RECIPE_INFO':
+            return {
+                ...state,
+                recipeInfo: action.payload
             }
         default: 
             return state

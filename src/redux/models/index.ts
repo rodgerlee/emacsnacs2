@@ -18,6 +18,7 @@ export interface ReadyInThirtyRecipe{
     id: string,
     title: string,
     image: string,
+    noInfo: true
 }
 
 export interface IngredientAmounts {
@@ -75,4 +76,5 @@ export interface homeRecipeState {
 
 export interface recipeDetailState {
     recipeIngredients: IngredientsContainer
+    recipeInfo: RandomRecipe
 }

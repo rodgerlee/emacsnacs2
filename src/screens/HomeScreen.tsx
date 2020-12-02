@@ -28,10 +28,10 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
     }, [])
 
     const onTapRandomRecipe = (item: RandomRecipe) => {
-        navigate('RecipeDetailPage', { recipe: item})
+        navigate('RecipeDetailPage', { recipe: item, noInfo: false})
     }
     const onTapReadyInThirtyRecipe = (item: ReadyInThirtyRecipe) => {
-        navigate('RecipeDetailPage', { recipe: item})
+        navigate('RecipeDetailPage', { recipe: item, noInfo: true})
     }
 
     return (
