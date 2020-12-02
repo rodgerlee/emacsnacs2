@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-	View,
-	Text,
-	ScrollView,
-	Image,
-	FlatList,
-} from 'react-native'
+import { View, Text, ScrollView, Image, FlatList, StyleSheet } from 'react-native'
 import { List, ListItem } from 'native-base'
 
 
@@ -33,7 +27,7 @@ class RecipeBody extends React.Component{
 				/>
 				<FlatList
 					data={recipe.extendedIngredients}
-					keyExtractor={(item)=>item.name}
+					// keyExtractor={(item)=>item.name}
 					renderItem={({item})=>(
 						<ListItem
 							title={item.name}
@@ -41,13 +35,16 @@ class RecipeBody extends React.Component{
 							Thumbnail={{uri:item.image}}
 						/>
 					)}
+					// renderItem = {({ item }) => <ReadyInThirtyCard item={item} onTap={() => { alert(item.id)}} /> }
+                    keyExtractor={(item) => item.id}
 				/>
+				    
 			</View>
 		)
 	}
 }
 
-const styles={
+const styles= StyleSheet.create({
   header:{
     fontSize: 25,
     fontWeight: '600',
@@ -73,6 +70,6 @@ const styles={
 		backgroundColor: 'white',
 		opacity: 0.8,
 	},
-}
+})
 
 export default RecipeBody;

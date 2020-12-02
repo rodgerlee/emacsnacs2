@@ -3,20 +3,19 @@ import { View, Text, StyleSheet, Dimensions , Image , TouchableHighlight, Button
 import { FlatList, ScrollView } from 'react-native-gesture-handler'
 
 import { connect } from 'react-redux'
-import { onAvailability, UserState, ApplicationState, RandomRecipeState} from '../redux'
+import { onAvailability, UserState, ApplicationState, homeRecipeState} from '../redux'
 
 import { ButtonWithIcon, RandomRecipeCard, ReadyInThirtyCard } from '../components'
 
 interface HomeProps{
-    recipeReducer: RandomRecipeState,
+    homeRecipeReducer: homeRecipeState,
     onAvailability: Function,
 }
-
 
 // react function component
 export const _HomeScreen: React.FC<HomeProps> = (props) => {
 
-    const { randomrecipes, readyInThirties } = props.recipeReducer;
+    const { randomrecipes, readyInThirties } = props.homeRecipeReducer;
     const { recipes } = randomrecipes;
     const { results } = readyInThirties;
 
@@ -98,7 +97,7 @@ const styles = StyleSheet.create({
 
 
 const mapToStateProps = (state: ApplicationState) => ({
-    recipeReducer: state.recipeReducer,
+    homeRecipeReducer: state.homeRecipeReducer,
 })
 
 // connect will call the API and all for the Applicationstate to access the data through the reducers.

@@ -1,15 +1,13 @@
 import React from 'react';
-import {
-	ScrollView,
-	ImageBackground,
-	Text,
-	View,
-	FlatList,
-	TouchableOpacity,
-	Button
-} from 'react-native';
-import ReadyInThirtyCard from '../components/RecipeCard'
+import { ScrollView, ImageBackground, Text, View, FlatList, TouchableOpacity, Button, StyleSheet} from 'react-native';
+import ReadyInThirtyCard from './RecipeCard'
 import RecipeBody from './RecipeBody'
+import { SearchedRecipe, SearchedRecipeContainer } from '../redux';
+
+interface SearchResultProps {
+	data: SearchedRecipeContainer
+	getRecipe: Function
+}
 
 //displays 3 recipes from search result for now
 class SearchResult extends React.Component{
@@ -45,7 +43,7 @@ class SearchResult extends React.Component{
 	}
 }
 
-const styles={
+const styles= StyleSheet.create({
 	header:{
 		fontSize: 30,
 		color: 'red',
@@ -53,7 +51,7 @@ const styles={
 	},
 	button:{
 		justifyContent: 'center',
-		alighItems:'center',
+		alignItems:'center',
 		height: 400,
 		width:400,
 		opacity: 0,
@@ -64,7 +62,7 @@ const styles={
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
-}
+})
 
 export default SearchResult;
 

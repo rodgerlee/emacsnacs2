@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { Header, Item, Icon, Input, Button } from 'native-base';
 
-import RecipeLoader from "./RecipeLoader"
-import RecipeBody from "./RecipeBody"
-import SearchResult from "./SearchResult"
+import RecipeLoader from "../components/RecipeLoader"
+import RecipeBody from "../components/RecipeBody"
+import SearchResult from "../components/SearchResult"
 import axios from 'axios'
 import { BASE_URL, APIKEY_2 } from '../utils'
 
@@ -128,7 +128,7 @@ class SearchScreen extends React.Component{
 					/>
 					<Input
 						value={this.state.recipeSearch}
-						placeHolder='Searh for a Recipe'
+						placeHolder='Search for a Recipe'
 						onChangeText={(recipeSearch)=>this.setState({recipeSearch:recipeSearch.toLowerCase()})}
 					>
 					</Input>

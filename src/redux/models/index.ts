@@ -8,6 +8,12 @@ export interface RandomRecipe{
     instructions: string
 }
 
+export interface SearchedRecipe{
+    id: string,
+    title: string,
+    image: string,
+}
+
 export interface ReadyInThirtyRecipe{
     id: string,
     title: string,
@@ -20,6 +26,10 @@ export interface RandomRecipeContainer{
 
 export interface ReadyInThirtyContainer{
     results: [ReadyInThirtyRecipe]
+}
+
+export interface SearchedRecipeContainer{
+    results: [SearchedRecipe]
 }
 
 //online food order app part2, 11:23 bookmark
@@ -37,9 +47,15 @@ export interface UserState{
     error: string | undefined
 }
 
-export interface RandomRecipeState {
+export interface homeRecipeState {
     randomrecipes: RandomRecipeContainer,
     readyInThirties: ReadyInThirtyContainer
 }
 
-
+export interface SearchScreenState {
+    recipeSearch: string;
+    searching: string;
+    retrieving: string;
+    searchData: SearchedRecipeContainer
+    
+}

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 // import { UserReducer } from './userReducer'
-import { recipeReducer} from './recipeReducer'
+import { homeRecipeReducer} from './homeRecipeReducer'
 
 
 // rootReducer combines reducers
@@ -8,7 +8,7 @@ import { recipeReducer} from './recipeReducer'
 
 const rootReducer = combineReducers({
     // userReducer: UserReducer,
-    recipeReducer: recipeReducer,
+    homeRecipeReducer: homeRecipeReducer,
     
 })
 

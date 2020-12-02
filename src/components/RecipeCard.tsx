@@ -1,17 +1,22 @@
 import { StyleSheet, View, Text, TouchableOpacity, TextInput, Image } from 'react-native'
-import { RandomRecipe, ReadyInThirtyRecipe } from '../redux'
+import { RandomRecipe, ReadyInThirtyRecipe, SearchedRecipe } from '../redux'
 import React from 'react'
 
 interface RandomRecipeProps{
     item: RandomRecipe;
     onTap: Function;
-
 }
+
 interface ReadyInThirtyRecipeProps{
     item: ReadyInThirtyRecipe;
     onTap: Function;
-
 }
+
+interface SearchedRecipeProps{
+    item: SearchedRecipe;
+    onTap: Function;
+}
+
 
 const RandomRecipeCard: React.FC<RandomRecipeProps> = ({ item, onTap }) => {
     return (
@@ -22,7 +27,6 @@ const RandomRecipeCard: React.FC<RandomRecipeProps> = ({ item, onTap }) => {
             </View>
         </TouchableOpacity>
     )
-
 }
 
 const ReadyInThirtyCard: React.FC<ReadyInThirtyRecipeProps> = ({ item, onTap }) => {
@@ -34,7 +38,17 @@ const ReadyInThirtyCard: React.FC<ReadyInThirtyRecipeProps> = ({ item, onTap }) 
             </View>
         </TouchableOpacity>
     )
+}
 
+const SearchedRecipeCard: React.FC<SearchedRecipeProps> = ({ item, onTap }) => {
+    return (
+        <TouchableOpacity style={styles.readyInThirtyContainer} onPress={() => onTap(item)}>
+            <View style={{ marginLeft: 10, marginRight: 15}}>
+                <Image source={{ uri: `${item.image}`}} style={{width: 380, height: 360, borderRadius: 20, backgroundColor: '#EAEAEA'}} />
+                <Text style={{ fontSize: 20, marginTop: 15, color: '#858585', flex: 1, flexWrap: 'wrap'}}>{item.title}</Text>
+            </View>
+        </TouchableOpacity>
+    )
 }
 
 const styles = StyleSheet.create({
@@ -55,4 +69,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export { RandomRecipeCard, ReadyInThirtyCard }
+export { RandomRecipeCard, ReadyInThirtyCard, SearchedRecipeCard }

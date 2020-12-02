@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, Dimensions } from 'react-native';
+import { View, Image, Dimensions, StyleSheet} from 'react-native';
 
 var WIDTH = Dimensions.get('window').width;
 var HEIGHT = Dimensions.get('window').height;
@@ -17,7 +17,7 @@ class RecipeLoader extends React.Component{
 	}
 }
 
-const styles={
+const styles=StyleSheet.create({
 	img:{
 		height: HEIGHT,
 		width:WIDTH,
@@ -25,6 +25,6 @@ const styles={
 		alignItems: 'center',
 		resizeMode: 'cover'
 	}
-}
+})
 
 export default RecipeLoader;
