@@ -4,4 +4,9 @@ export const APIKEY = "013c92878d5b4b198faa13d241b413dd"
 export const APIKEY_2 = "7e43abbfed7d481ca378331340ed35f0"
 export const INGREDIENT_PIC_URL = "https://spoonacular.com/cdn/ingredients_100x100"
 
+//screen dimensions
+import { Dimensions } from 'react-native';
+export const WIDTH = Dimensions.get('window').width;
+export const HEIGHT = Dimensions.get('window').height;
+
 export * from './useNavigation'

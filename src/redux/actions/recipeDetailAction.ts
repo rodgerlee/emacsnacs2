@@ -29,12 +29,12 @@ export const loadIngredients = (RECIPE_ID: string, no_info: boolean) => {
     // the only way to update the state is to call dispatch.
 
     return async ( dispatch: Dispatch<recipeDetailAction>) => {
-        
+
         try {
             // ?apiKey=${APIKEY}&number=5&tags=vegetarian%252Cdessert
             const ingredientsResponse = await axios.get<IngredientsContainer>(`${BASE_URL}/recipes/${RECIPE_ID}/ingredientWidget.json`, {
                 params: {
-                    apiKey: APIKEY_2,
+                    apiKey: APIKEY,
                 }
             })
             // console.log(ingredientsResponse.data)
@@ -54,7 +54,7 @@ export const loadIngredients = (RECIPE_ID: string, no_info: boolean) => {
                 // console.log('no info')
                 const recipeInfoResponse = await axios.get<RandomRecipe>(`${BASE_URL}/recipes/${RECIPE_ID}/information`, {
                     params: {
-                        apiKey: APIKEY_2,
+                        apiKey: APIKEY,
                     }
                 })
                 if(!recipeInfoResponse){

@@ -7,7 +7,7 @@ import { RandomRecipeContainer, ReadyInThirtyContainer } from '../models'
 
 interface RandomRecipeAction{
     readonly type: 'ON_AVAILABILITY',
-    payload:  RandomRecipeContainer 
+    payload:  RandomRecipeContainer
 }
 interface ReadyInThirtyAction{
     readonly type: 'ON_READYTHIRTY',
@@ -28,13 +28,13 @@ export const onAvailability = () => {
     let OFFSET = Math.floor(Math.random() * (450));
 
     return async ( dispatch: Dispatch<homeInitAction>) => {
-        
+
         try {
             // ?APIKEY_2=${APIKEY_2}&number=5&tags=vegetarian%252Cdessert
             const randomResponse = await axios.get<RandomRecipeContainer>(`${BASE_URL}/recipes/random`, {
                 params: {
                     number: 5,
-                    apiKey: APIKEY_2,
+                    apiKey: APIKEY,
                 }
             })
             const readyThirtyResponse = await axios.get<ReadyInThirtyContainer>(`${BASE_URL}/recipes/complexSearch`, {
@@ -42,7 +42,7 @@ export const onAvailability = () => {
                     query: "",
                     number: 5,
                     offset: OFFSET,
-                    apiKey: APIKEY_2,
+                    apiKey: APIKEY,
                     instructionsRequired: true,
                     maxReadyTime: 30,
                 }
@@ -69,7 +69,7 @@ export const onAvailability = () => {
                     type: 'ON_READYTHIRTY',
                     payload: readyThirtyResponse.data
                 })
-            }      
+            }
         } catch(error) {
             dispatch({
                 type: 'ON_SHOPPING_ERROR',
