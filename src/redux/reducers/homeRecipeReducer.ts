@@ -1,9 +1,9 @@
 import { homeInitAction } from '../actions'
-import { RandomRecipeContainer, ReadyInThirtyContainer  } from '../models'
+import { RandomRecipeContainer, SearchedRecipeContainer  } from '../models'
 
 const initialState = {
     randomrecipes : {  } as RandomRecipeContainer,
-    readyInThirties : {  } as ReadyInThirtyContainer,
+    readyInThirties : {  } as SearchedRecipeContainer,
 }
 
 // randomRecipeReducer calls the homeInitAction, which calls the API and gives us a payload data for randomrecipes

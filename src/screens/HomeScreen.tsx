@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, Dimensions , Image , TouchableHighlight, Button} from 'react-native'
-import { FlatList, ScrollView } from 'react-native-gesture-handler'
+import { FlatList } from 'react-native-gesture-handler'
 
 import { connect } from 'react-redux'
 import { onAvailability, UserState, ApplicationState, homeRecipeState, RandomRecipe, SearchedRecipe} from '../redux'
 
-import { ButtonWithIcon, RandomRecipeCard, ReadyInThirtyCard } from '../components'
+import { RefreshButton, RandomRecipeCard, ReadyInThirtyCard } from '../components'
 import { useNavigation } from '../utils'
 
 interface HomeProps{
@@ -63,7 +63,7 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
                     keyExtractor={(item) => item.id}
                 />
 
-                <ButtonWithIcon
+                <RefreshButton
                     icon={require('../images/refresh-button.png')}
                     width={40}
                     height={40}
@@ -78,13 +78,13 @@ const styles = StyleSheet.create({
     header:{
         fontSize: 25,
         fontWeight: '600',
-        color: '#f15b5d',
+        color: '#bb2a26',
         marginLeft: 20,
         padding: 10,
     },
     container: {
         flex: 1,
-        backgroundColor: '#FFF'
+        backgroundColor: '#f5f4e1'
     },
     top: {
         flex: 4,

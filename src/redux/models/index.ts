@@ -66,3 +66,7 @@ export interface recipeDetailState {
     recipeIngredients: IngredientsContainer
     recipeInfo: RandomRecipe
 }
+
+export interface searchState {
+    searchResults: SearchedRecipeContainer
+}

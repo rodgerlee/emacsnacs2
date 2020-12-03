@@ -3,7 +3,9 @@ import React from 'react';
 import axios from 'axios';
 import { Image, StyleSheet, Text, View, TouchableHighlight} from 'react-native';
 import { HomeScreen } from './src/screens/HomeScreen';
-import SearchScreen from './src/screens/SearchScreen'
+import { RecipeDetailScreen } from './src/screens/RecipeDetailScreen';
+import { SearchScreen } from './src/screens/SearchScreen'
+import { SearchResultScreen } from './src/screens/SearchResultScreen';
 
 
 import { Provider } from 'react-redux'
@@ -12,8 +14,6 @@ import { store } from './src/redux'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
-import { RecipeDetailScreen } from './src/screens/RecipeDetailScreen';
-
 
 
 const switchNavigator = createSwitchNavigator({
@@ -37,7 +37,9 @@ const switchNavigator = createSwitchNavigator({
       // Search icon
       search: {
         screen: createStackNavigator({
-          SearchPage: SearchScreen
+          SearchPage: SearchScreen,
+          SearchResultsPage: SearchResultScreen,
+          RecipeDetailPage: RecipeDetailScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
