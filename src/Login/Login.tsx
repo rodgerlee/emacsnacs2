@@ -5,6 +5,8 @@ import Button from './components/Button';
 import InputText from './components/InputText';
 
 
+import { loginUser } from "../redux/actions/authActions";
+
 interface State{
     email: string;
     password: string;
@@ -29,7 +31,11 @@ class LoginPage extends React.Component<{}, State> {
     };
 
     handleRegisterPress = () => {
-
+        let userData = {
+            email: this.state.email,
+            password: this.state.password
+        }
+        loginUser(userData);
     };
 
     render() {

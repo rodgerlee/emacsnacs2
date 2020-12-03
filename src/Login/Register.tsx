@@ -5,6 +5,12 @@ import Button from './components/Button';
 import InputText from './components/InputText';
 import { Header } from 'react-navigation-stack';
 
+//import { Link, withRouter } from "react-router-dom";
+//import PropTypes from "prop-types";
+//import { connect } from "react-redux";
+import { registerUser } from "../redux/actions/authActions";
+//import classnames from "classnames";
+
 interface State{
     email: string;
     password: string;
@@ -34,6 +40,12 @@ class RegisterPage extends React.Component<{}, State> {
 
     handleLoginPress = () => {
         if (this.state.password === this.state.checkPassword){
+            let userData = {
+                email: this.state.email,
+                password: this.state.password,
+                password2: this.state.checkPassword
+            }
+            registerUser(userData, {});
             this.setState({ passwordIncorrect: false, password: "", email: "", checkPassword: ""})
         }
         else {
@@ -106,3 +118,19 @@ const styles = StyleSheet.create({
 })
 
 export default RegisterPage;
+
+/*RegisterPage.propTypes = {
+    registerUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+    auth: state.auth,
+    errors: state.errors
+});
+
+export default connect(
+    mapStateToProps,
+    { registerUser }
+)(withRouter(RegisterPage));*/
