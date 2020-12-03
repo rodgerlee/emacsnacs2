@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Dispatch } from 'react'
-import { BASE_URL, APIKEY_2, APIKEY} from '../../utils'
-import { RandomRecipeContainer, ReadyInThirtyContainer } from '../models'
+import { BASE_URL, APIKEY_2, APIKEY, APIKEY_3} from '../../utils'
+import { RandomRecipeContainer, SearchedRecipeContainer } from '../models'
 
 //availability Action
 
@@ -11,7 +11,7 @@ interface RandomRecipeAction{
 }
 interface ReadyInThirtyAction{
     readonly type: 'ON_READYTHIRTY',
-    payload: ReadyInThirtyContainer
+    payload:  SearchedRecipeContainer
 }
 interface RandomRecipeErrorAction{
     readonly type: 'ON_SHOPPING_ERROR',
@@ -34,15 +34,15 @@ export const onAvailability = () => {
             const randomResponse = await axios.get<RandomRecipeContainer>(`${BASE_URL}/recipes/random`, {
                 params: {
                     number: 5,
-                    apiKey: APIKEY,
+                    apiKey: APIKEY_3,
                 }
             })
-            const readyThirtyResponse = await axios.get<ReadyInThirtyContainer>(`${BASE_URL}/recipes/complexSearch`, {
+            const readyThirtyResponse = await axios.get<SearchedRecipeContainer>(`${BASE_URL}/recipes/complexSearch`, {
                 params: {
                     query: "",
                     number: 5,
                     offset: OFFSET,
-                    apiKey: APIKEY,
+                    apiKey: APIKEY_3,
                     instructionsRequired: true,
                     maxReadyTime: 30,
                 }

@@ -34,7 +34,7 @@ export const _RecipeDetailScreen: React.FC<RecipeDetailProps> = (props) => {
         document.body.style.color="#5e5e5e";
         ocument.body.style.lineHeight="3";
     `;
-    console.log(recipeDetail.instructions)
+    // console.log(recipeDetail.instructions)
 
     return (
         <View style={styles.container}>

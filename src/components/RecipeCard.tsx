@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text, TouchableOpacity, TextInput, Image } from 'react-native'
-import { RandomRecipe, ReadyInThirtyRecipe, SearchedRecipe } from '../redux'
+import { RandomRecipe, SearchedRecipe } from '../redux'
 import React from 'react'
 
 interface RandomRecipeProps{
@@ -8,7 +8,7 @@ interface RandomRecipeProps{
 }
 
 interface ReadyInThirtyRecipeProps{
-    item: ReadyInThirtyRecipe;
+    item: SearchedRecipe;
     onTap: Function;
 }
 

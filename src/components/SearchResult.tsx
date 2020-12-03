@@ -1,6 +1,5 @@
 import React from 'react';
 import { ScrollView, ImageBackground, Text, View, FlatList, TouchableOpacity, Button, StyleSheet} from 'react-native';
-import ReadyInThirtyCard from './RecipeCard'
 import RecipeBody from './RecipeBody'
 import { SearchedRecipe, SearchedRecipeContainer } from '../redux';
 
@@ -8,6 +7,7 @@ interface SearchResultProps {
 	data: SearchedRecipeContainer
 	getRecipe: Function
 }
+
 
 //displays 3 recipes from search result for now
 class SearchResult extends React.Component{

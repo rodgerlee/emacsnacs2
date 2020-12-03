@@ -5,16 +5,9 @@ export interface RandomRecipe{
     image: string,
     summary: string,
     readyInMinutes: string,
-    instructions: string
 }
 
 export interface SearchedRecipe{
-    id: string,
-    title: string,
-    image: string,
-}
-
-export interface ReadyInThirtyRecipe{
     id: string,
     title: string,
     image: string,
@@ -45,10 +38,6 @@ export interface RandomRecipeContainer{
     recipes: [RandomRecipe]
 }
 
-export interface ReadyInThirtyContainer{
-    results: [ReadyInThirtyRecipe]
-}
-
 export interface SearchedRecipeContainer{
     results: [SearchedRecipe]
 }
@@ -70,7 +59,7 @@ export interface UserState{
 
 export interface homeRecipeState {
     randomrecipes: RandomRecipeContainer,
-    readyInThirties: ReadyInThirtyContainer
+    readyInThirties: SearchedRecipeContainer
 }
 
 export interface recipeDetailState {

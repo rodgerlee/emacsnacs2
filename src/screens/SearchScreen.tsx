@@ -6,7 +6,7 @@ import RecipeLoader from "../components/RecipeLoader"
 import RecipeBody from "../components/RecipeBody"
 import SearchResult from "../components/SearchResult"
 import axios from 'axios'
-import { BASE_URL, APIKEY_2, APIKEY } from '../utils'
+import { BASE_URL, APIKEY_2, APIKEY, APIKEY_4 } from '../utils'
 
 class SearchScreen extends React.Component{
 	state={
@@ -24,7 +24,7 @@ class SearchScreen extends React.Component{
 		axios.get(`${BASE_URL}/recipes/complexSearch`,
 						{	params: { query: self.state.recipeSearch,
 						          	number: 1,
-						            apiKey: APIKEY_2,
+						            apiKey: APIKEY_4,
 						            instructionsRequired: true,
 						            maxReadyTime: 30,
             					}
@@ -42,7 +42,7 @@ class SearchScreen extends React.Component{
 	getRecipe=(recipeid)=>{
 		this.setState({retreiving:true});
 		var self = this;
-		axios.get(`${BASE_URL}/recipes/${recipeid}/information?apiKey=${APIKEY_2}&includeNutrition=false`
+		axios.get(`${BASE_URL}/recipes/${recipeid}/information?apiKey=${APIKEY_4}&includeNutrition=false`
 		).then(function(response){
 			console.log("GOT RECIPE")
 			// console.log(response.data);

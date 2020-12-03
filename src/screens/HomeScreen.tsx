@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Dimensions , Image , TouchableHighlight, Button
 import { FlatList, ScrollView } from 'react-native-gesture-handler'
 
 import { connect } from 'react-redux'
-import { onAvailability, UserState, ApplicationState, homeRecipeState, RandomRecipe, ReadyInThirtyRecipe} from '../redux'
+import { onAvailability, UserState, ApplicationState, homeRecipeState, RandomRecipe, SearchedRecipe} from '../redux'
 
 import { ButtonWithIcon, RandomRecipeCard, ReadyInThirtyCard } from '../components'
 import { useNavigation } from '../utils'
@@ -30,7 +30,7 @@ export const _HomeScreen: React.FC<HomeProps> = (props) => {
     const onTapRandomRecipe = (item: RandomRecipe) => {
         navigate('RecipeDetailPage', { recipe: item, noInfo: false})
     }
-    const onTapReadyInThirtyRecipe = (item: ReadyInThirtyRecipe) => {
+    const onTapReadyInThirtyRecipe = (item: SearchedRecipe) => {
         navigate('RecipeDetailPage', { recipe: item, noInfo: true})
     }
 
