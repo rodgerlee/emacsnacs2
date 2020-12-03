@@ -1,11 +1,14 @@
 {
-  "main": "node_modules/expo/AppEntry.js",
+  "name": "login-backend",
+  "version": "1.0.0",
+  "description": "Backend for Login portion of emacsnacs2",
+  "main": "server.ts",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "eject": "expo eject"
+    "client-install": "npm install --prefix client",
+    "start": "node server.ts",
+    "server": "nodemon server.ts",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.10",
@@ -21,6 +24,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.7.0",
     "gravatar": "^1.8.1",
+    "is-empty": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
     "moment": "^2.28.0",
@@ -52,7 +56,5 @@
     "@types/react-native": "~0.62.13",
     "nodemon": "^2.0.6",
     "typescript": "~3.9.5"
-  },
-  "private": true,
-  "proxy": "http://localhost:5000"
+  }
 }

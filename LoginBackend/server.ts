@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 
-const users = require("./routes/api/users");
+const users = require("./routes/api/users.ts");
 
 const app = express();
 
@@ -18,14 +18,14 @@ const db = require("./config/keys.ts").mongoURI;
 
 mongoose.connect(
     db,
-    { useNewUrlPasrer: true }
+    { useNewUrlParser: true }
     )
     .then(() => console.log("MongoDB connected"))
-    .catch((err:any) => console.log(err));
+    .catch(err => console.log(err));
 
 app.use(passport.initialize());
 
-require("./config/passport")(passport);
+require("./config/passport.ts")(passport);
 
 app.use("/api/users", users);
 
