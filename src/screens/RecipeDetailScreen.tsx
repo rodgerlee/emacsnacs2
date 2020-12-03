@@ -41,7 +41,7 @@ export const _RecipeDetailScreen: React.FC<RecipeDetailProps> = (props) => {
                             <Text style={{ color: '#FFF', fontSize: 30, fontWeight: '700'}}>{recipeDetail.title}</Text>
                         </ScrollView>
                         
-                        <Text style={{ color: '#FFF', fontSize: 25, fontWeight: '700' }}>{recipeDetail.readyInMinutes} minutes</Text>
+                        <Text style={{ color: '#FFF', fontSize: 25, fontWeight: '700' }}>{ no_info ? recipeInfo.readyInMinutes : recipeDetail.readyInMinutes} minutes</Text>
                     </View>
 
                 </ImageBackground>
@@ -51,14 +51,14 @@ export const _RecipeDetailScreen: React.FC<RecipeDetailProps> = (props) => {
                     <View style={{ flex: 1}}>
                         <Text style={{ fontSize: 25, fontWeight: '600', paddingLeft: 10, paddingTop: 10}}>Summary</Text>
                         <WebView
-                            source={{ html: (recipeInfo ? recipeInfo.summary :`${recipeDetail.summary}`) }}
+                            source={{ html: ( no_info ? recipeInfo.summary : `${recipeDetail.summary}`) }}
                             style={{width: Dimensions.get('screen').width, height:200,backgroundColor:'blue',marginTop:20}}
                         />
                     </View>
                     <View style={{ flex: 1}}>
                         <Text style={{ fontSize: 25, fontWeight: '600', paddingLeft: 10, paddingTop: 10}}>Instructions</Text>
                         <WebView
-                            source={{ html: (recipeInfo ? recipeInfo.instructions :`${recipeDetail.instructions}`) }}
+                            source={{ html: ( no_info ? recipeInfo.instructions :`${recipeDetail.instructions}`) }}
                             style={{width: Dimensions.get('screen').width, height:200,backgroundColor:'blue',marginTop:20}}
                         />
                     </View>
