@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Image, StyleSheet, Text, View, TouchableHighlight} from 'react-native';
 import { HomeScreen } from './src/screens/HomeScreen';
 import SearchScreen from './src/screens/SearchScreen'
-
+import {FavoriteScreen} from './src/screens/FavoriteScreen2'
 
 import { Provider } from 'react-redux'
 import { store } from './src/redux'
@@ -48,9 +48,9 @@ const switchNavigator = createSwitchNavigator({
       },
 
        // Home tab Icon
-       Cart: {
+       favorites: {
         screen: createStackNavigator({
-          HomePage: HomeScreen
+          FavoritePage: FavoriteScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {

@@ -30,6 +30,10 @@ export interface RecipeIngredient{
     amount: IngredientAmounts
 }
 
+export interface SavedRecipe{
+    id: string
+}
+
 export interface IngredientsContainer {
     ingredients: [RecipeIngredient]
 }
@@ -41,6 +45,12 @@ export interface RandomRecipeContainer{
 export interface SearchedRecipeContainer{
     results: [SearchedRecipe]
 }
+
+export interface FolderContainer {
+    name: string,
+    saved?: [SavedRecipe]
+}
+
 
 //online food order app part2, 11:23 bookmark
 
@@ -65,4 +75,8 @@ export interface homeRecipeState {
 export interface recipeDetailState {
     recipeIngredients: IngredientsContainer
     recipeInfo: RandomRecipe
+}
+
+export interface favoriteState{
+    folders: [FolderContainer]
 }
