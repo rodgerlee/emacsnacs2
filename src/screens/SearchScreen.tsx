@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Dimensions , Image } from 'react-native'
-// import { Header, Item, Icon, Input, Button } from 'native-base';
 
 import { connect } from 'react-redux'
 import { onSearch, ApplicationState } from '../redux'
@@ -25,11 +24,20 @@ export const _SearchScreen: React.FC = () => {
 		<View style={styles.container}>
             <View style={styles.top}>
                 <View style={{ display: 'flex', height: 60, justifyContent: 'space-around', flexDirection: 'row', alignItems: 'center', marginLeft: 2, marginRight: 5}}>
-					<SearchBar onTextChange={setKeyword} onEndEditing={() => setIsEditing(false)} didTouch={() => setIsEditing(true)}/>
-					<SearchButton searchEntry={keyword} onTap={onTapSearch} icon={require('../images/arrow_icon.png')} width={40} height={40} />
+					<SearchBar
+                        onTextChange={setKeyword}
+                        onEndEditing={() => setIsEditing(false)}
+                        didTouch={() => setIsEditing(true)}
+                    />
+					<SearchButton
+                        searchEntry={keyword}
+                        onTap={onTapSearch}
+                        icon={require('../images/arrow_icon.png')}
+                        width={40} height={40}
+                    />
 				</View>
             </View>
-			
+
             <View style={styles.middle}>
 				<Image
 					source={{uri:"https://i.pinimg.com/originals/53/f1/2c/53f12ca26caf8ada3835a99da78f60c8.gif"}}
@@ -70,7 +78,7 @@ const styles = StyleSheet.create({
 		width:WIDTH,
 		justifyContent: 'center',
 		alignItems: 'center',
-		flex: 9		
+		flex: 9
 	}
 
 })
