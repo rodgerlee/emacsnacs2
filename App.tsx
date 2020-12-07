@@ -6,6 +6,7 @@ import { HomeScreen } from './src/screens/HomeScreen';
 import { RecipeDetailScreen } from './src/screens/RecipeDetailScreen';
 import { SearchScreen } from './src/screens/SearchScreen'
 import { SearchResultScreen } from './src/screens/SearchResultScreen';
+import { PantryScreen } from './src/screens/PantryScreen'
 
 
 import { Provider } from 'react-redux'
@@ -52,7 +53,7 @@ const switchNavigator = createSwitchNavigator({
        // Home tab Icon
        Cart: {
         screen: createStackNavigator({
-          HomePage: HomeScreen
+          PantryPage: PantryScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
