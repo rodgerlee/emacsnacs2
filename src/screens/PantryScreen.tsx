@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Dimensions , Image } from 'react-native'
-import { PantryListItem } from "../components/PantryListItem";
+import { PantryList } from "../components/PantryList";
 
 
 
@@ -10,10 +10,8 @@ export const PantryScreen: React.FC = () => {
         <View style={styles.container}>
             <Text style={styles.header}>My Pantry</Text>
             <React.Fragment>
-                 <PantryListItem item={"food"} />
-                 <PantryListItem item={"sushi"} />
+                 <PantryList items={["flour", "basil", "pepper"]} />
             </React.Fragment>
-            {/*<PantryListItem item={"food"} />*/ }
         </View>
     )
 }
