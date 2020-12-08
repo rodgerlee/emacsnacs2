@@ -12,24 +12,71 @@ import {bindActionCreators} from 'redux'
 import { favoriteReducer } from '../redux/reducers/favoriteReducer'
 import {FolderContainer, SavedRecipe, favoriteState} from '../redux/models'
 import { TextInput } from 'react-native-gesture-handler'
-
+import {ListFolder, ListRecipe} from '../components/FolderCard'
 export class FavoriteScreen extends React.Component {
 state = {
     folderNames: [{
+        key: 0,
         name: "All Favorites",
-        saved: ["0"]
+        saved: ["0", "1", "2", "3", "4","5", "6", "7"],
+        open: false
     }],
-    enteredName: ""
+    enteredName: "",
+    showFavorites: false,
+    index:null
 }
 newFolder = () => {
-    this.setState({ folderNames: [...this.state.folderNames, {name: this.state.enteredName, saved: ["0"] }]});
+    if (this.state.enteredName != "")
+    {
+     this.setState({ folderNames: [...this.state.folderNames, {key: this.state.folderNames.length +1, name: this.state.enteredName, saved: ["0"] }]});
+    this.state.enteredName = "";
+    }
+    else
     this.state.enteredName = "";
 }
+showRecipes = (index) => {
+    const folders = this.state.folderNames.filter((item) => item.key == index ).map(fN => fN.saved);
+    console.log("run inside showrecipes")
+    console.log(folders.length)
+    console.log(folders[0].length)
+    console.log(JSON.stringify(folders))
+        return (
+            <View>
+                <Text>{JSON.stringify(folders)}</Text>
+</View>
+               // <FlatList
+               // data = {folders}
+                // renderItem ={({item}) => {
+                //   console.log(item)
+                //   console.log('printing')
+                //   return(
+                //     <ListRecipe item = {item}/>)
+                // }}/>
+            
+        )
+    }
+
 render(){
-    
+    const folders = this.state.folderNames.filter((item) => item.key == this.state.index ).map(fN => fN.saved);
     return(
-    <><View style={styles.container}>
-            <Text style={styles.header}> Favorites</Text>
+    <View style={styles.container}>
+            <Text style={styles.header}> Favorite Folders</Text>
+            <View >
+                <FlatList 
+                data = {this.state.folderNames}
+                renderItem = {({item})=> (
+                    <ListFolder item ={item}
+                     Display = {(index) => this.setState({showFavorites: true, index: index})}/>
+                )}/>
+            {this.state.showFavorites == true &&  <View>
+                <FlatList
+                data = {folders}
+                renderItem = {({item}) =>(
+                <ListRecipe item = {item}/>
+                )}/>
+                </View>}
+               
+            </View>
             <TextInput
                 placeholder = "New Folder Name"
                 onChangeText={(enteredName)=>this.setState({enteredName:enteredName})}
@@ -37,18 +84,12 @@ render(){
             >
             </TextInput>
             <Button title="New Folder" onPress={() => this.newFolder()} />
-            <TextInput
+          
                
-                >
-            </TextInput>
+                
+           
         </View>
-            <View style={styles.middle}>
-                <FlatList 
-                data = {this.state.folderNames}
-                renderItem = {({item})=> (
-                    <Text>{item.name}</Text>
-                )}/>
-            </View></>
+          
     )
 }
 }
@@ -61,22 +102,25 @@ const styles = StyleSheet.create({
             textAlign: 'center'
         },
         container: {
-            flex: 1,
+           flex: 1,
             backgroundColor: '#FFF'
         },
         top: {
             flex: 4,
-            justifyContent: 'center',
-            alignItems: 'center',
+           // direction: 'ltr',
+            flexDirection: 'row',
+            // justifyContent: 'flex-start',
+            //alignItems: 'stretch',
+            //alignContent: 'stretch'
         },
         middle: {
-            flex: 8,
+          //  flex: 8,
             justifyContent: 'center',
-            alignItems: 'center'
-    
+            alignItems: 'center',
+            
         },
         bottom: {
-            flex: 1,
+           // flex: 1,
             backgroundColor: 'cyan'
         },
     
