@@ -3,7 +3,8 @@ import React from 'react';
 import axios from 'axios';
 import { Image, StyleSheet, Text, View, TouchableHighlight} from 'react-native';
 import { HomeScreen } from './src/screens/HomeScreen';
-
+import SearchScreen from './src/screens/SearchScreen'
+import {FavoriteScreen} from './src/screens/FavoriteScreen'
 
 import { Provider } from 'react-redux'
 import { store } from './src/redux'
@@ -11,6 +12,7 @@ import { store } from './src/redux'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
+import { RecipeDetailScreen } from './src/screens/RecipeDetailScreen';
 
 
 
@@ -21,37 +23,38 @@ const switchNavigator = createSwitchNavigator({
       // Home tab Icon
       home: {
         screen: createStackNavigator({
-          emacsnacs: HomeScreen
+          HomePage: HomeScreen,
+          RecipeDetailPage: RecipeDetailScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
-            let icon = focused == true ? require('./src/images/home_icon.png') : require('./src/images/home_n_icon.png') 
+            let icon = focused == true ? require('./src/images/home_icon.png') : require('./src/images/home_n_icon.png')
             return <Image source={icon} style={styles.tabIcon} />
           }
         }
       },
 
-      // Home tab Icon
-      Offer: {
+      // Search icon
+      search: {
         screen: createStackNavigator({
-          emacsnacs: HomeScreen
+          SearchPage: SearchScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
-            let icon = focused == true ? require('./src/images/offer_icon.png') : require('./src/images/offer_n_icon.png') 
+            let icon = focused == true ? require('./src/images/offer_icon.png') : require('./src/images/offer_n_icon.png')
             return <Image source={icon} style={styles.tabIcon} />
           }
         }
       },
 
        // Home tab Icon
-       Cart: {
+       favorites: {
         screen: createStackNavigator({
-          emacsnacs: HomeScreen
+          FavoritePage: FavoriteScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
-            let icon = focused == true ? require('./src/images/cart_icon.png') : require('./src/images/cart_n_icon.png') 
+            let icon = focused == true ? require('./src/images/cart_icon.png') : require('./src/images/cart_n_icon.png')
             return <Image source={icon} style={styles.tabIcon} />
           }
         }
@@ -59,11 +62,11 @@ const switchNavigator = createSwitchNavigator({
        // Home tab Icon
        Account: {
         screen: createStackNavigator({
-          emacsnacs: HomeScreen
+          HomePage: HomeScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
-            let icon = focused == true ? require('./src/images/account_icon.png') : require('./src/images/account_n_icon.png') 
+            let icon = focused == true ? require('./src/images/account_icon.png') : require('./src/images/account_n_icon.png')
             return <Image source={icon} style={styles.tabIcon} />
           }
         }
@@ -74,10 +77,10 @@ const switchNavigator = createSwitchNavigator({
 
 
 const AppNavigation = createAppContainer(switchNavigator);
- 
+
 
 export default function App() {
-  
+
   return (
     <Provider store={store}>
       <AppNavigation />

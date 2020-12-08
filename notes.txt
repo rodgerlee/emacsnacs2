@@ -151,12 +151,12 @@ HOW TO MANAGE STATE USING REDUCERS:
             additionally, we should only have ONE interface PER state.
                 
             this is correct:
-                export interface RandomRecipeState {
+                export interface homeRecipeState {
                     randomrecipes: RandomRecipeContainer,
                     readyInThirties: ReadyInThirtyContainer
                 }
             this is not correct:
-                export interface RandomRecipeState {
+                export interface homeRecipeState {
                     randomrecipes: RandomRecipeContainer,
                     
                 }

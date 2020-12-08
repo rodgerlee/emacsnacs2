@@ -10,13 +10,13 @@ const initialState = {
 // the initial state is shown above, which is empty, but it will call an action: homeInitAction, to change the state.
 // shopping action will call a dispatch function, to change the state. 
 
-const recipeReducer = (state = initialState, action: homeInitAction) => {
+const homeRecipeReducer = (state = initialState, action: homeInitAction) => {
     switch(action.type) {
         case 'ON_AVAILABILITY':
-            return Object.assign({}, state, {
+            return {
                 ...state,
                 randomrecipes: action.payload
-            })
+            }
         case 'ON_READYTHIRTY':
             return {
                 ...state,
@@ -27,4 +27,4 @@ const recipeReducer = (state = initialState, action: homeInitAction) => {
     }
 }
 
-export { recipeReducer }
+export { homeRecipeReducer }
