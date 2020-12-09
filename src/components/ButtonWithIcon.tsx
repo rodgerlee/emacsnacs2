@@ -15,7 +15,7 @@ interface SearchButtonProps{
 }
 interface LikeButtonProps{
     onTap: Function;
-    icon: ImageSourcePropType
+    icon: Function;
 }
 
 const RefreshButton: React.FC<RefreshButtonProps> = ({ icon, width, height }) => {
@@ -47,13 +47,14 @@ const SearchButton: React.FC<SearchButtonProps> = ({ icon, searchEntry, onTap}) 
 }
 
 const LikeButton: React.FC<LikeButtonProps>=({icon, onTap})=>{
+    let src = icon()
     return(
         <View style={styles.likebtn}>
             <TouchableOpacity
                 style={styles.likebtn}
                 onPress={()=>onTap()}
             >
-                <Image style={styles.btnIcon} source={icon}/>
+                <Image style={styles.btnIcon} source={src}/>
             </TouchableOpacity>
         </View>
     )

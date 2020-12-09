@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, Text, TouchableOpacity, TextInput, Image, ImageSourcePropType } from 'react-native'
-import { onAvailability, ReadyInThirty } from '../redux'
+import React from 'react'
+import { StyleSheet, View, TextInput, Image } from 'react-native'
 import { useDispatch } from 'react-redux'
 
 interface SearchBarProps{   
