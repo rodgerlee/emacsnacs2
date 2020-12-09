@@ -46,17 +46,11 @@ export interface SearchedRecipeContainer{
     results: [SearchedRecipe]
 }
 
-<<<<<<< HEAD
-=======
 export interface FolderContainer {
     name: string,
     saved?: [SavedRecipe]
 }
 
-
-//online food order app part2, 11:23 bookmark
-
->>>>>>> 510f3bc5b3813b514350c41001ee7f7772357c5a
 //User model
 
 export interface UserModel{
