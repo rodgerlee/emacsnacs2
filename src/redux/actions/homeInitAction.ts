@@ -34,7 +34,7 @@ export const onAvailability = () => {
             const randomResponse = await axios.get<RandomRecipeContainer>(`${BASE_URL}/recipes/random`, {
                 params: {
                     number: 5,
-                    apiKey: APIKEY_3,
+                    apiKey: APIKEY_2,
                 }
             })
             const readyThirtyResponse = await axios.get<SearchedRecipeContainer>(`${BASE_URL}/recipes/complexSearch`, {
@@ -42,7 +42,7 @@ export const onAvailability = () => {
                     query: "",
                     number: 5,
                     offset: OFFSET,
-                    apiKey: APIKEY_3,
+                    apiKey: APIKEY_2,
                     instructionsRequired: true,
                     maxReadyTime: 30,
                 }

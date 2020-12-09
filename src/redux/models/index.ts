@@ -80,3 +80,6 @@ export interface recipeDetailState {
 export interface favoriteState{
     folders: [FolderContainer]
 }
+export interface searchState {
+    searchResults: SearchedRecipeContainer
+}

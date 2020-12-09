@@ -13,6 +13,7 @@ import { favoriteReducer } from '../redux/reducers/favoriteReducer'
 import {FolderContainer, SavedRecipe, favoriteState} from '../redux/models'
 import { TextInput } from 'react-native-gesture-handler'
 import {ListFolder, ListRecipe} from '../components/FolderCard'
+
 export class FavoriteScreen extends React.Component {
 state = {
     folderNames: [{

@@ -3,8 +3,13 @@ import React from 'react';
 import axios from 'axios';
 import { Image, StyleSheet, Text, View, TouchableHighlight} from 'react-native';
 import { HomeScreen } from './src/screens/HomeScreen';
-import SearchScreen from './src/screens/SearchScreen'
+import {SearchScreen} from './src/screens/SearchScreen'
 import {FavoriteScreen} from './src/screens/FavoriteScreen'
+import { RecipeDetailScreen } from './src/screens/RecipeDetailScreen';
+
+import { SearchResultScreen } from './src/screens/SearchResultScreen';
+import { PantryScreen } from './src/screens/PantryScreen'
+
 
 import { Provider } from 'react-redux'
 import { store } from './src/redux'
@@ -12,8 +17,6 @@ import { store } from './src/redux'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
-import { RecipeDetailScreen } from './src/screens/RecipeDetailScreen';
-
 
 
 const switchNavigator = createSwitchNavigator({
@@ -37,7 +40,9 @@ const switchNavigator = createSwitchNavigator({
       // Search icon
       search: {
         screen: createStackNavigator({
-          SearchPage: SearchScreen
+          SearchPage: SearchScreen,
+          SearchResultsPage: SearchResultScreen,
+          RecipeDetailPage: RecipeDetailScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
@@ -47,10 +52,14 @@ const switchNavigator = createSwitchNavigator({
         }
       },
 
-       // Home tab Icon
-       favorites: {
+
+      
+
+       // Pantry tab
+       Pantry: {
         screen: createStackNavigator({
-          FavoritePage: FavoriteScreen
+          PantryPage: PantryScreen
+
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
@@ -60,9 +69,9 @@ const switchNavigator = createSwitchNavigator({
         }
       },
        // Home tab Icon
-       Account: {
+       Favorites: {
         screen: createStackNavigator({
-          HomePage: HomeScreen
+          FavoritePage: FavoriteScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
