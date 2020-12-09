@@ -46,7 +46,7 @@ export type loginAction = registerAction | loginErrors | setUser
 export const registerUser = (userData:registerData) => {
     console.log("test");
     return (dispatch: Dispatch<loginAction>) => {
-    axios.post('http://192.168.1.136:5000/api/users/register', userData) //change the address to whatever you are using
+    axios.post('http://IP:5000/api/users/register', userData) //change the address to your IP
     .then(res => {
         console.log("got here");
         if (res.data.isValid) {
@@ -67,7 +67,7 @@ export const registerUser = (userData:registerData) => {
 }};
 
 export const loginUser = (userData:loginData) => (dispatch: Dispatch<loginAction>) => {
-    axios.post("../../../LoginBackend/routes/api/users/login", userData)
+    axios.post("http://IP:5000/api/users/login", userData) //change to the address to your IP
     .then(res => {
         const { token } = res.data;
         localStorage.setItem("jwtToken", token);
