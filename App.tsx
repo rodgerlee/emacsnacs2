@@ -18,8 +18,14 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 
+import RegisterPage from './src/Login/Register';
+import LoginPage from './src/Login/Login';
+
 
 const switchNavigator = createSwitchNavigator({
+
+    register: RegisterPage,
+    login: LoginPage,
 
     homeStack:  createBottomTabNavigator({
 
@@ -81,7 +87,9 @@ const switchNavigator = createSwitchNavigator({
         }
       }
      })
-
+    },
+    {
+      initialRouteName: 'login' //change this to something else if you want to work on that instead
 });
 
 
