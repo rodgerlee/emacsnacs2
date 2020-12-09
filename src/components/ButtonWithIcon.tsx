@@ -46,13 +46,11 @@ const SearchButton: React.FC<SearchButtonProps> = ({ icon, searchEntry, onTap}) 
     )
 }
 
-                    // icon = require('../images/star_icon.png')
 const LikeButton: React.FC<LikeButtonProps>=({icon, onTap})=>{
-    console.log(icon)
     return(
-        <View style={styles.btn}>
+        <View style={styles.likebtn}>
             <TouchableOpacity
-                style={styles.btn}
+                style={styles.likebtn}
                 onPress={()=>onTap()}
             >
                 <Image style={styles.btnIcon} source={icon}/>
@@ -71,10 +69,8 @@ const styles = StyleSheet.create({
         height: 40
     },
     likebtn:{
-        width:40,
-        height:40,
-        flex:1,
-        alignItems:'flex-start'
+        alignSelf:'flex-end',
+        margin:5,
     },
     btnIcon:{
         width:38,
