@@ -3,8 +3,10 @@ import React from 'react';
 import axios from 'axios';
 import { Image, StyleSheet, Text, View, TouchableHighlight} from 'react-native';
 import { HomeScreen } from './src/screens/HomeScreen';
+import {SearchScreen} from './src/screens/SearchScreen'
+import {FavoriteScreen} from './src/screens/FavoriteScreen'
 import { RecipeDetailScreen } from './src/screens/RecipeDetailScreen';
-import { SearchScreen } from './src/screens/SearchScreen'
+
 import { SearchResultScreen } from './src/screens/SearchResultScreen';
 import { PantryScreen } from './src/screens/PantryScreen'
 
@@ -50,10 +52,14 @@ const switchNavigator = createSwitchNavigator({
         }
       },
 
+
+
+
        // Pantry tab
        pantry: {
         screen: createStackNavigator({
           PantryPage: PantryScreen
+
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
@@ -63,9 +69,9 @@ const switchNavigator = createSwitchNavigator({
         }
       },
        // Home tab Icon
-       Account: {
+       Favorites: {
         screen: createStackNavigator({
-          HomePage: HomeScreen
+          FavoritePage: FavoriteScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
