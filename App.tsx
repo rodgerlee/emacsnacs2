@@ -51,7 +51,7 @@ const switchNavigator = createSwitchNavigator({
       },
 
        // Pantry tab
-       Pantry: {
+       pantry: {
         screen: createStackNavigator({
           PantryPage: PantryScreen
         }),

@@ -20,7 +20,7 @@ interface ErrorAction{
     payload: any
 }
 
-export type recipeDetailAction = IngredientsAction | RecipeInfoAction | ErrorAction
+export type recipeDetailAction = IngredientsAction | RecipeInfoAction | ErrorAction;
 
 //Trigger actions from components
 

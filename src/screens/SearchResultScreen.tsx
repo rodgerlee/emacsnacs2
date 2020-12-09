@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { onSearch, searchState, ApplicationState, SearchedRecipe } from '../redux'
-import { ReadyInThirtyCard } from '../components'
+import { SearchedRecipeCard } from '../components'
 import { connect } from 'react-redux'
 import { useNavigation } from '../utils'
 
@@ -13,7 +13,7 @@ interface SearchProps{
 }
 
 export const _SearchResultScreen: React.FC<SearchProps> = (props) => {
-    
+
     const { navigate } = useNavigation()
     const { getParam } = props.navigation
     const keyword = getParam('food')
@@ -24,7 +24,7 @@ export const _SearchResultScreen: React.FC<SearchProps> = (props) => {
         props.onSearch(keyword)
     }, [])
 
-    const onTapReadyInThirtyRecipe = (item: SearchedRecipe) => {
+    const onTapRecipe = (item: SearchedRecipe) => {
         navigate('RecipeDetailPage', { recipe: item, noInfo: true})
     }
 
@@ -32,13 +32,15 @@ export const _SearchResultScreen: React.FC<SearchProps> = (props) => {
         <View style={styles.container}>
              <View style={styles.body}>
                 <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
                     data={ results }
-                    renderItem = {({ item }) => <ReadyInThirtyCard item={item} onTap={onTapReadyInThirtyRecipe} /> }
+                    renderItem = {({ item }) =>
+                        <SearchedRecipeCard
+                            item={item}
+                            onTap={onTapRecipe}
+                        />
+                    }
                     keyExtractor={(item) => item.id}
                 />
-
             </View>
         </View>
     )

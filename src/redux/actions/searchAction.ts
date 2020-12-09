@@ -14,16 +14,12 @@ interface ErrorAction{
     payload: any
 }
 
-export type searchAction = SearchScreenAction | ErrorAction
+export type searchAction = SearchScreenAction | ErrorAction;
 
 //Trigger actions from components
 
 export const onSearch = (keyword: string) => {
-    // https://redux.js.org/tutorials/fundamentals/part-2-concepts-data-flow
-    // the only way to update the state is to call dispatch.
-
     return async ( dispatch: Dispatch<searchAction>) => {
-
         try {
             const searchResponse = await axios.get<SearchedRecipeContainer>(`${BASE_URL}/recipes/complexSearch`, {
                 params: {

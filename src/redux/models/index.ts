@@ -42,15 +42,13 @@ export interface SearchedRecipeContainer{
     results: [SearchedRecipe]
 }
 
-//online food order app part2, 11:23 bookmark
-
 //User model
 
 export interface UserModel{
     firstName: string;
     lastName: string;
     token: string
-}   
+}
 
 export interface UserState{
     user: UserModel;

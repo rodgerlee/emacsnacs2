@@ -33,7 +33,6 @@ export const _SearchScreen: React.FC = () => {
                         searchEntry={keyword}
                         onTap={onTapSearch}
                         icon={require('../images/arrow_icon.png')}
-                        width={40} height={40}
                     />
 				</View>
             </View>
