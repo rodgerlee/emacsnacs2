@@ -20,8 +20,11 @@ class InputText extends React.Component<Props> {
 const styles = StyleSheet.create({
     textInput: {
         height: 40,
+        width: 130,
         borderColor: "#100000",
         borderBottomWidth: StyleSheet.hairlineWidth,
+        alignItems: "center",
+        justifyContent: "center",
         marginBottom: 20
 
     }

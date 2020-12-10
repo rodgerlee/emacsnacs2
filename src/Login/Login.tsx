@@ -6,11 +6,12 @@ import InputText from './components/InputText';
 
 //import { AppNavigation } from "../../App";
 
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+
 import { loginUser } from "../redux/actions/authActions";
 
 import { connect } from "react-redux";
 
-import { useNavigation } from "../utils";
 
 interface State{
     email: string;
@@ -37,12 +38,13 @@ class LoginPage extends React.Component<{}, State> {
             email: this.state.email,
             password: this.state.password
         }
-        loginUser(userData);
+        loginUser(userData, this);
     };
 
     handleRegisterPress = () => {
-        const { navigate } = useNavigation();
-        navigate('register');
+        this.props.navigation.navigate('register');
+        //const { navigate } = useNavigation();
+        //navigate('register');
     };
 
     render() {
@@ -77,7 +79,8 @@ class LoginPage extends React.Component<{}, State> {
 
 const styles = StyleSheet.create({
     buttons: {
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent: "center"
     },
     container: {
         flex: 1,

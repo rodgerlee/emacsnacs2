@@ -11,6 +11,8 @@ import { connect } from "react-redux";
 import { registerUser } from "../redux/actions/authActions";
 //import classnames from "classnames";
 
+import { createSwitchNavigator } from "react-navigation";
+
 
 //var ConsolePanel = require('react-native-console-panel').displayWhenDev();
 
@@ -49,7 +51,7 @@ class RegisterPage extends React.Component<{}, State> {
                 password2: this.state.checkPassword
             }
             console.log(userData);
-            registerUser(userData);
+            registerUser(userData, this);
             this.setState({ passwordIncorrect: false, password: "", email: "", checkPassword: ""})
         }
         else {
@@ -58,7 +60,7 @@ class RegisterPage extends React.Component<{}, State> {
     };
 
     handleAccountPress = () => {
-
+        this.props.navigation.navigate('login');
     };
 
     render() {
@@ -101,6 +103,11 @@ class RegisterPage extends React.Component<{}, State> {
 
 const styles = StyleSheet.create({
     buttons: {
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    text_input: {
+        width: 120,
         alignItems: "center",
         justifyContent: "center"
     },
