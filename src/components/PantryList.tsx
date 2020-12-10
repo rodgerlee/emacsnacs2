@@ -7,8 +7,9 @@ const styles = StyleSheet.create({
         paddingTop: 22
     },
     item: {
-        padding: 10,
-        fontSize: 18,
+        padding: 15,
+        fontSize: 20,
+        marginLeft: 20,
         height: 44,
     },
 });

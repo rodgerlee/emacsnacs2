@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Dimensions , Image } from 'react-native'
+import { AddPantryItem } from "../components/AddPantryItem";
 import { PantryList } from "../components/PantryList";
 
 
@@ -11,6 +12,7 @@ export const PantryScreen: React.FC = () => {
             <Text style={styles.header}>My Pantry</Text>
             <React.Fragment>
                  <PantryList items={["flour", "basil", "pepper"]} />
+                 <AddPantryItem />
             </React.Fragment>
         </View>
     )
@@ -18,11 +20,11 @@ export const PantryScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
     header:{
-        fontSize: 25,
+        fontSize: 30,
         fontWeight: '600',
         color: '#bb2a26',
         marginLeft: 20,
-        padding: 10,
+        padding: 15,
     },
     container: {
         flex: 1,
