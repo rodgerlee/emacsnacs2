@@ -3,15 +3,14 @@ import { View, Text, StyleSheet, Dimensions , Image } from 'react-native'
 import { AddPantryItem } from "../components/AddPantryItem";
 import { PantryList } from "../components/PantryList";
 
-const initialItems = ["flour", "basil", "pepper"];
+const initialItems = ["Flour", "Basil", "Pepper"];
 
 export const PantryScreen: React.FC = () => {
 
     const [items, setItems] = useState(initialItems);
 
     const addItem = ( newItem: string) => {
-        setItems([...items, newItem])
-        console.log(items)
+        newItem.trim() !== "" && setItems([...items, newItem]);
     }
 
     return (
