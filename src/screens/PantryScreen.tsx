@@ -36,20 +36,5 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f5f4e1'
     },
-    top: {
-        flex: 4,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    middle: {
-        flex: 8,
-        justifyContent: 'center',
-        alignItems: 'center'
-
-    },
-    bottom: {
-        flex: 1,
-        backgroundColor: 'cyan'
-    },
 
 })
