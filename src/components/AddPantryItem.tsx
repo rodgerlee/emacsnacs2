@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, Text, TouchableOpacity, TextInput, Image, ImageSourcePropType } from 'react-native'
+import React, { useState, useEffect, ChangeEvent } from 'react'
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Image, ImageSourcePropType, Button } from 'react-native'
 import { onAvailability, ReadyInThirty } from '../redux'
 import { useDispatch } from 'react-redux'
 
 interface AddPantryItemProps{   
+
+    addItem: (newItem: string) => void;
     /*
     onEndEditing? : any | undefined;
     didTouch? : any | undefined;
@@ -12,9 +14,16 @@ interface AddPantryItemProps{
     */
 }
 
-const AddPantryItem: React.FC<AddPantryItemProps> = (/*{ onEndEditing, didTouch, autoFocus, onTextChange }*/) => {
+const AddPantryItem: React.FC<AddPantryItemProps> = ({ addItem }) => {
 
     /*const dispatch = useDispatch();*/
+    const [newItem, setNewItem] = useState("");
+
+    
+    const handleButtonPress = (itm: string) => {
+        addItem(itm);
+        console.log(newItem);
+    }; 
 
     return(
         <View style={styles.container}>
@@ -22,23 +31,26 @@ const AddPantryItem: React.FC<AddPantryItemProps> = (/*{ onEndEditing, didTouch,
                 <TextInput
                     style={{ marginLeft: 5, marginRight:10, flex: 9 ,display: 'flex', fontSize: 20, height: 42}}
                     placeholder={'enter an ingredient'}
+                    onChangeText={newItem => setNewItem(newItem)}
+                    defaultValue={newItem}
                     /*
                     autoFocus={autoFocus}
                     onTouchStart={didTouch}
                     onChangeText={(text) => onTextChange(text)}
                     onEndEditing={onEndEditing}
                     */
+                   
                 />
             </View>
+            <Button title="Go!" onPress={() =>handleButtonPress(newItem)} />
         </View>
     )
-    
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        height: 60,
+        height: 40,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -49,7 +61,7 @@ const styles = StyleSheet.create({
     },
     enterTextField: {
         display: 'flex',
-        height: 32,
+        height: 35,
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',

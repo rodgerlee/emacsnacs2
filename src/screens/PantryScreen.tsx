@@ -3,19 +3,26 @@ import { View, Text, StyleSheet, Dimensions , Image } from 'react-native'
 import { AddPantryItem } from "../components/AddPantryItem";
 import { PantryList } from "../components/PantryList";
 
-
+const initialItems = ["flour", "basil", "pepper"];
 
 export const PantryScreen: React.FC = () => {
+
+    const [items, setItems] = useState(initialItems);
+
+    const addItem = ( newItem: string) => {
+        setItems([...items, newItem])
+        console.log(items)
+    }
 
     return (
         <View style={styles.container}>
             <Text style={styles.header}>My Pantry</Text>
             <React.Fragment>
-                 <PantryList items={["flour", "basil", "pepper"]} />
-                 <AddPantryItem />
+                <AddPantryItem addItem={addItem}/>
+                <PantryList items={items} />
             </React.Fragment>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({

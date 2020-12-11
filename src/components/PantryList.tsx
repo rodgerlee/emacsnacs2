@@ -10,7 +10,10 @@ const styles = StyleSheet.create({
         padding: 15,
         fontSize: 20,
         marginLeft: 20,
+        marginRight: 20,
         height: 44,
+        borderColor: '#E5E5E5',
+        borderWidth: 2
     },
 });
 
