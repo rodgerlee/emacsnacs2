@@ -1,3 +1,7 @@
+//for demo
+console.disableYellowBox = true;
+
+
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import axios from 'axios';
