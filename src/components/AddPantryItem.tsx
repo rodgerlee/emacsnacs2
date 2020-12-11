@@ -6,39 +6,27 @@ import { useDispatch } from 'react-redux'
 interface AddPantryItemProps{   
 
     addItem: (newItem: string) => void;
-    /*
-    onEndEditing? : any | undefined;
-    didTouch? : any | undefined;
-    autoFocus? : boolean | undefined;
-    onTextChange: Function;
-    */
 }
 
 const AddPantryItem: React.FC<AddPantryItemProps> = ({ addItem }) => {
 
-    /*const dispatch = useDispatch();*/
     const [newItem, setNewItem] = useState("");
 
     
     const handleButtonPress = (itm: string) => {
         addItem(itm);
-        console.log(newItem);
+        setNewItem("");
     }; 
 
     return(
         <View style={styles.container}>
             <View style={styles.enterTextField}>
                 <TextInput
+
                     style={{ marginLeft: 5, marginRight:10, flex: 9 ,display: 'flex', fontSize: 20, height: 42}}
                     placeholder={'enter an ingredient'}
                     onChangeText={newItem => setNewItem(newItem)}
                     defaultValue={newItem}
-                    /*
-                    autoFocus={autoFocus}
-                    onTouchStart={didTouch}
-                    onChangeText={(text) => onTextChange(text)}
-                    onEndEditing={onEndEditing}
-                    */
                    
                 />
             </View>
