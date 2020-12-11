@@ -1,20 +1,12 @@
 import React from 'react';
 import { View, StyleSheet, Image, TextInput, TextInputProps, Text } from 'react-native';
-//import * as icon from '../../images/home_icon.png';
 import Button from './components/Button';
 import InputText from './components/InputText';
 import { Header } from 'react-navigation-stack';
-
-//import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../redux/actions/authActions";
-//import classnames from "classnames";
-
 import { createSwitchNavigator } from "react-navigation";
-
-
-//var ConsolePanel = require('react-native-console-panel').displayWhenDev();
 
 interface State{
     email: string;
@@ -64,7 +56,7 @@ class RegisterPage extends React.Component<{}, State> {
     };
 
     render() {
-        let icon = require('../images/account_icon.png') //change this to whatever image we want later
+        let icon = require('../images/login_pic.png') //change this to whatever image we want later
         let text = this.state.passwordIncorrect ? "Passwords do not match." : "";
         return (
             <View style={styles.container}>
@@ -117,7 +109,7 @@ const styles = StyleSheet.create({
         padding: 130
     },
     tabIcon: {
-      width: 100,
+      width: 178,
       height: 100
     },
     text: {
@@ -143,6 +135,13 @@ const mapStateToProps = (state: any) => ({
 })
 
 export default connect(mapStateToProps, {registerUser})(RegisterPage);
+
+
+
+
+
+
+
 
 //export default RegisterPage;
 
