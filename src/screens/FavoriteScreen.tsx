@@ -3,42 +3,59 @@
 //we can do this through reducer and action, call the action function here
 //in action function we call recipeloader
 
-import React, { useEffect, useState } from 'react'
-import {View, Text, StyleSheet, Button, Alert, FlatList, } from 'react-native'
-import { connect } from 'react-redux'
+import React, { useEffect, useState,Dispatch, Component } from 'react'
+import {View, Text, StyleSheet, Button, Alert, FlatList, TouchableOpacity, ImageBackground} from 'react-native'
+import { connect} from 'react-redux'
 import { ApplicationState} from '../redux'
-import {addFolder} from '../redux/actions/addFolder'
+//import {enteredNameAction, newFolderAction, openFolderAction} from '../redux/actions/addFolder'
 import {bindActionCreators} from 'redux'
-import { favoriteReducer } from '../redux/reducers/favoriteReducer'
-import {FolderContainer, SavedRecipe, favoriteState} from '../redux/models'
+import { favAction, favoriteReducer } from '../redux/reducers/favoriteReducer'
+import {FolderContainer, favoriteState, SearchedRecipe} from '../redux/models'
 import { TextInput } from 'react-native-gesture-handler'
 import {ListFolder, ListRecipe} from '../components/FolderCard'
+import { SafeAreaInsetsContext } from 'react-native-safe-area-context'
+import * as actions from '../redux/actions/addFolder'
+import {getID} from '../components/RecipeCard'
+import {BASE_URL, APIKEY_6, WIDTH} from '../utils'
+import axios from 'axios'
+interface FavoriteProps{
+   favoriteReducer: favoriteState,
+   actions: favAction,
+}
 
-
-export class FavoriteScreen extends React.Component {
-
-    state = {
+ export class FavoriteScreen extends Component {
+     state = {
+   
         folderNames: [{
             key: 0,
             name: "All Favorites",
-            saved: ["0", "1", "2"],
+            saved: getID(),
             open: false
         }],
         enteredName: "",
-        showFavorites: false,
-        index:null
+        index:0,
+        showFolder: false,
+        loadedRecipe: { } as SearchedRecipe
     }
+    //console.log("you got to 1")
+    //console.log(getID())
+  //  let {folderNames, index, enteredName} = props.favoriteReducer;
+    
+    //console.log("here")
     newFolder = () => {
         if (this.state.enteredName != "")
         {
-         this.setState({ folderNames: [...this.state.folderNames, {key: this.state.folderNames.length +1, name: this.state.enteredName, saved: ["0"] }]});
-        this.state.enteredName = "";
+         this.setState({ folderNames: [...this.state.folderNames, {key: this.state.folderNames.length +1, 
+            name: this.state.enteredName, saved: [0] }]});
+        this.setState({enteredName:  ""});
         }
         else
-        this.state.enteredName = "";
+        this.setState({enteredName:  ""});
     }
-    showRecipes = (index) => {
-        const folders = this.state.folderNames.filter((item) => item.key == index ).map(fN => fN.saved);
+     
+       
+    showRecipes = (i) => {
+        const folders = this.state.folderNames.filter((item) => item.key == i ).map(fN => fN.saved);
         console.log("run inside showrecipes")
         console.log(folders.length)
         console.log(folders[0].length)
@@ -59,46 +76,117 @@ export class FavoriteScreen extends React.Component {
             )
         }
 
-    render(){
+        
+        // console.log(folders.length)
+        // console.log(folders[0].length)
+        // console.log(JSON.stringify(folders))
+        //     return (
+        //         <View>
+        //             <Text>{JSON.stringify(folders)}</Text>
+        //         </View>
+                   // <FlatList
+                   // data = {folders}
+                    // renderItem ={({item}) => {
+                    //   console.log(item)
+                    //   console.log('printing')
+                    //   return(
+                    //     <ListRecipe item = {item}/>)
+                    // }}/>
+    //call a setup fxn 
+    // console.log("got to 2")
+    // actions.enteredNameAction("All Favorites")
+    // console.log("you got to yay")
+    // actions.newFolderAction()
+    // console.log("foldernames is", folderNames)
+    // const folders = props.favoriteReducer.folderNames.filter((item) => item.key == props.favoriteReducer.index ).map(fN => fN.saved);
+    // console.log("got to 2")
+    // const { navigate } = useNavigation()
+    // const onTapSearch = (searchEntry: string) => {
+    //     navigate('SearchResultsPage', { food: searchEntry }) }
+    getRecipe = (item) => {
+   
+        axios.get<SearchedRecipe>(`${BASE_URL}/recipes/${item}/information`, {
+            params: {
+                apiKey: APIKEY_6
+            } 
+        })
+        .then(response => {
+            const loadedRecipe =  response.data
+            this.setState({loadedRecipe});
+        })
+        .catch(error => {
+            console.log(error)
+        })
+        
+    }
+   
+    reloadID = () =>{
+        const folders = this.state.folderNames.filter((item) => item.key == this.state.index ).map(fN => fN.saved);
+        return folders
+    }
+	
+    render () {
+        
+        const numofCols =2;
         const folders = this.state.folderNames.filter((item) => item.key == this.state.index ).map(fN => fN.saved);
         return(
         <View style={styles.container}>
                 <Text style={styles.header}> Favorite Folders</Text>
                 <View>
                     <FlatList
+                    //displays folders, returns index of folder clicked 
                         data = {this.state.folderNames}
                         renderItem = {({item})=> (
                             <ListFolder item ={item}
-                             Display = {(index) => this.setState({showFavorites: true, index: index})}/>
+                             Display = {(i: number) => this.setState({showFolder: !this.state.showFolder, index: i})}/>
                         )}
                     />
-                    {this.state.showFavorites == true &&
+                    
+                    {this.state.showFolder == true &&
                         <View>
-                            <FlatList
-                                data = {folders}
-                                renderItem = {({item}) =>(
-                                    <ListRecipe item = {item}/>
-                                )}
+                           <FlatList
+                                data = {this.reloadID()}
+                                renderItem = {({item}) =>{
+                                    return (
+                                    <FlatList
+                                    data = {item}
+                                    numColumns = {numofCols}
+                                    style = {styles.container}
+                                    renderItem ={({item}) => {
+                                       this.getRecipe(item)
+                                        return(
+                                            <TouchableOpacity style={{marginTop:15}} onPress={() => alert("pressed")}>
+                                            <ImageBackground
+                                                source={{uri: `${this.state.loadedRecipe.image}`}}
+                                                style={styles.searchedRecipeContainer}
+                                                imageStyle={styles.img}
+                                            >
+                                                <View style={styles.titleContainer}>
+                                                    <Text style={styles.title}>{this.state.loadedRecipe.title}</Text>
+                                                
+                                                    
+                                                </View>
+                                            </ImageBackground>
+                                        </TouchableOpacity>
+                                        )}
+                                        } />
+                                       
+                                )}}
                             />
-                        </View>
-                    }
-                </View>
+                        </View>}
                 <TextInput
                     placeholder = "New Folder Name"
-                    onChangeText={(enteredName)=>this.setState({enteredName:enteredName})}
+                    onChangeText={(text) =>this.setState({enteredName :text})}
                     value = {this.state.enteredName}
                 >
                 </TextInput>
                 <Button title="New Folder" onPress={() => this.newFolder()} />
 
-
-
-
-            </View>
-
-        )
+     </View>
+    </View>
+    )}
     }
-}
+
 
 const styles = StyleSheet.create({
     header:{
@@ -128,5 +216,62 @@ const styles = StyleSheet.create({
     bottom: {
        // flex: 1,
         backgroundColor: 'cyan'
+    }, 
+    searchedRecipeContainer: {
+        width: WIDTH-30,
+        height: 250,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        margin: 10,
+        marginBottom:0,
     },
+   
+    img:{
+        borderRadius: 20,
+        backgroundColor: '#EAEAEA',
+    },
+    title:{
+        fontSize:25,
+        marginTop:10,
+        marginLeft:10,
+        color: '#FFF',
+        flex: 1,
+        fontWeight:'600',
+        alignSelf:'flex-start',
+        flexWrap:'wrap'
+    },
+    titleContainer:{
+        flexDirection:'row',
+        height:'20%',
+        backgroundColor:'rgba(0,0,0,0.4)',
+        // borderRadius:20,
+        borderBottomLeftRadius:20,
+        borderBottomRightRadius:20,
+    }
 })
+
+const mapStateToProps=(state: ApplicationState)=> ({
+    favoriteReducer: state.favoriteReducer
+})
+const ActionCreators = Object.assign(
+    {}, actions,
+);
+
+const mapDispatchToProps = (dispatch )=> ({
+    actions: bindActionCreators(ActionCreators, dispatch),
+});
+
+    // return {
+    //     openFolderAction: index  => {
+    //         dispatch(openFolderAction(index))
+    //     },
+    //     enteredNameAction: text => {
+    //         dispatch(enteredNameAction(text))
+    //     },
+    //     newFolderAction: () => {
+    //         dispatch(newFolderAction)
+    //     }
+ 
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(FavoriteScreen)

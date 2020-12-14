@@ -31,7 +31,9 @@ interface SearchedRecipeProps{
 }
 
 var liked = [657011]
-
+export const getID = () => {
+    return liked 
+}
 const RandomRecipeCard: React.FC<RandomRecipeProps> = ({ item, onTap }) => {
     const look = () => {
         return liked.indexOf(item.id) != -1

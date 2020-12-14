@@ -47,8 +47,10 @@ export interface SearchedRecipeContainer{
 }
 
 export interface FolderContainer {
+    key: number,
     name: string,
-    saved?: [SavedRecipe]
+    saved?: [number],
+    open: boolean
 }
 
 //User model
@@ -75,7 +77,9 @@ export interface recipeDetailState {
 }
 
 export interface favoriteState{
-    folders: [FolderContainer]
+    folderNames: [FolderContainer],
+    enteredName: string,
+    index: number
 }
 export interface searchState {
     searchResults: SearchedRecipeContainer

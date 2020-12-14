@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 // import { UserReducer } from './userReducer'
 import { homeRecipeReducer} from './homeRecipeReducer'
 import { recipeIngredientsReducer } from './recipeIngredientsReducer';
-import {favoriteReducer} from './favoriteReducer'
+import { favoriteReducer } from './favoriteReducer'
 import { searchReducer } from './searchReducer';
 
 import authReducer from './authReducers';
