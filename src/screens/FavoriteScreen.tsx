@@ -13,7 +13,7 @@ import { favAction, favoriteReducer } from '../redux/reducers/favoriteReducer'
 import {FolderContainer, favoriteState, SearchedRecipe} from '../redux/models'
 import { TextInput } from 'react-native-gesture-handler'
 import {ListFolder, ListRecipe} from '../components/FolderCard'
-import {outSource} from '../components/FolderCard'
+import {outSource, showRecipeInstance} from '../components/FolderCard'
 import { SafeAreaInsetsContext } from 'react-native-safe-area-context'
 import * as actions from '../redux/actions/addFolder'
 import {getID} from '../components/RecipeCard'
@@ -43,8 +43,8 @@ interface FavoriteProps{
         enteredName: "",
         index:0,
         showFolder: false,
-     //   loadedRecipe: { } as SearchedRecipe,
-       
+        loadedRecipe: { } as SearchedRecipe,
+        run: false,
     }
     
     //console.log("you got to 1")
@@ -103,30 +103,33 @@ interface FavoriteProps{
                     //     <ListRecipe item = {item}/>)
                     // }}/>
    
-    // getRecipe = async (item) => {
-    //     console.log('show folder', this.state.showFolder)
-    //     {this.state.showFolder == true 
-    //    try{ const response = await axios.get<SearchedRecipe>(`${BASE_URL}/recipes/${item}/information`, {
-    //         params: {
-    //             apiKey: APIKEY_4
-    //         } 
-    //     })
-    //     const loadedRecipes = response.data
-    //     this.setState({loadedRecipe: loadedRecipes})
-    //     }
-    //     catch(error) {
-    //         alert("api key has met limit")
-    //     }
-    // }
-    //     // .then(response => {
-    //     //     const loadedRecipe =  response.data
-    //     //     this.setState({loadedRecipe});
-    //     // })
-    //     // .catch(error => {
-    //     //     console.log(error)
-    //     // })
+    getRecipe = async (item) => {
+       
+        if (this.state.run == true){
+      console.log("called")
+            this.state.run = false
+            try{ const response = await axios.get<SearchedRecipe>(`${BASE_URL}/recipes/${item}/information`, {
+            params: {
+                apiKey: APIKEY_4
+            } 
+        })
+        const loadedRecipes = response.data
+        this.setState({loadedRecipe: loadedRecipes})
+        }
+        catch(error) {
+            alert("api key has met limit")
+        }
+    }
+    else{}
+        // .then(response => {
+        //     const loadedRecipe =  response.data
+        //     this.setState({loadedRecipe});
+        // })
+        // .catch(error => {
+        //     console.log(error)
+        // })
     
-    // }
+    }
    
     reloadID = () =>{
         console.log("index", this.state.index)
@@ -168,7 +171,7 @@ interface FavoriteProps{
                         renderItem = {({item})=> (
                          <ListFolder item ={item}
                             Display = {(i: number) => 
-                                this.setState({showFolder: !this.state.showFolder, index: i})}
+                                this.setState({ showFolder: !this.state.showFolder, index: i, run: true})}
                         />
              
                         )}
@@ -189,26 +192,26 @@ interface FavoriteProps{
                                     numColumns = {numofCols}
                                     style = {styles.container}
                                     renderItem ={({item}) => {
-                                        const showRecipe = new outSource({item})
-                                     return ( showRecipe.showRecipe({item}))
-                                       // <MemiozedRecipe item = {item} loadedRecipe = {this.state.loadedRecipe}/>
-                        //                this.getRecipe(item)
-                        //                 return(
-                        //                     <TouchableOpacity style={{marginTop:15}} onPress={() =>
-                        //                            alert("pressed") }>
-                        //                     <ImageBackground
-                        //                         source={{uri: `${this.state.loadedRecipe.image}`}}
-                        //                         style={styles.searchedRecipeContainer}
-                        //                         imageStyle={styles.img}
-                        //                     >
-                        //                         <View style={styles.titleContainer}>
-                        //                             <Text style={styles.title}>{this.state.loadedRecipe.title}</Text>
+                                        
+                                    // return ( showRecipeInstance({item}))
+                                      // <MemiozedRecipe item = {item} loadedRecipe = {this.state.loadedRecipe}/>
+                                       this.getRecipe(item)
+                                        return(
+                                            <TouchableOpacity style={{marginTop:15}} onPress={() =>
+                                                   alert("pressed") }>
+                                            <ImageBackground
+                                                source={{uri: `${this.state.loadedRecipe.image}`}}
+                                                style={styles.searchedRecipeContainer}
+                                                imageStyle={styles.img}
+                                            >
+                                                <View style={styles.titleContainer}>
+                                                    <Text style={styles.title}>{this.state.loadedRecipe.title}</Text>
                                                 
                                                     
-                        //                         </View>
-                        //                     </ImageBackground>
-                        //                 </TouchableOpacity>
-                                    }}
+                                                </View>
+                                            </ImageBackground>
+                                        </TouchableOpacity>
+                                        )}} 
                                       
                                    keyExtractor = { (item) => item.toString()}
                                         />

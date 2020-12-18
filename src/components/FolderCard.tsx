@@ -5,7 +5,7 @@ import { WIDTH } from '../utils';
 import {FolderContainer, SearchedRecipe} from '../redux/models'
 import {ImageBackground} from 'react-native'
 import axios from 'axios'
-import {BASE_URL, APIKEY_5, useNavigation} from '../utils'
+import {BASE_URL, APIKEY_5, APIKEY_6, APIKEY_7, useNavigation} from '../utils'
 import { createNativeWrapper } from 'react-native-gesture-handler';
 import { hambar } from '';
 
@@ -25,14 +25,15 @@ import { hambar } from '';
 
 export class outSource extends Component {
     state = {
-        loadedRecipe: { } as SearchedRecipe
+        loadedRecipe: { } as SearchedRecipe,
+        
     }
 
     getRecipe = ({item}) => {
    console.log("called")
     axios.get<SearchedRecipe>(`${BASE_URL}/recipes/${item}/information`, {
         params: {
-            apiKey: APIKEY_5
+            apiKey: APIKEY_6
         } 
     })
     .then(response => {
@@ -54,8 +55,9 @@ export class outSource extends Component {
     console.log("item", item)
     console.log("loaded", this.state.loadedRecipe)
     const numofCols = 2
-
-    return (
+    this.getRecipe(item)
+   
+    return(
 <View>
              <TouchableOpacity style={{marginTop:15}} onPress={() =>
                                                    alert("pressed") }>
@@ -78,12 +80,16 @@ export class outSource extends Component {
             }
 
 
+render(){
+return(
+    <Text>hi there </Text>
+)
 }
-interface outSourceProps{
-    item: number
 }
-const showRecipeInstance = new outSource();
-export default showRecipeInstance
+const item = 0
+
+export const showRecipeInstance = new outSource({item})
+
 //export const MemiozedRecipe = React.memo(outSource)
 
 
