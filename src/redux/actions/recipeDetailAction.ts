@@ -34,7 +34,7 @@ export const loadIngredients = (RECIPE_ID: string, no_info: boolean) => {
             // ?apiKey=${APIKEY}&number=5&tags=vegetarian%252Cdessert
             const ingredientsResponse = await axios.get<IngredientsContainer>(`${BASE_URL}/recipes/${RECIPE_ID}/ingredientWidget.json`, {
                 params: {
-                    apiKey: APIKEY_6,
+                    apiKey: APIKEY_2,
                 }
             })
             // console.log(ingredientsResponse.data)
@@ -54,7 +54,7 @@ export const loadIngredients = (RECIPE_ID: string, no_info: boolean) => {
                 // console.log('no info')
                 const recipeInfoResponse = await axios.get<RandomRecipe>(`${BASE_URL}/recipes/${RECIPE_ID}/information`, {
                     params: {
-                        apiKey: APIKEY_6,
+                        apiKey: APIKEY_3,
                     }
                 })
                 if(!recipeInfoResponse){

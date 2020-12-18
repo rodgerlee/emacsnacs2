@@ -1,12 +1,13 @@
 //import { Row } from 'native-base';
-import React from 'react'
-import {View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions, Alert} from 'react-native'
+import React, { useState, memo , Component} from 'react'
+import {View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions, Alert, TextInput} from 'react-native'
 import { WIDTH } from '../utils';
 import {FolderContainer, SearchedRecipe} from '../redux/models'
 import {ImageBackground} from 'react-native'
 import axios from 'axios'
-import {BASE_URL, APIKEY_5} from '../utils'
+import {BASE_URL, APIKEY_5, useNavigation} from '../utils'
 import { createNativeWrapper } from 'react-native-gesture-handler';
+import { hambar } from '';
 
 
  export const ListFolder = ({item, Display}) => {
@@ -19,14 +20,16 @@ import { createNativeWrapper } from 'react-native-gesture-handler';
         </TouchableOpacity>
     );
 };
-// function wrapper (item) {
-//     (async () => {
-//         await getRecipe(item);
-//     })();
-// }
 
- const getRecipe = (item) => {
-   
+
+
+export class outSource extends Component {
+    state = {
+        loadedRecipe: { } as SearchedRecipe
+    }
+
+    getRecipe = ({item}) => {
+   console.log("called")
     axios.get<SearchedRecipe>(`${BASE_URL}/recipes/${item}/information`, {
         params: {
             apiKey: APIKEY_5
@@ -34,13 +37,56 @@ import { createNativeWrapper } from 'react-native-gesture-handler';
     })
     .then(response => {
         const recipe =  response.data
-        return recipe
+        console.log("recipe is", recipe)
+        this.state.loadedRecipe = recipe
+        console.log("loadeed", this.state.loadedRecipe)
     })
     .catch(error => {
-        console.log(error)
+        alert("api key has met limit")
+        //this.state.loadedRecipe = {id: "0", title: "API has met limit", image: null}
     })
     
 }
+
+
+ showRecipe = ({item}) => {
+    console.log("here")
+    console.log("item", item)
+    console.log("loaded", this.state.loadedRecipe)
+    const numofCols = 2
+
+    return (
+<View>
+             <TouchableOpacity style={{marginTop:15}} onPress={() =>
+                                                   alert("pressed") }>
+                <ImageBackground
+                    source={{uri: `${this.state.loadedRecipe.image}`}}
+                    style={styles.searchedRecipeContainer}
+                    imageStyle={styles.img}
+                                            >
+                 <View style={styles.titleContainer}>
+                         <Text style={styles.title}>{this.state.loadedRecipe.title}</Text>
+                                                
+                                                    
+                </View>
+                 </ImageBackground>
+             </TouchableOpacity>
+        
+             
+            </View>
+            )
+            }
+
+
+}
+interface outSourceProps{
+    item: number
+}
+const showRecipeInstance = new outSource();
+export default showRecipeInstance
+//export const MemiozedRecipe = React.memo(outSource)
+
+
 // const onTapRecipe = (item: SearchedRecipe) => {
 //     navigate('RecipeDetailPage', { recipe: item, noInfo: true})
 // }

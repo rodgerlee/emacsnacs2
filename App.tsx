@@ -77,7 +77,8 @@ const switchNavigator = createSwitchNavigator({
        // Home tab Icon
        Favorites: {
         screen: createStackNavigator({
-          FavoritePage: FavoriteScreen
+          FavoritePage: FavoriteScreen,
+          RecipeDetailPage: RecipeDetailScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {

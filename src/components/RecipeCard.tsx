@@ -31,6 +31,7 @@ interface SearchedRecipeProps{
 }
 
 var liked = [657011]
+//var liked = []
 export const getID = () => {
     return liked 
 }
