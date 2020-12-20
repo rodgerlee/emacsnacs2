@@ -40,7 +40,8 @@ class LoginPage extends React.Component<{}, State> {
     };
 
     render() {
-        let icon = require('../images/login_pic.png') //change this to whatever image we want later
+        let icon = require('../images/login_pic.png')
+        let errors = this.state.errors;
         return (
             <View style={styles.container}>
                 <Image source={icon} style={styles.tabIcon}/>
@@ -63,6 +64,7 @@ class LoginPage extends React.Component<{}, State> {
                     <View style={styles.buttons}>
                         <Button label={"Register"} onPress={this.handleRegisterPress} />
                     </View>
+                    <Text style={styles.errorText}>{errors}</Text>
                 </View>
             </View>
         );
@@ -82,6 +84,12 @@ const styles = StyleSheet.create({
     tabIcon: {
       width: 178,
       height: 100
+    },
+    errorText: {
+        textAlign: "center",
+        height: 30,
+        color: "#FF0000",
+        textAlignVertical: "center"
     },
     form: {
 

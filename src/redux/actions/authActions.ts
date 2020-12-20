@@ -4,6 +4,11 @@ import setAuthToken from "../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 
 import { createSwitchNavigator } from "react-navigation";
+import { SERVER } from "../../utils";
+
+import authErrorReducers from '../reducers/authErrorReducers';
+
+var qs = require('qs');
 
 interface registerData {
     email: any,
@@ -34,54 +39,68 @@ interface loginErrors {
 
 export type loginAction = registerAction | loginErrors | setUser
 
-//Action to register the new user
 export const registerUser = (userData:registerData, this_class:any) => {
-    console.log("test");
-    this_class.props.navigation.navigate('login');
-    return (dispatch: Dispatch<loginAction>) => {
-    axios.post('http://IP:5000/api/users/register', userData) //change the address to your IP
-    .then(res => {
-        console.log("got here");
-        if (res.data.isValid) {
-            dispatch({
-                type: 'REGISTER_ACTION',
-                payload: true
-            })
-        }
-    }) //Send to login page or login
-    .catch(err => {
-        console.log("here are errors");
-        console.log(err);
-        dispatch({
-        type: 'LOGIN_ERROR',
-        payload: err
-      })}
-    );
-}};
+    let userInfo = {
+        'email': userData.email,
+        'password': userData.password,
+        'password2': userData.password2
+    }
+
+    var requestOptions = {
+        method: 'POST',
+        body: JSON.stringify(userInfo),
+        headers: { 'Content-type': 'application/json'}
+    }
+
+    fetch(`${ SERVER }/register`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+          if (result.date) {
+              this_class.props.navigation.navigate('login');
+          }
+      })
+      .catch(error => console.log('error', error));
+}
 
 export const loginUser = (userData:loginData, this_class:any) => {
-    this_class.props.navigation.navigate('homeStack');
-    return (dispatch: Dispatch<loginAction>) => {
-    axios.post("http://IP:5000/api/users/login", userData) //change to the address to your IP
-    .then(res => {
-        const { token } = res.data;
-        localStorage.setItem("jwtToken", token);
-        setAuthToken(token);
-        const decoded = jwt_decode(token);
-        dispatch({
-            type: 'SET_USER',
-            payload: decoded
-        });
-    })
-    .catch(err => dispatch ({
-            type: 'LOGIN_ERROR',
-            payload: err.response.data
+
+    let userInfo = {
+        'email': userData.email,
+        'password': userData.password
+    }
+    
+    var requestOptions = {
+        method: 'POST',
+        body: JSON.stringify(userInfo),
+        headers: { 'Content-type': 'application/json' }
+    }
+
+    fetch(`${ SERVER }/login`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+          if (result.success) {
+              setAuthToken(true);
+              this_class.props.navigation.navigate('homeStack');
+          }
+          else {
+              if (result.email) {
+                authErrorReducers({
+                    type: "GET_ERRORS",
+                    payload: result.email
+                });
+              }
+              else if (result.password) {
+                  authErrorReducers({
+                      type: "GET_ERRORS",
+                      payload: result.password
+                  })
+              }        
+          }
         })
-    );
-}};
+      .catch(error => console.log('error', error));
+}
 
 export const logoutUser = () => (dispatch: Dispatch<loginAction>) => {
-    localStorage.removeItem("jwtToken");
     setAuthToken(false);
     dispatch({
         type: 'SET_USER',

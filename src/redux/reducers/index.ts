@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
     favoriteReducer: favoriteReducer,
     searchReducer: searchReducer,
     authReducer: authReducer,
-    authErrorReducer: authErrorReducer
+    //authErrorReducer: authErrorReducer
 })
 
 export type ApplicationState = ReturnType<typeof rootReducer>
