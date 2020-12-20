@@ -4,14 +4,14 @@
 //in action function we call recipeloader
 
 import React, { useEffect, useState,Dispatch, Component } from 'react'
-import {View, Text, StyleSheet, Button, Alert, FlatList, TouchableOpacity, ImageBackground} from 'react-native'
+import {View, Text, StyleSheet, Button, Alert, FlatList, TouchableOpacity, ImageBackground, Modal} from 'react-native'
 import { connect} from 'react-redux'
 import { ApplicationState} from '../redux'
 //import {enteredNameAction, newFolderAction, openFolderAction} from '../redux/actions/addFolder'
 import {bindActionCreators} from 'redux'
 //import { favAction, favoriteReducer } from '../redux/reducers/favoriteReducer'
 import {FolderContainer, favoriteState, SearchedRecipe} from '../redux/models'
-import { TextInput } from 'react-native-gesture-handler'
+import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import {ListFolder, ListRecipe} from '../components/FolderCard'
 //import {outSource, showRecipeInstance} from '../components/FolderCard'
 import { SafeAreaInsetsContext } from 'react-native-safe-area-context'
@@ -20,6 +20,7 @@ import {getID} from '../components/RecipeCard'
 import {BASE_URL, APIKEY_5, WIDTH, APIKEY_7,APIKEY_6, APIKEY_4,useNavigation} from '../utils'
 import axios from 'axios'
 import {withNavigation, NavigationInjectedProps} from 'react-navigation'
+import Constants from 'expo-constants'
 
 
 // export const onTapRecipe: React.FC = (item) => {
@@ -42,13 +43,19 @@ import {withNavigation, NavigationInjectedProps} from 'react-navigation'
         enteredName: "",
         index:0,
         showFolder: false,
-        loadedRecipe: {} as SearchedRecipe,
+        loadedRecipeEmpty:  [{
+            id: "i",
+            title: "i",
+            image: "i"
+        }],
         loadedRecipes: [{
             id: "",
             title: "",
             image: ""
         }],
         run: false,
+        modalShown: false,
+        recipeIndex: 0
     }
     
     //console.log("you got to 1")
@@ -91,21 +98,7 @@ import {withNavigation, NavigationInjectedProps} from 'react-navigation'
         }
 
         
-        // console.log(folders.length)
-        // console.log(folders[0].length)
-        // console.log(JSON.stringify(folders))
-        //     return (
-        //         <View>
-        //             <Text>{JSON.stringify(folders)}</Text>
-        //         </View>
-                   // <FlatList
-                   // data = {folders}
-                    // renderItem ={({item}) => {
-                    //   console.log(item)
-                    //   console.log('printing')
-                    //   return(
-                    //     <ListRecipe item = {item}/>)
-                    // }}/>
+     
    
     getRecipe = async (item) => {
        
@@ -114,14 +107,16 @@ import {withNavigation, NavigationInjectedProps} from 'react-navigation'
             
             try{ const response = await axios.get<SearchedRecipe>(`${BASE_URL}/recipes/${item}/information`, {
             params: {
-                apiKey: APIKEY_4
+                apiKey: APIKEY_6
             } 
         })
         const loadedRecipe = response.data
         console.log("gitle", loadedRecipe.title)
-        //this.setState({loadedRecipe: loadedRecipes})
+        const checking = this.state.loadedRecipes.filter((item) => item.id == loadedRecipe.id )
+        if (checking.length == 0){
         this.setState({ loadedRecipes: [...this.state.loadedRecipes, {id: loadedRecipe.id , 
-            title: loadedRecipe.title, image: loadedRecipe.image }]});
+           title: loadedRecipe.title, image: loadedRecipe.image }]});}
+       // this.state.loadedRecipes.push(loadedRecipe)
         }
         catch(error) {
             alert("api key has met limit")
@@ -139,15 +134,23 @@ import {withNavigation, NavigationInjectedProps} from 'react-navigation'
     }
    
     reloadID = () =>{
+      //  this.state.loadedRecipes = this.state.loadedRecipeEmpty  makes always empty
+        console.log("loaded recipes are ", this.state.loadedRecipes)
         console.log("index", this.state.index)
         console.log("should be ", this.state.folderNames[this.state.index])
-        this.state.folderNames[this.state.index].saved =getID()
+        if (this.state.index == 0){
+        this.state.folderNames[this.state.index].saved =getID() }
         const folders = this.state.folderNames.filter((item) => item.key == this.state.index ).map(fN => fN.saved);
-        console.log(folders[0])
+        console.log("folders[0]", folders[0])
         //const len = folders[0].length
-        const recipes = folders[0].map((index) => {
-            console.log(index)
-            this.getRecipe(index)
+        this.setState({loadedRecipes: this.state.loadedRecipeEmpty})
+        const recipes = folders[0].map((id) => {
+           if (id == 0){
+            this.setState({ loadedRecipes: [...this.state.loadedRecipes, {id: 0 , 
+                title: "No recipes added", image: null }]});
+           }
+            console.log(id)
+            this.getRecipe(id)
            
         })
         // for (let i =1; i< len; i++){
@@ -155,19 +158,19 @@ import {withNavigation, NavigationInjectedProps} from 'react-navigation'
         //     recipes[i] = (this.state.loadedRecipe)
         // }
         //console.log(recipes[1].title)
-        console.log(recipes)
         this.state.run = false 
+       
         return recipes
     }
     
   
-    onTapRecipe =(item: SearchedRecipe) => {
-        console.log("callllleld")
+    // onTapRecipe =(item: SearchedRecipe) => {
+    //     console.log("callllleld")
 
-       const {navigate} = useNavigation()
-       const {getParam } = this.props.navigation
-         navigate('RecipeDetailPage', { recipe: item, noInfo: true})
-    }
+    //    const {navigate} = useNavigation()
+    //    const {getParam } = this.props.navigation
+    //      navigate('RecipeDetailPage', { recipe: item, noInfo: true})
+    // }
 
     
     componentDidUpdate(prevState){
@@ -176,7 +179,11 @@ import {withNavigation, NavigationInjectedProps} from 'react-navigation'
             prevState[key] !== val && console.log('State changed', {key}))
         }
     }
-    
+    addtoFolder(){
+        //add recipe id to folder saved 
+        console.log("folder id", this.state.index)
+        this.state.folderNames[this.state.index].saved.push(this.state.recipeIndex)
+    }
     render () {
         //const {navigate} = useNavigation()
         const numofCols =2;
@@ -185,25 +192,33 @@ import {withNavigation, NavigationInjectedProps} from 'react-navigation'
         <View style={styles.container}>
                 <Text style={styles.header}> Favorite Folders</Text>
                 <View>
-                    <FlatList
+                    <FlatList style = {styles.folder}
                     //displays folders, returns index of folder clicked 
                         data = {this.state.folderNames}
                         renderItem = {({item})=> (
                          <ListFolder item ={item}
                             Display = {(i: number) => 
-                                this.setState({ showFolder: !this.state.showFolder, index: i, run: true})}
+                                this.setState({ showFolder: !this.state.showFolder, index: i, run: true 
+                                    })}
                         />
              
                         )}
                         keyExtractor = {(item) => item.name}
                         />
 
-                    
+                <TextInput
+                    placeholder = "New Folder Name"
+                    onChangeText={(text) =>this.setState({enteredName: text} )}
+                    value = {this.state.enteredName}
+                >
+                </TextInput>
+                <Button title="New Folder" onPress={() => this.newFolder()} />
                     
                     {this.state.showFolder == true &&
                        
                         <View>
                             {this.reloadID()}
+                            <ScrollView style = {styles.scrollview}>
                            <FlatList
                                 
                                 data = {this.state.loadedRecipes.slice(1) }
@@ -222,8 +237,10 @@ import {withNavigation, NavigationInjectedProps} from 'react-navigation'
                                       // <MemiozedRecipe item = {item} loadedRecipe = {this.state.loadedRecipe}/>
                                       
                                       //  return(
-                                            <TouchableOpacity style={{marginTop:15}} onPress={() =>
-                                                   alert("pressed") }>
+                                            <TouchableOpacity style={{marginTop:15}} onPress = {() => this.setState({
+                                                modalShown: true,
+                                                recipeIndex: item.id
+                                              })}>
                                                   
                                             <ImageBackground
                                                 source={{uri: `${item.image}`}}
@@ -245,18 +262,43 @@ import {withNavigation, NavigationInjectedProps} from 'react-navigation'
                                    
                           // )}} 
                            />
+                           </ScrollView>
                         </View>
                     }
-                <TextInput
-                    placeholder = "New Folder Name"
-                    onChangeText={(text) =>this.setState({enteredName: text} )}
-                    value = {this.state.enteredName}
-                >
-                </TextInput>
-                <Button title="New Folder" onPress={() => this.newFolder()} />
-
+    <View 
+               style = {{
+                   justifyContent: "center",
+                   flex: 1
+               }}>
+        <Modal
+                    transparent = {true}
+                    visible = {this.state.modalShown}
+                    
+                    >
+        <View style = {styles.modalcenter}>
+         <View style = {styles.modalview}>
+                 <Text>hi</Text>
+                 <View style = {styles.modalbutton}>
+                     <FlatList
+                     data = {this.state.folderNames}
+                     renderItem = {({item}) => (
+                        <Button  title = {item.name} onPress={() => {
+                            alert("pressed")
+                            this.addtoFolder()
+                            this.setState({modalShown: !this.state.modalShown})}
+                            }/> 
+                     )}
+                     />
+                    
+                
+                 </View>
+                 </View>
+                 </View>
+                    </Modal>
+                    </View>
+                </View>
      </View>
-    </View>
+   
     )}
     }
     
@@ -271,11 +313,50 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: '600',
         color: '#f15b5d',
-        textAlign: 'center'
+        textAlign: 'center', 
+        
     },
     container: {
-       flex: 1,
-        backgroundColor: '#FFF'
+        flex: 1,
+        backgroundColor: '#f5f4e1',
+        alignContent: 'center'
+    },
+    scrollview: {
+      //  flex: .7,
+       // marginHorizontal: 20,
+      // alignSelf: "flex-end",
+       backgroundColor: '#f5f4e1',
+       width: WIDTH-10,
+       height: 400
+       //flex: 1
+    },
+    modalcenter: {
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "pink",
+        flex: 2
+        
+    },
+    modalview: {
+        //flex:.4,
+        //justifyContent: "center",
+       // alignItems: "center",
+         height: 300,
+         width: 300,
+        
+       
+        backgroundColor: "white",
+      //  margin: 20,
+        
+    },
+    modalbutton: {
+        alignSelf: "center",
+        backgroundColor: "blue", 
+        flexDirection: 'row'
+    },
+    folder: {
+       // flex: 1,
+        //alignSelf: "flex-start"
     },
     top: {
         flex: 4,
