@@ -10,9 +10,9 @@ import { ApplicationState} from '../redux'
 //import {enteredNameAction, newFolderAction, openFolderAction} from '../redux/actions/addFolder'
 import {bindActionCreators} from 'redux'
 //import { favAction, favoriteReducer } from '../redux/reducers/favoriteReducer'
-import {FolderContainer, favoriteState, SearchedRecipe} from '../redux/models'
+import { SearchedRecipe} from '../redux/models'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
-import {ListFolder, ListRecipe} from '../components/FolderCard'
+import {ListFolder, CustomButton} from '../components/FolderCard'
 //import {outSource, showRecipeInstance} from '../components/FolderCard'
 import { SafeAreaInsetsContext } from 'react-native-safe-area-context'
 import * as actions from '../redux/actions/addFolder'
@@ -21,6 +21,7 @@ import {BASE_URL, APIKEY_5, WIDTH, APIKEY_7,APIKEY_6, APIKEY_4,useNavigation} fr
 import axios from 'axios'
 import {withNavigation, NavigationInjectedProps} from 'react-navigation'
 import Constants from 'expo-constants'
+import { color } from 'react-native-reanimated'
 
 
 // export const onTapRecipe: React.FC = (item) => {
@@ -224,15 +225,27 @@ import Constants from 'expo-constants'
                         )}
                         keyExtractor = {(item) => item.name}
                         />
-
+            <View
+            style = {styles.buttonrow}> 
                 <TextInput
+                    style = {styles.textbox}
                     placeholder = "New Folder Name"
                     onChangeText={(text) =>this.setState({enteredName: text} )}
                     value = {this.state.enteredName}
+                   
                 >
                 </TextInput>
-                <Button title="New Folder" onPress={() => this.newFolder()} />
-                    
+             
+                <View style = {styles.button}>
+                <Button  title="New Folder" 
+                        onPress={() => this.newFolder()}
+                        color = "ivory"
+                        
+                         />
+              
+                
+                </View>
+             </View>
                     {this.state.showFolder == true &&
                        
                         <View>
@@ -285,23 +298,23 @@ import Constants from 'expo-constants'
                         </View>
                     }
     <View 
-               style = {{
-                   justifyContent: "center",
-                   flex: 1
+        style = {{
+        justifyContent: "center",
+        flex: 1
                }}>
         <Modal
-                    transparent = {true}
-                    visible = {this.state.modalShown}
+            transparent = {true}
+            visible = {this.state.modalShown}
                     
                     >
         <View style = {styles.modalcenter}>
          <View style = {styles.modalview}>
-                 <Text>hi</Text>
-                 <View style = {styles.modalbutton}>
+                 <Text style = {{fontSize: 20,margin: 10}}>Select folder to put Recipe in</Text>
+                 <View style = {styles.textbox}>
                      <FlatList
                      data = {this.state.folderNames}
                      renderItem = {({item}) => (
-                        <Button  title = {item.name} onPress={() => {
+                        <Button  color = "black" title = {item.name} onPress={() => {
                             alert("pressed")
                             this.addtoFolder(item.key)
                             }
@@ -310,12 +323,12 @@ import Constants from 'expo-constants'
                      />
                     
                 
-                 </View>
-                 </View>
-                 </View>
-                    </Modal>
-                    </View>
                 </View>
+        </View>
+        </View>
+        </Modal>
+        </View>
+    </View>
      </View>
    
     )}
@@ -331,8 +344,9 @@ const styles = StyleSheet.create({
     header:{
         fontSize: 25,
         fontWeight: '600',
-        color: '#f15b5d',
+        color: '#bb2a26',
         textAlign: 'center', 
+        margin: 15
         
     },
     container: {
@@ -349,22 +363,63 @@ const styles = StyleSheet.create({
        height: 400
        //flex: 1
     },
+    textbox:{
+        color: "black",
+        backgroundColor: "ivory",
+        height: 50,
+        width: 230,
+        fontSize: 15,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 1,
+            height: 3
+        },shadowOpacity:0.34,
+        shadowRadius: 1.27,
+        elevation:2,
+        margin: 10
+
+    },
+    buttonrow: {
+        flexDirection: 'row',
+        alignContent: 'flex-end'
+    },
+    button: {
+        backgroundColor: 'navy',
+        height: 50,
+        width: 110,
+        color: "ivory",
+        marginTop: 10,
+        marginRight: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 2,
+            height: 5,
+        },
+        shadowOpacity: 4,
+        shadowRadius: 1.27,
+        elevation: 4
+    },
     modalcenter: {
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "pink",
-        flex: 2
+        backgroundColor: "#f5f4e1",
+        opacity: .8,
+        flex: 2,
+        
         
     },
     modalview: {
         //flex:.4,
         //justifyContent: "center",
-       // alignItems: "center",
+        opacity: 1,
+        alignItems: "center",
          height: 300,
          width: 300,
         
+        
+    
        
-        backgroundColor: "white",
+        backgroundColor: "lightcoral",
       //  margin: 20,
         
     },
@@ -374,6 +429,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     folder: {
+        backgroundColor: '#f5f4e1',
+        color: "pink"
        // flex: 1,
         //alignSelf: "flex-start"
     },
@@ -424,7 +481,7 @@ const styles = StyleSheet.create({
     },
     name: {
         fontSize: 20,
-        color: '#C70039',
+        color: 'black',
 
     
     },

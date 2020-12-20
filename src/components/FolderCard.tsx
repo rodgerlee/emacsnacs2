@@ -21,7 +21,13 @@ import { hambar } from '';
     );
 };
 
-
+export const CustomButton = ({press}) => {
+    return (
+        <TouchableOpacity style = {styles.button} onPress = {() => press()}>
+            <Text style = {styles.buttonText}>New Folder</Text>
+        </TouchableOpacity>
+    );
+};
 
 export class outSource extends Component {
     state = {
@@ -158,17 +164,27 @@ const styles = StyleSheet.create({
     box: {
         flex: 1,
         height: 60,
-        backgroundColor: '#f2f2f2',
+        backgroundColor: 'lightcoral',
         //width: 120,
         borderLeftWidth: 2,
         borderRightWidth: 2,
         borderBottomWidth: 2,
         borderTopWidth: 2,
         alignItems: 'stretch',
-        borderColor: '#FFF',
+        borderColor: '#f5f4e1',
        // alignContent: 'stretch', 
         
                  
+    },
+    button: {
+        backgroundColor: 'navy',
+        height: 50,
+        width: 100,
+        marginTop: 10
+    },
+    buttonText: {
+        color: "ivory",
+        fontSize: 15
     },
     container: {
         flex: 1,
@@ -178,7 +194,7 @@ const styles = StyleSheet.create({
     },
     name: {
         fontSize: 20,
-        color: '#C70039',
+        color: 'black',
 
     
     },
