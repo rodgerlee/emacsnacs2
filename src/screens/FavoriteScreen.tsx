@@ -49,10 +49,13 @@ import Constants from 'expo-constants'
             image: "i"
         }],
         loadedRecipes: [{
+            key: 0,
+            loaded:
+        [{
             id: "",
             title: "",
             image: ""
-        }],
+        }] }],
         run: false,
         modalShown: false,
         recipeIndex: 0
@@ -67,7 +70,13 @@ import Constants from 'expo-constants'
         if (this.state.enteredName != "")
         {
          this.setState({ folderNames: [...this.state.folderNames, {key: this.state.folderNames.length , 
-            name: this.state.enteredName, saved: [0] }]});
+            name: this.state.enteredName, saved: [0] }],
+            loadedRecipes: [...this.state.loadedRecipes, {key: this.state.folderNames.length, 
+            loaded: [{
+                id: "",
+            title: "",
+            image: ""
+            }]}]});
         this.setState({enteredName:  ""});
         }
         else
@@ -101,7 +110,7 @@ import Constants from 'expo-constants'
      
    
     getRecipe = async (item) => {
-       
+       const index = this.state.index
         if (this.state.run == true){
       console.log("called")
             
@@ -112,14 +121,23 @@ import Constants from 'expo-constants'
         })
         const loadedRecipe = response.data
         console.log("gitle", loadedRecipe.title)
-        const checking = this.state.loadedRecipes.filter((item) => item.id == loadedRecipe.id )
+        console.log("uri", loadedRecipe.image)
+        const checking = this.state.loadedRecipes[index].loaded.filter((item) => item.id == loadedRecipe.id )
+
         if (checking.length == 0){
-        this.setState({ loadedRecipes: [...this.state.loadedRecipes, {id: loadedRecipe.id , 
-           title: loadedRecipe.title, image: loadedRecipe.image }]});}
+        // this.setState({ loadedRecipes: [...this.state.loadedRecipes[], {id: loadedRecipe.id , 
+        //    title: loadedRecipe.title, image: loadedRecipe.image }]});}
+        this.state.loadedRecipes[index].loaded.push(loadedRecipe)
+        }
        // this.state.loadedRecipes.push(loadedRecipe)
         }
         catch(error) {
-            alert("api key has met limit")
+            if (this.state.loadedRecipes[index].loaded.length ==1){
+                alert("no recipes added")
+                this.state.showFolder = !this.state.showFolder
+            }
+            else{
+            alert("api key has met limit")}
         }
     }
     else{}
@@ -142,13 +160,11 @@ import Constants from 'expo-constants'
         this.state.folderNames[this.state.index].saved =getID() }
         const folders = this.state.folderNames.filter((item) => item.key == this.state.index ).map(fN => fN.saved);
         console.log("folders[0]", folders[0])
-        //const len = folders[0].length
-        this.setState({loadedRecipes: this.state.loadedRecipeEmpty})
         const recipes = folders[0].map((id) => {
-           if (id == 0){
-            this.setState({ loadedRecipes: [...this.state.loadedRecipes, {id: 0 , 
-                title: "No recipes added", image: null }]});
-           }
+        //   if (id == 0){
+        //    this.setState({ loadedRecipes: [...this.state.loadedRecipes, {id: 0 , 
+        //        title: "No recipes added", image: "https://spoonacular.com/recipeImages/657011-556x370.jpg" }]});
+        //   }
             console.log(id)
             this.getRecipe(id)
            
@@ -179,10 +195,13 @@ import Constants from 'expo-constants'
             prevState[key] !== val && console.log('State changed', {key}))
         }
     }
-    addtoFolder(){
+    addtoFolder(folderid){
         //add recipe id to folder saved 
-        console.log("folder id", this.state.index)
-        this.state.folderNames[this.state.index].saved.push(this.state.recipeIndex)
+        console.log("folder id", folderid)
+        this.state.folderNames[folderid].saved.push(this.state.recipeIndex)
+        // this.setState({folderNames: [...this.state.folderNames, 
+        //     this.state.folderNames[folderid].saved.push(this.state.recipeIndex)]})
+        this.setState({modalShown: !this.state.modalShown})
     }
     render () {
         //const {navigate} = useNavigation()
@@ -221,7 +240,7 @@ import Constants from 'expo-constants'
                             <ScrollView style = {styles.scrollview}>
                            <FlatList
                                 
-                                data = {this.state.loadedRecipes.slice(1) }
+                                data = {this.state.loadedRecipes[this.state.index].loaded.slice(1) }
                                 renderItem = {({item}) =>{
                                    // this.getRecipe(item)
                                    console.log(item.title)
@@ -284,8 +303,8 @@ import Constants from 'expo-constants'
                      renderItem = {({item}) => (
                         <Button  title = {item.name} onPress={() => {
                             alert("pressed")
-                            this.addtoFolder()
-                            this.setState({modalShown: !this.state.modalShown})}
+                            this.addtoFolder(item.key)
+                            }
                             }/> 
                      )}
                      />
