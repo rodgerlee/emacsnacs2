@@ -13,6 +13,10 @@ import { favoriteReducer } from '../redux/reducers/favoriteReducer'
 import {FolderContainer, SavedRecipe, favoriteState} from '../redux/models'
 import { TextInput } from 'react-native-gesture-handler'
 import {ListFolder, ListRecipe} from '../components/FolderCard'
+import {
+    TouchableOpacity,
+    ImageBackground,
+} from 'react-native'
 
 
 export class FavoriteScreen extends React.Component {
@@ -59,6 +63,46 @@ export class FavoriteScreen extends React.Component {
             )
         }
 
+    // render(){
+    //     const folders = this.state.folderNames.filter((item) => item.key == this.state.index ).map(fN => fN.saved);
+    //     return(
+    //     <View style={styles.container}>
+    //             <Text style={styles.header}> Favorite Folders</Text>
+    //             <View>
+    //                 <FlatList
+    //                     data = {this.state.folderNames}
+    //                     renderItem = {({item})=> (
+    //                         <ListFolder item ={item}
+    //                          Display = {(index) => this.setState({showFavorites: true, index: index})}/>
+    //                     )}
+    //                 />
+    //                 {this.state.showFavorites == true &&
+    //                     <View>
+    //                         <FlatList
+    //                             data = {folders}
+    //                             renderItem = {({item}) =>(
+    //                                 <ListRecipe item = {item}/>
+    //                             )}
+    //                         />
+    //                     </View>
+    //                 }
+    //             </View>
+    //             <TextInput
+    //                 placeholder = "New Folder Name"
+    //                 onChangeText={(enteredName)=>this.setState({enteredName:enteredName})}
+    //                 value = {this.state.enteredName}
+    //             >
+    //             </TextInput>
+    //             <Button title="New Folder" onPress={() => this.newFolder()} />
+
+
+
+
+    //         </View>
+
+    //     )
+    // }
+    //FOR DEMO
     render(){
         const folders = this.state.folderNames.filter((item) => item.key == this.state.index ).map(fN => fN.saved);
         return(
@@ -73,13 +117,40 @@ export class FavoriteScreen extends React.Component {
                         )}
                     />
                     {this.state.showFavorites == true &&
-                        <View>
-                            <FlatList
-                                data = {folders}
-                                renderItem = {({item}) =>(
-                                    <ListRecipe item = {item}/>
-                                )}
-                            />
+                        <View >
+                            <TouchableOpacity style={demo.randomContainer} onPress={() => onTap(item)}>
+                                <View style={{ marginLeft: 10, marginRight: 15}}>
+                                    <ImageBackground
+                                        source={{uri: 'https://webknox.com/recipeImages/656971-556x370.jpg'}}
+                                        style={{width: 150, height: 150, borderRadius: 20, backgroundColor: '#EAEAEA'}}
+                                        imageStyle={demo.img}
+                                    >
+                                    </ImageBackground>
+                                    <Text style={{ fontSize: 14, marginTop: 5, color: '#858585', flex: 1, flexWrap: 'wrap'}}>{"Potato Leek Soup"}</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={demo.randomContainer} onPress={() => onTap(item)}>
+                                <View style={{ marginLeft: 10, marginRight: 15}}>
+                                    <ImageBackground
+                                        source={{uri: 'https://webknox.com/recipeImages/657011-556x370.jpg'}}
+                                        style={{width: 150, height: 150, borderRadius: 20, backgroundColor: '#EAEAEA'}}
+                                        imageStyle={demo.img}
+                                    >
+                                    </ImageBackground>
+                                    <Text style={{ fontSize: 14, marginTop: 5, color: '#858585', flex: 1, flexWrap: 'wrap'}}>{"potato leek soup"}</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={demo.randomContainer} onPress={() => onTap(item)}>
+                                <View style={{ marginLeft: 10, marginRight: 15}}>
+                                    <ImageBackground
+                                        source={{uri: 'https://webknox.com/recipeImages/663357-556x370.jpg'}}
+                                        style={{width: 150, height: 150, borderRadius: 20, backgroundColor: '#EAEAEA'}}
+                                        imageStyle={demo.img}
+                                    >
+                                    </ImageBackground>
+                                    <Text style={{ fontSize: 14, marginTop: 5, color: '#858585', flex: 1, flexWrap: 'wrap'}}>{"The Unagi Burger"}</Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
                     }
                 </View>
@@ -90,10 +161,6 @@ export class FavoriteScreen extends React.Component {
                 >
                 </TextInput>
                 <Button title="New Folder" onPress={() => this.newFolder()} />
-
-
-
-
             </View>
 
         )
@@ -129,4 +196,53 @@ const styles = StyleSheet.create({
        // flex: 1,
         backgroundColor: 'cyan'
     },
+
+})
+
+const demo = ({
+    randomContainer: {
+        width: 160,
+        height: 250,
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        margin: 5
+    },
+    readyInThirtyContainer: {
+        width: 400,
+        height: 400,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        margin: 10,
+        marginBottom:0,
+    },
+    searchedRecipeContainer: {
+        width: 370,
+        height: 250,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        margin: 10,
+        marginBottom:0,
+    },
+    img:{
+        borderRadius: 20,
+        backgroundColor: '#EAEAEA',
+    },
+    title:{
+        fontSize:25,
+        marginTop:10,
+        marginLeft:10,
+        color: '#FFF',
+        flex: 1,
+        fontWeight:'600',
+        alignSelf:'flex-start',
+        flexWrap:'wrap'
+    },
+    titleContainer:{
+        flexDirection:'row',
+        height:'20%',
+        backgroundColor:'rgba(0,0,0,0.4)',
+        // borderRadius:20,
+        borderBottomLeftRadius:20,
+        borderBottomRightRadius:20,
+    }
 })
