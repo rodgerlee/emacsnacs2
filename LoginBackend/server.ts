@@ -33,8 +33,8 @@ require("./config/passport.ts")(passport);
 app.use("/api/users", users);
 
 ////////// fix?
-const todosRouter = require("./routes/todos");
-app.use("/todos", todosRouter);
+const pantryRouter = require("./routes/api/PantryItems.js");
+app.use("/PantryItems", pantryRouter);
 
 const port = process.env.PORT || 5000;
 
