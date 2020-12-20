@@ -1,49 +1,40 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Dimensions , Image } from 'react-native'
-import { PantryListItem } from "../components/PantryListItem";
+import { AddPantryItem } from "../components/AddPantryItem";
+import { PantryList } from "../components/PantryList";
 
-
+const initialItems = ["Flour", "Basil", "Pepper"];
 
 export const PantryScreen: React.FC = () => {
+
+    const [items, setItems] = useState(initialItems);
+
+    const addItem = ( newItem: string) => {
+        newItem.trim() !== "" && setItems([...items, newItem]);
+    }
 
     return (
         <View style={styles.container}>
             <Text style={styles.header}>My Pantry</Text>
             <React.Fragment>
-                 <PantryListItem item={"food"} />
-                 <PantryListItem item={"sushi"} />
+                <AddPantryItem addItem={addItem}/>
+                <PantryList items={items} />
             </React.Fragment>
-            {/*<PantryListItem item={"food"} />*/ }
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
     header:{
-        fontSize: 25,
+        fontSize: 30,
         fontWeight: '600',
         color: '#bb2a26',
         marginLeft: 20,
-        padding: 10,
+        padding: 15,
     },
     container: {
         flex: 1,
         backgroundColor: '#f5f4e1'
-    },
-    top: {
-        flex: 4,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    middle: {
-        flex: 8,
-        justifyContent: 'center',
-        alignItems: 'center'
-
-    },
-    bottom: {
-        flex: 1,
-        backgroundColor: 'cyan'
     },
 
 })

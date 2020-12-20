@@ -1,15 +1,9 @@
 import React from 'react';
 import { View, StyleSheet, Image, TextInput, TextInputProps, Text } from 'react-native';
-//import * as icon from '../../images/home_icon.png';
 import Button from './components/Button';
 import InputText from './components/InputText';
-
-//import { AppNavigation } from "../../App";
-
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-
+import { createSwitchNavigator } from 'react-navigation';
 import { loginUser } from "../redux/actions/authActions";
-
 import { connect } from "react-redux";
 
 
@@ -43,12 +37,10 @@ class LoginPage extends React.Component<{}, State> {
 
     handleRegisterPress = () => {
         this.props.navigation.navigate('register');
-        //const { navigate } = useNavigation();
-        //navigate('register');
     };
 
     render() {
-        let icon = require('../images/account_icon.png') //change this to whatever image we want later
+        let icon = require('../images/login_pic.png') //change this to whatever image we want later
         return (
             <View style={styles.container}>
                 <Image source={icon} style={styles.tabIcon}/>
@@ -86,10 +78,9 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         padding: 130
-        //justifyContent: "space-between"
     },
     tabIcon: {
-      width: 100,
+      width: 178,
       height: 100
     },
     form: {

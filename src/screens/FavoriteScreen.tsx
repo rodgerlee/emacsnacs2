@@ -9,21 +9,18 @@ import { connect} from 'react-redux'
 import { ApplicationState} from '../redux'
 //import {enteredNameAction, newFolderAction, openFolderAction} from '../redux/actions/addFolder'
 import {bindActionCreators} from 'redux'
-import { favAction, favoriteReducer } from '../redux/reducers/favoriteReducer'
+//import { favAction, favoriteReducer } from '../redux/reducers/favoriteReducer'
 import {FolderContainer, favoriteState, SearchedRecipe} from '../redux/models'
 import { TextInput } from 'react-native-gesture-handler'
 import {ListFolder, ListRecipe} from '../components/FolderCard'
-import {outSource, showRecipeInstance} from '../components/FolderCard'
+//import {outSource, showRecipeInstance} from '../components/FolderCard'
 import { SafeAreaInsetsContext } from 'react-native-safe-area-context'
 import * as actions from '../redux/actions/addFolder'
 import {getID} from '../components/RecipeCard'
 import {BASE_URL, APIKEY_5, WIDTH, APIKEY_7,APIKEY_6, APIKEY_4,useNavigation} from '../utils'
 import axios from 'axios'
 import {withNavigation, NavigationInjectedProps} from 'react-navigation'
-interface FavoriteProps{
-   favoriteReducer: favoriteState,
-   actions: favAction,
-}
+
 
 // export const onTapRecipe: React.FC = (item) => {
 //     console.log("slfj")

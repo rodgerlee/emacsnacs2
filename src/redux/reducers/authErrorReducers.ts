@@ -1,6 +1,3 @@
-//import { GET_ERRORS } from "../actions/authTypes";
-//import { authAction } from "../actions/authActions";
-
 const initialState = {};
 
 interface actionInterface {

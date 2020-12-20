@@ -4,11 +4,6 @@ import setAuthToken from "../../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 
 import { createSwitchNavigator } from "react-navigation";
-//var ConsolePanel = require('react-native-console-panel').displayWhenDev();
-
-//import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "./authTypes";
-
-//export type authAction = typeof registerUser | typeof loginUser | typeof setCurrentUser
 
 interface registerData {
     email: any,
@@ -36,16 +31,13 @@ interface loginErrors {
     readonly type: 'LOGIN_ERROR',
     payload: any
 }
-//../../../LoginBackend/routes/api/users/register
-
-//=> (dispatch: Dispatch<loginAction>)
 
 export type loginAction = registerAction | loginErrors | setUser
 
 //Action to register the new user
 export const registerUser = (userData:registerData, this_class:any) => {
     console.log("test");
-    this_class.props.navigation.navigate('login'); //temporary solution
+    this_class.props.navigation.navigate('login');
     return (dispatch: Dispatch<loginAction>) => {
     axios.post('http://IP:5000/api/users/register', userData) //change the address to your IP
     .then(res => {
@@ -68,7 +60,7 @@ export const registerUser = (userData:registerData, this_class:any) => {
 }};
 
 export const loginUser = (userData:loginData, this_class:any) => {
-    this_class.props.navigation.navigate('homeStack'); //temporary solution
+    this_class.props.navigation.navigate('homeStack');
     return (dispatch: Dispatch<loginAction>) => {
     axios.post("http://IP:5000/api/users/login", userData) //change to the address to your IP
     .then(res => {
@@ -87,19 +79,6 @@ export const loginUser = (userData:loginData, this_class:any) => {
         })
     );
 }};
-
-/*export const setCurrentUser = decoded => {
-    return {
-        type: "SET_USER",
-        payload: decoded
-    };
-};*/
-
-/*export const setUserLoading = () => {
-    return {
-        type: USER_LOADING
-    };
-};*/
 
 export const logoutUser = () => (dispatch: Dispatch<loginAction>) => {
     localStorage.removeItem("jwtToken");
