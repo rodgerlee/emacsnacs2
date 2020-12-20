@@ -12,4 +12,7 @@ import { Dimensions } from 'react-native';
 export const WIDTH = Dimensions.get('window').width;
 export const HEIGHT = Dimensions.get('window').height;
 
+//backend server
+export const SERVER = "http://192.168.56.1:5000/api/users"
+
 export * from './useNavigation'

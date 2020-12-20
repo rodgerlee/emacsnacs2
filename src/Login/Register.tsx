@@ -42,7 +42,6 @@ class RegisterPage extends React.Component<{}, State> {
                 password: this.state.password,
                 password2: this.state.checkPassword
             }
-            console.log(userData);
             registerUser(userData, this);
             this.setState({ passwordIncorrect: false, password: "", email: "", checkPassword: ""})
         }
@@ -56,8 +55,9 @@ class RegisterPage extends React.Component<{}, State> {
     };
 
     render() {
-        let icon = require('../images/login_pic.png') //change this to whatever image we want later
+        let icon = require('../images/login_pic.png')
         let text = this.state.passwordIncorrect ? "Passwords do not match." : "";
+        let errors = this.state.errors;
         return (
             <View style={styles.container}>
                 <Image source={icon} style={styles.tabIcon}/>
@@ -83,6 +83,7 @@ class RegisterPage extends React.Component<{}, State> {
                     <View style={styles.buttons}>
                         <Button label={"Create Account"} onPress={this.handleLoginPress} />
                     </View>
+                    <Text style={styles.errorText}>{errors}</Text>
                     <Text style={styles.text}>Already have an account?</Text>
                     <View style={styles.buttons}>
                         <Button label={"Login"} onPress={this.handleAccountPress} />
