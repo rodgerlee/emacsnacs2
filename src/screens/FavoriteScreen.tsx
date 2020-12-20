@@ -19,6 +19,7 @@ import * as actions from '../redux/actions/addFolder'
 import {getID} from '../components/RecipeCard'
 import {BASE_URL, APIKEY_5, WIDTH, APIKEY_7,APIKEY_6, APIKEY_4,useNavigation} from '../utils'
 import axios from 'axios'
+import {withNavigation, NavigationInjectedProps} from 'react-navigation'
 interface FavoriteProps{
    favoriteReducer: favoriteState,
    actions: favAction,
@@ -30,7 +31,8 @@ interface FavoriteProps{
 //         navigate('RecipeDetailPage', { recipe: item, noInfo: true})
 // }
 
- export class FavoriteScreen extends Component {
+
+  class _FavoriteScreen  extends React.Component {
      state = {
    
         folderNames: [{
@@ -43,7 +45,12 @@ interface FavoriteProps{
         enteredName: "",
         index:0,
         showFolder: false,
-        loadedRecipe: { } as SearchedRecipe,
+        loadedRecipe: {} as SearchedRecipe,
+        loadedRecipes: [{
+            id: "",
+            title: "",
+            image: ""
+        }],
         run: false,
     }
     
@@ -107,14 +114,17 @@ interface FavoriteProps{
        
         if (this.state.run == true){
       console.log("called")
-            this.state.run = false
+            
             try{ const response = await axios.get<SearchedRecipe>(`${BASE_URL}/recipes/${item}/information`, {
             params: {
                 apiKey: APIKEY_4
             } 
         })
-        const loadedRecipes = response.data
-        this.setState({loadedRecipe: loadedRecipes})
+        const loadedRecipe = response.data
+        console.log("gitle", loadedRecipe.title)
+        //this.setState({loadedRecipe: loadedRecipes})
+        this.setState({ loadedRecipes: [...this.state.loadedRecipes, {id: loadedRecipe.id , 
+            title: loadedRecipe.title, image: loadedRecipe.image }]});
         }
         catch(error) {
             alert("api key has met limit")
@@ -128,7 +138,7 @@ interface FavoriteProps{
         // .catch(error => {
         //     console.log(error)
         // })
-    
+        
     }
    
     reloadID = () =>{
@@ -136,8 +146,21 @@ interface FavoriteProps{
         console.log("should be ", this.state.folderNames[this.state.index])
         this.state.folderNames[this.state.index].saved =getID()
         const folders = this.state.folderNames.filter((item) => item.key == this.state.index ).map(fN => fN.saved);
-        console.log(folders)
-        return folders
+        console.log(folders[0])
+        //const len = folders[0].length
+        const recipes = folders[0].map((index) => {
+            console.log(index)
+            this.getRecipe(index)
+           
+        })
+        // for (let i =1; i< len; i++){
+        //     this.getRecipe(folders[0][i])
+        //     recipes[i] = (this.state.loadedRecipe)
+        // }
+        //console.log(recipes[1].title)
+        console.log(recipes)
+        this.state.run = false 
+        return recipes
     }
     
   
@@ -156,7 +179,7 @@ interface FavoriteProps{
             prevState[key] !== val && console.log('State changed', {key}))
         }
     }
-
+    
     render () {
         //const {navigate} = useNavigation()
         const numofCols =2;
@@ -183,29 +206,35 @@ interface FavoriteProps{
                     {this.state.showFolder == true &&
                        
                         <View>
+                            {this.reloadID()}
                            <FlatList
-                                data = {this.reloadID()}
+                                
+                                data = {this.state.loadedRecipes.slice(1) }
                                 renderItem = {({item}) =>{
+                                   // this.getRecipe(item)
+                                   console.log(item.title)
                                     return (
-                                    <FlatList
-                                    data = {item}
-                                    numColumns = {numofCols}
-                                    style = {styles.container}
-                                    renderItem ={({item}) => {
+                                        
+                                    // <FlatList
+                                    // data = {item}
+                                    // numColumns = {numofCols}
+                                    // style = {styles.container}
+                                    // renderItem ={({item}) => {
                                         
                                     // return ( showRecipeInstance({item}))
                                       // <MemiozedRecipe item = {item} loadedRecipe = {this.state.loadedRecipe}/>
-                                       this.getRecipe(item)
-                                        return(
+                                      
+                                      //  return(
                                             <TouchableOpacity style={{marginTop:15}} onPress={() =>
                                                    alert("pressed") }>
+                                                  
                                             <ImageBackground
-                                                source={{uri: `${this.state.loadedRecipe.image}`}}
+                                                source={{uri: `${item.image}`}}
                                                 style={styles.searchedRecipeContainer}
                                                 imageStyle={styles.img}
                                             >
                                                 <View style={styles.titleContainer}>
-                                                    <Text style={styles.title}>{this.state.loadedRecipe.title}</Text>
+                                                    <Text style={styles.title}>{item.title}</Text>
                                                 
                                                     
                                                 </View>
@@ -213,11 +242,12 @@ interface FavoriteProps{
                                         </TouchableOpacity>
                                         )}} 
                                       
-                                   keyExtractor = { (item) => item.toString()}
-                                        />
+                                   keyExtractor = { (item) => item.title}
+                                        //>
                                        
                                    
-                           )}} />
+                          // )}} 
+                           />
                         </View>
                     }
                 <TextInput
@@ -232,6 +262,8 @@ interface FavoriteProps{
     </View>
     )}
     }
+    
+  // export default withNavigation(FavoriteScreen);
 
 //     <ListFolder item ={item}
 //     Display = {(i: number) => 
@@ -342,5 +374,6 @@ const mapDispatchToProps = (dispatch )=> ({
     //     }
  
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(FavoriteScreen)
+const FavoriteScreen = connect()(_FavoriteScreen)
+//export default connect(mapStateToProps, mapDispatchToProps)(FavoriteScreen)
+export {FavoriteScreen}
