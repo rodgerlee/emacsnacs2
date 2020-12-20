@@ -28,8 +28,8 @@ import LoginPage from './src/Login/Login';
 
 const switchNavigator = createSwitchNavigator({
 
-    register: RegisterPage,
-    login: LoginPage,
+    //register: RegisterPage,
+    //login: LoginPage,
 
     homeStack:  createBottomTabNavigator({
 
@@ -78,7 +78,8 @@ const switchNavigator = createSwitchNavigator({
        // Home tab Icon
        Favorites: {
         screen: createStackNavigator({
-          FavoritePage: FavoriteScreen
+          FavoritePage: FavoriteScreen,
+          RecipeDetailPage: RecipeDetailScreen
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
@@ -89,9 +90,10 @@ const switchNavigator = createSwitchNavigator({
       }
      })
     },
-    {
-      initialRouteName: 'login' //change this to something else if you want to work on that instead
-});
+//     {
+//       initialRouteName: 'login' //change this to something else if you want to work on that instead
+// }
+);
 
 
 const AppNavigation = createAppContainer(switchNavigator);

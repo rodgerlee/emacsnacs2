@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Dispatch } from 'react'
-import { BASE_URL, APIKEY_2, APIKEY, APIKEY_3 } from '../../utils'
+import { BASE_URL, APIKEY_2, APIKEY, APIKEY_3, APIKEY_6 } from '../../utils'
 import { IngredientsContainer, RandomRecipe } from '../models'
 
 //availability Action
@@ -34,7 +34,7 @@ export const loadIngredients = (RECIPE_ID: string, no_info: boolean) => {
             // ?apiKey=${APIKEY}&number=5&tags=vegetarian%252Cdessert
             const ingredientsResponse = await axios.get<IngredientsContainer>(`${BASE_URL}/recipes/${RECIPE_ID}/ingredientWidget.json`, {
                 params: {
-                    apiKey: APIKEY_3,
+                    apiKey: APIKEY_2,
                 }
             })
             // console.log(ingredientsResponse.data)

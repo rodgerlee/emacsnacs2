@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Dispatch } from 'react'
-import { BASE_URL, APIKEY_2, APIKEY, APIKEY_3, APIKEY_4} from '../../utils'
+import { BASE_URL, APIKEY_2, APIKEY, APIKEY_3, APIKEY_4, APIKEY_6} from '../../utils'
 import { SearchedRecipeContainer } from '../models'
 
 //availability Action
@@ -26,7 +26,7 @@ export const onSearch = (keyword: string) => {
                     query: keyword,
                     number: 4,
                     instructionsRequired: true,
-                    apiKey: APIKEY_4,
+                    apiKey: APIKEY_6,
                 }
             })
 
