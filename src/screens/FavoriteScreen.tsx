@@ -82,6 +82,7 @@ import { color } from 'react-native-reanimated'
         }
         else
         this.setState({enteredName:  ""});
+        console.log("folders are", this.state.folderNames)
     }
      
        
@@ -112,6 +113,7 @@ import { color } from 'react-native-reanimated'
    
     getRecipe = async (item) => {
        const index = this.state.index
+       console.log("const index", index)
         if (this.state.run == true){
       console.log("called")
             
@@ -122,7 +124,6 @@ import { color } from 'react-native-reanimated'
         })
         const loadedRecipe = response.data
         console.log("gitle", loadedRecipe.title)
-        console.log("uri", loadedRecipe.image)
         const checking = this.state.loadedRecipes[index].loaded.filter((item) => item.id == loadedRecipe.id )
 
         if (checking.length == 0){
@@ -131,8 +132,11 @@ import { color } from 'react-native-reanimated'
         this.state.loadedRecipes[index].loaded.push(loadedRecipe)
         }
        // this.state.loadedRecipes.push(loadedRecipe)
-        }
+        console.log("show", this.state.showFolder)
+        }   
         catch(error) {
+            console.log("i went here")
+            
             if (this.state.loadedRecipes[index].loaded.length ==1){
                 alert("no recipes added")
                 this.state.showFolder = !this.state.showFolder
@@ -311,7 +315,9 @@ import { color } from 'react-native-reanimated'
          <View style = {styles.modalview}>
                  <Text style = {{fontSize: 20,margin: 10}}>Select folder to put Recipe in</Text>
                  <View style = {styles.textbox}>
+                     
                      <FlatList
+                     
                      data = {this.state.folderNames}
                      renderItem = {({item}) => (
                         <Button  color = "black" title = {item.name} onPress={() => {
