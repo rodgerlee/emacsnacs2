@@ -32,6 +32,10 @@ require("./config/passport.ts")(passport);
 
 app.use("/api/users", users);
 
+////////// fix?
+const todosRouter = require("./routes/todos");
+app.use("/todos", todosRouter);
+
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));
