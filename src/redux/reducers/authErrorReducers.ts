@@ -5,7 +5,7 @@ interface actionInterface {
     payload: any
 }
 
-export default function(action:actionInterface, state = initialState) {
+export default function(state = initialState , action:actionInterface) {
     switch (action.type) {
         case 'GET_ERRORS':
             return action.payload;
