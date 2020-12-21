@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Dispatch } from 'react'
-import { BASE_URL, APIKEY_2, APIKEY, APIKEY_3, APIKEY_5} from '../../utils'
+import { BASE_URL, APIKEY_2, APIKEY, APIKEY_3, APIKEY_5, APIKEY_6} from '../../utils'
 import { RandomRecipeContainer, SearchedRecipeContainer } from '../models'
 
 //availability Action
@@ -34,7 +34,7 @@ export const onAvailability = () => {
             const randomResponse = await axios.get<RandomRecipeContainer>(`${BASE_URL}/recipes/random`, {
                 params: {
                     number: 5,
-                    apiKey: APIKEY,
+                    apiKey: APIKEY_6,
                 }
             })
             const readyThirtyResponse = await axios.get<SearchedRecipeContainer>(`${BASE_URL}/recipes/complexSearch`, {

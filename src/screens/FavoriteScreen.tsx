@@ -3,32 +3,23 @@
 //we can do this through reducer and action, call the action function here
 //in action function we call recipeloader
 
-import React, { useEffect, useState,Dispatch, Component } from 'react'
+import React  from 'react'
 import {View, Text, StyleSheet, Button, Alert, FlatList, TouchableOpacity, ImageBackground, Modal} from 'react-native'
 import { connect} from 'react-redux'
 import { ApplicationState} from '../redux'
-//import {enteredNameAction, newFolderAction, openFolderAction} from '../redux/actions/addFolder'
 import {bindActionCreators} from 'redux'
-//import { favAction, favoriteReducer } from '../redux/reducers/favoriteReducer'
 import { SearchedRecipe} from '../redux/models'
 import { ScrollView, TextInput } from 'react-native-gesture-handler'
 import {ListFolder, CustomButton} from '../components/FolderCard'
-//import {outSource, showRecipeInstance} from '../components/FolderCard'
 import { SafeAreaInsetsContext } from 'react-native-safe-area-context'
 import * as actions from '../redux/actions/addFolder'
 import {getID} from '../components/RecipeCard'
 import {BASE_URL, APIKEY_5, WIDTH, APIKEY_7,APIKEY_6, APIKEY_4,useNavigation} from '../utils'
 import axios from 'axios'
 import {withNavigation, NavigationInjectedProps} from 'react-navigation'
-import Constants from 'expo-constants'
-import { color } from 'react-native-reanimated'
 
 
-// export const onTapRecipe: React.FC = (item) => {
-//     console.log("slfj")
-//     const {navigate} = useNavigation()
-//         navigate('RecipeDetailPage', { recipe: item, noInfo: true})
-// }
+
 
 
   class _FavoriteScreen  extends React.Component {
@@ -50,74 +41,48 @@ import { color } from 'react-native-reanimated'
             image: "i"
         }],
         loadedRecipes: [{
-        //     key: 0,
-        //     loaded:
-        // [{
-            id: "",
-            title: "",
-            image: ""
-       // }] 
-    }],
+            key: 0,
+            loaded:
+        [{
+             id: "",
+             title: "",
+             image: ""
+        }]
+        }],
+    
         run: false,
         modalShown: false,
         recipeIndex: 0
     }
     
-    //console.log("you got to 1")
-    //console.log(getID())
-  //  let {folderNames, index, enteredName} = props.favoriteReducer;
-    
-    //console.log("here")
+  
     newFolder = () => {
         if (this.state.enteredName != "")
         {
          this.setState({ folderNames: [...this.state.folderNames, {key: this.state.folderNames.length , 
             name: this.state.enteredName, saved: [0] }],
-            // loadedRecipes: [...this.state.loadedRecipes, {key: this.state.folderNames.length, 
-            // loaded: [{
-            //     id: "",
-            // title: "",
-            // image: ""
-            // }]}]
+            loadedRecipes: [...this.state.loadedRecipes, {key: this.state.folderNames.length, 
+            loaded: [{
+                id: "",
+            title: "",
+            image: ""
+            }]}]
         });
         this.setState({enteredName:  ""});
         }
         else
         this.setState({enteredName:  ""});
-        console.log("folders are", this.state.folderNames)
     }
      
        
-    showRecipes = (i) => {
-        const folders = this.state.folderNames.filter((item) => item.key == i ).map(fN => fN.saved);
-        console.log("run inside showrecipes")
-        console.log(folders.length)
-        console.log(folders[0].length)
-        console.log(JSON.stringify(folders))
-            return (
-                <View>
-                    <Text>{JSON.stringify(folders)}</Text>
-                </View>
-                   // <FlatList
-                   // data = {folders}
-                    // renderItem ={({item}) => {
-                    //   console.log(item)
-                    //   console.log('printing')
-                    //   return(
-                    //     <ListRecipe item = {item}/>)
-                    // }}/>
-
-            )
-        }
+   
 
         
      
    
     getRecipe = async (item) => {
        const index = this.state.index
-       console.log("const index", index)
         if (this.state.run == true){
-      console.log("called")
             
             try{ const response = await axios.get<SearchedRecipe>(`${BASE_URL}/recipes/${item}/information`, {
             params: {
@@ -125,21 +90,17 @@ import { color } from 'react-native-reanimated'
             } 
         })
         const loadedRecipe = response.data
-        console.log("gitle", loadedRecipe.title)
-        //const checking = this.state.loadedRecipes[index].loaded.filter((item) => item.id == loadedRecipe.id )
-        const checking = this.state.loadedRecipes.filter((item) => item.id == loadedRecipe.id )
+        const checking = this.state.loadedRecipes[index].loaded.filter((item) => item.id == loadedRecipe.id )
         if (checking.length == 0){
-        this.setState({ loadedRecipes: [...this.state.loadedRecipes, {id: loadedRecipe.id , 
-           title: loadedRecipe.title, image: loadedRecipe.image }]});}
-     //   this.state.loadedRecipes[index].loaded.push(loadedRecipe)
-       // }
-       // this.state.loadedRecipes.push(loadedRecipe)
-        console.log("show", this.state.showFolder)
+       
+        this.state.loadedRecipes[index].loaded.push(loadedRecipe)
+       this.setState({loadedRecipes: this.state.loadedRecipes })
+       }
         }   
         catch(error) {
             console.log("i went here")
             
-            if (this.state.loadedRecipes.length ==1 && this.state.index != 0){
+            if (this.state.loadedRecipes[index].loaded.length ==1 && this.state.index != 0){
                 alert("no recipes added")
                 this.state.showFolder = !this.state.showFolder
             }
@@ -148,70 +109,37 @@ import { color } from 'react-native-reanimated'
         }
     }
     else{}
-        // .then(response => {
-        //     const loadedRecipe =  response.data
-        //     this.setState({loadedRecipe});
-        // })
-        // .catch(error => {
-        //     console.log(error)
-        // })
+      
         
     }
    
     reloadID = () =>{
-      //  this.state.loadedRecipes = this.state.loadedRecipeEmpty  makes always empty
-        console.log("loaded recipes are ", this.state.loadedRecipes)
-        console.log("index", this.state.index)
-        console.log("should be ", this.state.folderNames[this.state.index])
+     
         if (this.state.index == 0){
         this.state.folderNames[this.state.index].saved =getID() }
         const folders = this.state.folderNames.filter((item) => item.key == this.state.index ).map(fN => fN.saved);
-        console.log("folders[0]", folders[0])
         const recipes = folders[0].map((id) => {
-        //   if (id == 0){
-        //    this.setState({ loadedRecipes: [...this.state.loadedRecipes, {id: 0 , 
-        //        title: "No recipes added", image: "https://spoonacular.com/recipeImages/657011-556x370.jpg" }]});
-        //   }
-            console.log(id)
+        
             this.getRecipe(id)
            
         })
-        // for (let i =1; i< len; i++){
-        //     this.getRecipe(folders[0][i])
-        //     recipes[i] = (this.state.loadedRecipe)
-        // }
-        //console.log(recipes[1].title)
+      
         this.state.run = false 
        
         return recipes
     }
     
   
-    // onTapRecipe =(item: SearchedRecipe) => {
-    //     console.log("callllleld")
-
-    //    const {navigate} = useNavigation()
-    //    const {getParam } = this.props.navigation
-    //      navigate('RecipeDetailPage', { recipe: item, noInfo: true})
-    // }
+   
 
     
-    componentDidUpdate(prevState){
-        if (this.state){
-            Object.entries(this.state).forEach(([key, val]) => 
-            prevState[key] !== val && console.log('State changed', {key}))
-        }
-    }
+   
     addtoFolder(folderid){
-        //add recipe id to folder saved 
-        console.log("folder id", folderid)
         this.state.folderNames[folderid].saved.push(this.state.recipeIndex)
-        // this.setState({folderNames: [...this.state.folderNames, 
-        //     this.state.folderNames[folderid].saved.push(this.state.recipeIndex)]})
+        
         this.setState({modalShown: !this.state.modalShown})
     }
     render () {
-        //const {navigate} = useNavigation()
         const numofCols =2;
         const folders = this.state.folderNames.filter((item) => item.key == this.state.index ).map(fN => fN.saved);
         return(
@@ -259,22 +187,12 @@ import { color } from 'react-native-reanimated'
                             <ScrollView style = {styles.scrollview}>
                            <FlatList
                                 
-                                data = {this.state.loadedRecipes.slice(1) }
+                                data = {this.state.loadedRecipes[this.state.index].loaded.slice(1) }
                                 renderItem = {({item}) =>{
                                    // this.getRecipe(item)
-                                   console.log(item.title)
                                     return (
                                         
-                                    // <FlatList
-                                    // data = {item}
-                                    // numColumns = {numofCols}
-                                    // style = {styles.container}
-                                    // renderItem ={({item}) => {
-                                        
-                                    // return ( showRecipeInstance({item}))
-                                      // <MemiozedRecipe item = {item} loadedRecipe = {this.state.loadedRecipe}/>
-                                      
-                                      //  return(
+                                   
                                             <TouchableOpacity style={{marginTop:15}} onPress = {() => this.setState({
                                                 modalShown: true,
                                                 recipeIndex: item.id
@@ -295,10 +213,10 @@ import { color } from 'react-native-reanimated'
                                         )}} 
                                       
                                    keyExtractor = { (item) => item.title}
-                                        //>
+                            
                                        
                                    
-                          // )}} 
+                       
                            />
                            </ScrollView>
                         </View>
@@ -340,15 +258,7 @@ import { color } from 'react-native-reanimated'
    
     )}
     }
-   // <View style = {styles.textbox}></View>
-  // </View>
-
-  // export default withNavigation(FavoriteScreen);
-
-//     <ListFolder item ={item}
-//     Display = {(i: number) => 
-//         this.setState({showFolder: !this.state.showFolder, index: i})}
-// />
+ 
 const styles = StyleSheet.create({
     header:{
         fontSize: 25,
@@ -364,13 +274,11 @@ const styles = StyleSheet.create({
         alignContent: 'center'
     },
     scrollview: {
-      //  flex: .7,
-       // marginHorizontal: 20,
-      // alignSelf: "flex-end",
+    
        backgroundColor: '#f5f4e1',
        width: WIDTH-10,
-       height: 400
-       //flex: 1
+       height: 450
+      
     },
   
     buttonrow: {
@@ -412,16 +320,15 @@ const styles = StyleSheet.create({
     modalcenter: {
         justifyContent: "center",
         alignItems: "center",
-      //  backgroundColor: "#f5f4e1",
-      //  opacity: .8,
+     
         flex: 2,
         
         
     },
     modalview: {
-        //flex:.4,
+       
         justifyContent: "center",
-       // opacity: 1,
+      
         alignItems: "center",
          height: 300,
          width: 300, 
@@ -437,7 +344,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 3,
         shadowRadius: 4.47,
         elevation: 4
-      //  margin: 20,
+    
         
     },
     modalbutton: {
@@ -448,25 +355,21 @@ const styles = StyleSheet.create({
     folder: {
         backgroundColor: '#f5f4e1',
         color: "pink"
-       // flex: 1,
-        //alignSelf: "flex-start"
+      
     },
     top: {
         flex: 4,
-       // direction: 'ltr',
         flexDirection: 'row',
-        // justifyContent: 'flex-start',
-        //alignItems: 'stretch',
-        //alignContent: 'stretch'
+       
     },
     middle: {
-      //  flex: 8,
+     
         justifyContent: 'center',
         alignItems: 'center',
 
     },
     bottom: {
-       // flex: 1,
+      
         backgroundColor: 'cyan'
     }, 
     searchedRecipeContainer: {
@@ -481,14 +384,14 @@ const styles = StyleSheet.create({
         flex: 1,
         height: 60,
         backgroundColor: '#f2f2f2',
-        //width: 120,
+       
         borderLeftWidth: 2,
         borderRightWidth: 2,
         borderBottomWidth: 2,
         borderTopWidth: 2,
         alignItems: 'stretch',
         borderColor: '#FFF',
-       // alignContent: 'stretch', 
+      
         
                  
     },
@@ -516,35 +419,17 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         height:'20%',
         backgroundColor:'rgba(0,0,0,0.4)',
-        // borderRadius:20,
+      
         borderBottomLeftRadius:20,
         borderBottomRightRadius:20,
     }
 })
 
-const mapStateToProps=(state: ApplicationState)=> ({
-    favoriteReducer: state.favoriteReducer
-})
-const ActionCreators = Object.assign(
-    {}, actions,
-);
 
-const mapDispatchToProps = (dispatch )=> ({
-    actions: bindActionCreators(ActionCreators, dispatch),
-});
 
-    // return {
-    //     openFolderAction: index  => {
-    //         dispatch(openFolderAction(index))
-    //     },
-    //     enteredNameAction: text => {
-    //         dispatch(enteredNameAction(text))
-    //     },
-    //     newFolderAction: () => {
-    //         dispatch(newFolderAction)
-    //     }
+
+
  
 
 const FavoriteScreen = connect()(_FavoriteScreen)
-//export default connect(mapStateToProps, mapDispatchToProps)(FavoriteScreen)
 export {FavoriteScreen}

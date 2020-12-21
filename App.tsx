@@ -83,7 +83,7 @@ const switchNavigator = createSwitchNavigator({
         }),
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor}) => {
-            let icon = focused == true ? require('./src/images/account_icon.png') : require('./src/images/account_n_icon.png')
+            let icon = focused == true ? require('./src/images/star_icon.png') : require('./src/images/star_n_icon.png')
             return <Image source={icon} style={styles.tabIcon} />
           }
         }
