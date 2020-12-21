@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Dimensions , Image } from 'react-native'
 import { AddPantryItem } from "../components/AddPantryItem";
 import { PantryList } from "../components/PantryList";
 
-const initialItems = ["Flour", "Basil", "Pepper"];
+const initialItems: string[] = [];
 
 export const PantryScreen: React.FC = () => {
 

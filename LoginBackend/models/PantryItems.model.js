@@ -3,6 +3,7 @@
 
 let PItem = new Schema(
     {
+        
         pitem_description: {
             type: String
         },
@@ -15,6 +16,7 @@ let PItem = new Schema(
         pitem_completed: {
             type: Boolean
         }
+        
     }, 
     { timestamps: true }
 );
