@@ -15,6 +15,6 @@ export const WIDTH = Dimensions.get('window').width;
 export const HEIGHT = Dimensions.get('window').height;
 
 //backend server
-export const SERVER = "http://192.168.56.1:5000/api/users"
-
+export const SERVER = "http://10.0.2.2/api/users"
+//"http://192.168.86.156/api/users"
 export * from './useNavigation'
