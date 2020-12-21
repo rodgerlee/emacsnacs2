@@ -7,6 +7,9 @@ import { createSwitchNavigator } from "react-navigation";
 import { SERVER } from "../../utils";
 
 import authErrorReducers from '../reducers/authErrorReducers';
+import authReducers from '../reducers/authReducers';
+
+import { store } from '..';
 
 var qs = require('qs');
 
@@ -81,19 +84,14 @@ export const loginUser = (userData:loginData, this_class:any) => {
           if (result.success) {
               setAuthToken(true);
               this_class.props.navigation.navigate('homeStack');
+              store.dispatch({ type: 'SET_USER', payload: userData.email })
           }
           else {
               if (result.email) {
-                authErrorReducers({
-                    type: "GET_ERRORS",
-                    payload: result.email
-                });
+                store.dispatch({ type: 'GET_ERRORS', payload: result.email })
               }
               else if (result.password) {
-                  authErrorReducers({
-                      type: "GET_ERRORS",
-                      payload: result.password
-                  })
+                  store.dispatch({ type: 'GET_ERRORS', payload: result.password })
               }        
           }
         })
