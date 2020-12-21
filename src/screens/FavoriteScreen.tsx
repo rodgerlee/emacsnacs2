@@ -50,13 +50,14 @@ import { color } from 'react-native-reanimated'
             image: "i"
         }],
         loadedRecipes: [{
-            key: 0,
-            loaded:
-        [{
+        //     key: 0,
+        //     loaded:
+        // [{
             id: "",
             title: "",
             image: ""
-        }] }],
+       // }] 
+    }],
         run: false,
         modalShown: false,
         recipeIndex: 0
@@ -72,12 +73,13 @@ import { color } from 'react-native-reanimated'
         {
          this.setState({ folderNames: [...this.state.folderNames, {key: this.state.folderNames.length , 
             name: this.state.enteredName, saved: [0] }],
-            loadedRecipes: [...this.state.loadedRecipes, {key: this.state.folderNames.length, 
-            loaded: [{
-                id: "",
-            title: "",
-            image: ""
-            }]}]});
+            // loadedRecipes: [...this.state.loadedRecipes, {key: this.state.folderNames.length, 
+            // loaded: [{
+            //     id: "",
+            // title: "",
+            // image: ""
+            // }]}]
+        });
         this.setState({enteredName:  ""});
         }
         else
@@ -119,25 +121,25 @@ import { color } from 'react-native-reanimated'
             
             try{ const response = await axios.get<SearchedRecipe>(`${BASE_URL}/recipes/${item}/information`, {
             params: {
-                apiKey: APIKEY_6
+                apiKey: APIKEY_7
             } 
         })
         const loadedRecipe = response.data
         console.log("gitle", loadedRecipe.title)
-        const checking = this.state.loadedRecipes[index].loaded.filter((item) => item.id == loadedRecipe.id )
-
+        //const checking = this.state.loadedRecipes[index].loaded.filter((item) => item.id == loadedRecipe.id )
+        const checking = this.state.loadedRecipes.filter((item) => item.id == loadedRecipe.id )
         if (checking.length == 0){
-        // this.setState({ loadedRecipes: [...this.state.loadedRecipes[], {id: loadedRecipe.id , 
-        //    title: loadedRecipe.title, image: loadedRecipe.image }]});}
-        this.state.loadedRecipes[index].loaded.push(loadedRecipe)
-        }
+        this.setState({ loadedRecipes: [...this.state.loadedRecipes, {id: loadedRecipe.id , 
+           title: loadedRecipe.title, image: loadedRecipe.image }]});}
+     //   this.state.loadedRecipes[index].loaded.push(loadedRecipe)
+       // }
        // this.state.loadedRecipes.push(loadedRecipe)
         console.log("show", this.state.showFolder)
         }   
         catch(error) {
             console.log("i went here")
             
-            if (this.state.loadedRecipes[index].loaded.length ==1){
+            if (this.state.loadedRecipes.length ==1 && this.state.index != 0){
                 alert("no recipes added")
                 this.state.showFolder = !this.state.showFolder
             }
@@ -257,7 +259,7 @@ import { color } from 'react-native-reanimated'
                             <ScrollView style = {styles.scrollview}>
                            <FlatList
                                 
-                                data = {this.state.loadedRecipes[this.state.index].loaded.slice(1) }
+                                data = {this.state.loadedRecipes.slice(1) }
                                 renderItem = {({item}) =>{
                                    // this.getRecipe(item)
                                    console.log(item.title)
@@ -314,14 +316,13 @@ import { color } from 'react-native-reanimated'
         <View style = {styles.modalcenter}>
          <View style = {styles.modalview}>
                  <Text style = {{fontSize: 20,margin: 10}}>Select folder to put Recipe in</Text>
-                 <View style = {styles.textbox}>
                      
                      <FlatList
-                     
+                    
                      data = {this.state.folderNames}
                      renderItem = {({item}) => (
-                        <Button  color = "black" title = {item.name} onPress={() => {
-                            alert("pressed")
+                        <CustomButton  item = {item.name} press={() => {
+                            alert("Recipe added")
                             this.addtoFolder(item.key)
                             }
                             }/> 
@@ -329,7 +330,7 @@ import { color } from 'react-native-reanimated'
                      />
                     
                 
-                </View>
+              
         </View>
         </View>
         </Modal>
@@ -339,7 +340,9 @@ import { color } from 'react-native-reanimated'
    
     )}
     }
-    
+   // <View style = {styles.textbox}></View>
+  // </View>
+
   // export default withNavigation(FavoriteScreen);
 
 //     <ListFolder item ={item}
@@ -369,6 +372,11 @@ const styles = StyleSheet.create({
        height: 400
        //flex: 1
     },
+  
+    buttonrow: {
+        flexDirection: 'row',
+        alignContent: 'flex-end'
+    },
     textbox:{
         color: "black",
         backgroundColor: "ivory",
@@ -384,10 +392,6 @@ const styles = StyleSheet.create({
         elevation:2,
         margin: 10
 
-    },
-    buttonrow: {
-        flexDirection: 'row',
-        alignContent: 'flex-end'
     },
     button: {
         backgroundColor: 'navy',
@@ -408,24 +412,31 @@ const styles = StyleSheet.create({
     modalcenter: {
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#f5f4e1",
-        opacity: .8,
+      //  backgroundColor: "#f5f4e1",
+      //  opacity: .8,
         flex: 2,
         
         
     },
     modalview: {
         //flex:.4,
-        //justifyContent: "center",
-        opacity: 1,
+        justifyContent: "center",
+       // opacity: 1,
         alignItems: "center",
          height: 300,
-         width: 300,
+         width: 300, 
         
-        
-    
-       
         backgroundColor: "lightcoral",
+        borderColor: "ivory",
+        borderWidth: 5,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 3, 
+            height: 5
+        },
+        shadowOpacity: 3,
+        shadowRadius: 4.47,
+        elevation: 4
       //  margin: 20,
         
     },

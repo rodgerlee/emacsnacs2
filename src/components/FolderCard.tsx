@@ -13,7 +13,7 @@ import { hambar } from '';
  export const ListFolder = ({item, Display}) => {
     console.log("inside list folder")
     return (
-        <TouchableOpacity onPress = {() => Display(item.key) } >
+        <TouchableOpacity  onPress = {() => Display(item.key) } >
             <View style = {styles.box}>
                 <Text style = {styles.name}>{item.name}</Text>
             </View>
@@ -21,10 +21,12 @@ import { hambar } from '';
     );
 };
 
-export const CustomButton = ({press}) => {
+export const CustomButton = ({item, press}) => {
     return (
-        <TouchableOpacity style = {styles.button} onPress = {() => press()}>
-            <Text style = {styles.buttonText}>New Folder</Text>
+        <TouchableOpacity  onPress = {() => press()}>
+            <View style = {styles.textbox}>
+            <Text style = {styles.name}>{item}</Text>
+            </View>
         </TouchableOpacity>
     );
 };
@@ -175,6 +177,22 @@ const styles = StyleSheet.create({
        // alignContent: 'stretch', 
         
                  
+    },
+    textbox:{
+        color: "black",
+        backgroundColor: "ivory",
+        height: 50,
+        width: 230,
+        fontSize: 15,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 1,
+            height: 3
+        },shadowOpacity:0.34,
+        shadowRadius: 1.27,
+        elevation:2,
+        margin: 10
+
     },
     button: {
         backgroundColor: 'navy',
